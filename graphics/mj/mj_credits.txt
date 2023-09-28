@@ -1,0 +1,23 @@
+hj_big_pumpkin_1.bmp
+hj_big_pumpkin_2.bmp
+hj_big_pumpkin_3.bmp
+hj_big_pumpkin_4.bmp
+hj_big_pumpkin_5.bmp
+hj_big_pumpkin_6.bmp
+hj_big_pumpkin_7.bmp
+hj_big_pumpkin_8.bmp
+	codeinfernogames
+	CC0 1.0 Universal (CC0 1.0)
+	https://opengameart.org/content/pumpkin
+
+hj_font.bmp
+hj_small_font.bmp
+	Sparklin Labs by Pixel-boy
+	Creative Commons Zero: http://creativecommons.org/publicdomain/zero/1.0/
+	https://twitter.com/2pblog1
+
+hj_pause_dialog.bmp
+hj_pause_dialog_lateral.bmp
+	GValiente
+	CC0 1.0 Universal (CC0 1.0)
+	gustavo.valiente@protonmail.com

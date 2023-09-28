@@ -1,0 +1,6 @@
+tmg_press_a.bmp
+tmg_you_win.bmp
+tmg_you_lose.bmp
+	GValiente
+	CC0 1.0 Universal (CC0 1.0)
+	gustavo.valiente@protonmail.com
