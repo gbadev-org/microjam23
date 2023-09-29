@@ -7,19 +7,20 @@
 #include "mj_game.h"
 #include "mj_pause.h"
 #include "mj_scene.h"
+#include "mj_game_timer.h"
 
 namespace mj
 {
 
 class core;
 
-class game_scene : public scene
+class game_scene final : public scene
 {
 
 public:
     explicit game_scene(core& core);
 
-    ~game_scene();
+    ~game_scene() final;
 
     [[nodiscard]] bn::optional<scene_type> update() final;
 
@@ -28,8 +29,8 @@ private:
     bn::unique_ptr<game> _game;
     game_data _data;
     pause _pause;
+    game_timer _timer;
     bn::optional<bn::regular_bg_ptr> _big_pumpkin;
-    bn::vector<bn::sprite_ptr, 8> _timer_sprites;
     bn::vector<bn::sprite_ptr, 16> _info_sprites;
     bn::vector<bn::sprite_ptr, 24> _title_sprites;
     bn::vector<bn::fixed, 16> _title_sprites_x;
@@ -48,8 +49,6 @@ private:
     void _print_title();
 
     void _update_title();
-
-    void _update_timer();
 
     void _update_play();
 

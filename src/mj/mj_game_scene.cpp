@@ -89,7 +89,7 @@ bn::optional<scene_type> game_scene::update()
             }
 
             _update_title();
-            _update_timer();
+            _timer.update(_pending_frames, _core);
         }
     }
 
@@ -184,22 +184,6 @@ void game_scene::_update_title()
             }
         }
     }
-}
-
-void game_scene::_update_timer()
-{
-    bn::sprite_text_generator& text_generator = _core.text_generator();
-    text_generator.set_bg_priority(1);
-    text_generator.set_z_order(-32767);
-
-    int time = _pending_frames / 6;
-    bn::string<16> time_text = bn::to_string<16>(time / 10) + '.' + bn::to_string<16>(time % 10);
-
-    _timer_sprites.clear();
-    text_generator.generate(10 - 120, 80 - 16, "Time: " + time_text, _timer_sprites);
-
-    text_generator.set_bg_priority(3);
-    text_generator.set_z_order(0);
 }
 
 void game_scene::_update_play()
