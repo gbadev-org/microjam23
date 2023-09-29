@@ -19,8 +19,9 @@
 #include "bn_regular_bg_items_mj_big_pumpkin_6.h"
 #include "bn_regular_bg_items_mj_big_pumpkin_7.h"
 #include "bn_regular_bg_items_mj_big_pumpkin_8.h"
-#include "bn_sprite_items_mj_pause_dialog.h"
-#include "bn_sprite_items_mj_pause_dialog_lateral.h"
+#include "bn_sprite_items_mj_font.h"
+#include "bn_sprite_tiles_items_mj_pause_dialog.h"
+#include "bn_sprite_tiles_items_mj_pause_dialog_lateral.h"
 
 namespace mj
 {
@@ -37,7 +38,10 @@ game_scene::game_scene(core& core) :
     _data({ core.text_generator(), core.small_text_generator(), core.random(), 0 })
 {
     {
-        bn::sprite_builder sprite_builder(bn::sprite_items::mj_pause_dialog);
+        bn::sprite_item sprite_item(
+                    bn::sprite_tiles_items::mj_pause_dialog_shape_size, bn::sprite_tiles_items::mj_pause_dialog,
+                    bn::sprite_items::mj_font.palette_item());
+        bn::sprite_builder sprite_builder(sprite_item);
         sprite_builder.set_bg_priority(0);
         sprite_builder.set_z_order(-1);
 
@@ -49,7 +53,10 @@ game_scene::game_scene(core& core) :
     }
 
     {
-        bn::sprite_builder sprite_builder(bn::sprite_items::mj_pause_dialog_lateral);
+        bn::sprite_item sprite_item(
+                    bn::sprite_tiles_items::mj_pause_dialog_lateral_shape_size,
+                    bn::sprite_tiles_items::mj_pause_dialog_lateral, bn::sprite_items::mj_font.palette_item());
+        bn::sprite_builder sprite_builder(sprite_item);
         sprite_builder.set_bg_priority(0);
         sprite_builder.set_z_order(-1);
         sprite_builder.set_horizontal_flip(true);

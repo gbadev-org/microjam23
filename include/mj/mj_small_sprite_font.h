@@ -4,7 +4,8 @@
 #include "bn_sprite_font.h"
 #include "bn_utf8_characters_map.h"
 
-#include "bn_sprite_items_mj_small_font.h"
+#include "bn_sprite_items_mj_font.h"
+#include "bn_sprite_tiles_items_mj_small_font.h"
 
 namespace mj
 {
@@ -134,7 +135,9 @@ constexpr auto small_sprite_font_utf8_characters_map =
         bn::utf8_characters_map<small_sprite_font_utf8_characters_span>();
 
 constexpr bn::sprite_font small_sprite_font(
-        bn::sprite_items::mj_small_font, small_sprite_font_utf8_characters_map.reference(),
+        bn::sprite_item(bn::sprite_tiles_items::mj_small_font_shape_size,
+                        bn::sprite_tiles_items::mj_small_font, bn::sprite_items::mj_font.palette_item()),
+        small_sprite_font_utf8_characters_map.reference(),
         small_sprite_font_character_widths);
 
 }
