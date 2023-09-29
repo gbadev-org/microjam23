@@ -2,9 +2,13 @@
 
 #include "bn_keypad.h"
 
+#include "mj/mj_game_list.h"
+
 #include "bn_regular_bg_items_tmg_press_a.h"
 #include "bn_regular_bg_items_tmg_you_lose.h"
 #include "bn_regular_bg_items_tmg_you_win.h"
+
+MJ_GAME_LIST_ADD(tmg::test_game)
 
 namespace tmg
 {

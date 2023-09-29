@@ -3,7 +3,7 @@
 
 #include "bn_regular_bg_ptr.h"
 
-#include "mj/mj_game_list.h"
+#include "mj/mj_game.h"
 
 namespace tmg
 {
@@ -44,7 +44,5 @@ private:
 };
 
 }
-
-MJ_GAME_LIST_ADD(tmg::test_game)
 
 #endif
