@@ -26,8 +26,8 @@ Microgames must follow these rules in order to play along with other microgames,
 
 ## Frequently asked questions (FAQ)
 
-* How can I disable the test microgame or other microgames.
-** You can disable a microgame by commenting out the `MJ_GAME_LIST_ADD` macro call.
+### How can I disable the test microgame or other microgames?
+You can disable a microgame by commenting out the `MJ_GAME_LIST_ADD` macro call.
 
-* Where's the microgame interface documentation?
-** For now it's in the header file (`mj_game.h`).
+### Where's the microgame interface documentation?
+For now it's in the header file (`mj_game.h`).
