@@ -2,7 +2,6 @@
 
 #include "bn_bg_palettes.h"
 #include "bn_colors.h"
-#include "bn_sprite_affine_mat_ptr.h"
 #include "bn_sprite_palettes.h"
 
 #include "mj/mj_core.h"
@@ -88,7 +87,7 @@ bn::optional<scene_type> game_scene::update()
                 }
             }
 
-            _update_title();
+            _title.update();
             _timer.update(_pending_frames, _core);
         }
     }
@@ -112,80 +111,6 @@ void game_scene::_print_info()
     text_generator.set_left_alignment();
 }
 
-void game_scene::_print_title()
-{
-    bn::string<16> title = _game->title();
-    BN_BASIC_ASSERT(! title.empty(), "Game title is empty");
-
-    _title_counter = 0;
-    _title_sprites.clear();
-    _title_sprites_x.clear();
-
-    bn::sprite_text_generator& text_generator = _core.text_generator();
-    text_generator.set_bg_priority(0);
-    text_generator.set_center_alignment();
-    text_generator.set_one_sprite_per_character(true);
-
-    text_generator.generate(0, -16, _game->title(), _title_sprites);
-
-    bn::sprite_affine_mat_ptr affine_mat = bn::sprite_affine_mat_ptr::create();
-    affine_mat.set_scale(2);
-
-    for(bn::sprite_ptr& title_sprite : _title_sprites)
-    {
-        title_sprite.set_affine_mat(affine_mat);
-        _title_sprites_x.push_back(title_sprite.x());
-    }
-
-    text_generator.set_bg_priority(3);
-    text_generator.set_left_alignment();
-    text_generator.set_one_sprite_per_character(false);
-}
-
-void game_scene::_update_title()
-{
-    if(! _title_sprites.empty())
-    {
-        if(_title_counter)
-        {
-            --_title_counter;
-
-            if(! _title_counter)
-            {
-                _title_sprites.clear();
-            }
-        }
-        else
-        {
-            bn::sprite_affine_mat_ptr affine_mat = *_title_sprites[0].affine_mat();
-            bn::fixed scale = affine_mat.horizontal_scale() - (bn::fixed(1) / 12);
-
-            if(scale > 1)
-            {
-                affine_mat.set_scale(scale);
-
-                for(int index = 0, limit = _title_sprites.size(); index < limit; ++index)
-                {
-                    bn::sprite_ptr& title_sprite = _title_sprites[index];
-                    title_sprite.set_x(_title_sprites_x[index].unsafe_multiplication(scale));
-                }
-            }
-            else
-            {
-                affine_mat.set_scale(1);
-                _title_counter = 50;
-
-                for(int index = 0, limit = _title_sprites.size(); index < limit; ++index)
-                {
-                    bn::sprite_ptr& title_sprite = _title_sprites[index];
-                    title_sprite.set_x(_title_sprites_x[index]);
-                    title_sprite.remove_affine_mat();
-                }
-            }
-        }
-    }
-}
-
 void game_scene::_update_play()
 {
     game_result game_result = _game->play(_data);
@@ -193,7 +118,7 @@ void game_scene::_update_play()
 
     if(! _playing || game_result.remove_title)
     {
-        _title_sprites.clear();
+        _title.clear();
     }
 
     if(! _playing)
@@ -303,7 +228,7 @@ bool game_scene::_update_fade()
 
             if(_big_pumpkin_inc)
             {
-                _print_title();
+                _title.show(_game->title(), _core);
             }
             break;
 
