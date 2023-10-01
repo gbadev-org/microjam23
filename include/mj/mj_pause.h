@@ -22,6 +22,7 @@ public:
 private:
     bn::vector<bn::sprite_ptr, 16> _sprites;
     bool _exit_selected = false;
+    bool _back_to_game_delay = false;
 };
 
 }

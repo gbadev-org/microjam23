@@ -91,32 +91,40 @@ bool pause::update(bool& exit)
     bool old_paused = _sprites[0].visible();
     bool new_paused = old_paused;
 
-    if(bn::keypad::start_pressed())
+    if(_back_to_game_delay)
     {
-        _exit_selected = false;
-        new_paused = ! new_paused;
+        _back_to_game_delay = false;
+        new_paused = false;
     }
-
-    if(old_paused && new_paused)
+    else
     {
-        if(bn::keypad::a_pressed())
+        if(bn::keypad::start_pressed())
         {
-            if(_exit_selected)
-            {
-                exit = true;
-            }
-            else
-            {
-                new_paused = false;
-            }
+            _exit_selected = false;
+            new_paused = ! new_paused;
         }
-        else if(bn::keypad::b_pressed())
+
+        if(old_paused && new_paused)
         {
-            new_paused = false;
-        }
-        else if(bn::keypad::left_pressed() || bn::keypad::right_pressed())
-        {
-            _exit_selected = ! _exit_selected;
+            if(bn::keypad::a_pressed())
+            {
+                if(_exit_selected)
+                {
+                    exit = true;
+                }
+                else
+                {
+                    _back_to_game_delay = true;
+                }
+            }
+            else if(bn::keypad::b_pressed())
+            {
+                _back_to_game_delay = true;
+            }
+            else if(bn::keypad::left_pressed() || bn::keypad::right_pressed())
+            {
+                _exit_selected = ! _exit_selected;
+            }
         }
     }
 
