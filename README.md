@@ -19,6 +19,7 @@ Microgames must follow these rules in order to play along with other microgames,
 * All code used by a microgame should be placed in its own namespace. For example, the test microgame uses the `tmg` namespace.
 * All code and asset files (graphics, music, etc.) used by a microgame should have the code namespace as filename prefix. For example, the test microgame uses `tmg_` as filename prefix.
 * All microgames must include a text file per asset type indicating the license of all used assets. For example, the test microgame uses `tmg_credits.txt` as credits filename.
+* The start key is used to show and hide the pause menu, so microgames should not use it.
 * All sprites and backgrounds must have a priority greater than 0 (by default, sprites and backgrounds priority is 3).
 * The system sprite color palette (used for rendering text, among other things) must not be changed.
 * The pumpkin is rendered using a regular background, so microgames can't show two affine backgrounds or four regular backgrounds when the pumpkin is visible (it is visible when a microgame is created and when the `mj::game::fade_in` and `mj::game::fade_out` methods are called). However, you can use all available backgrounds when `mj::game::play` is called.
