@@ -248,6 +248,7 @@ bool game_scene::_update_fade()
             if(_big_pumpkin_inc)
             {
                 _playing = true;
+                _big_pumpkin_counter = 0;
             }
             else
             {
