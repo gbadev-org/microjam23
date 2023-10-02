@@ -177,7 +177,6 @@ bool game_scene::_update_fade()
         }
 
         const bn::regular_bg_item* bg_item = nullptr;
-        _big_pumpkin.reset();
         _big_pumpkin_counter = 3;
 
         switch(_big_pumpkin_stage)
@@ -259,9 +258,20 @@ bool game_scene::_update_fade()
 
         if(bg_item)
         {
-            bn::regular_bg_ptr big_pumpkin = bg_item->create_bg(0, (256 - 160) / 2);
-            big_pumpkin.set_priority(0);
-            _big_pumpkin = bn::move(big_pumpkin);
+            if(_big_pumpkin)
+            {
+                _big_pumpkin->set_item(*bg_item);
+            }
+            else
+            {
+                bn::regular_bg_ptr big_pumpkin = bg_item->create_bg(0, (256 - 160) / 2);
+                big_pumpkin.set_priority(0);
+                _big_pumpkin = bn::move(big_pumpkin);
+            }
+        }
+        else
+        {
+            _big_pumpkin.reset();
         }
     }
 
