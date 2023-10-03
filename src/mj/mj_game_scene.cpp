@@ -206,6 +206,7 @@ bool game_scene::_update_fade()
             {
                 _game.reset();
                 _print_info();
+                _pending_frames = 0;
             }
             break;
 
