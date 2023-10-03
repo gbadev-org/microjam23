@@ -1,6 +1,5 @@
 #include "mj/mj_game_backdrop.h"
 
-#include "bn_bg_palettes.h"
 #include "bn_blending.h"
 #include "bn_sprite_tiles_ptr.h"
 #include "bn_sprite_palette_ptr.h"
@@ -73,8 +72,6 @@ namespace
 game_backdrop::game_backdrop() :
     _transparent_color_hbe(bn::bg_palettes_transparent_color_hbe_ptr::create(_transparent_colors))
 {
-    update_transparent_color_hbe();
-
     _enable_blending();
 }
 
@@ -185,15 +182,7 @@ void game_backdrop::update()
     bn::sprite_palette_ptr palette = _sprites[0].palette();
     palette.set_fade(bn::color(), _fade_intensity);
     _fill_transparent_colors(_fade_intensity, _transparent_colors);
-    update_transparent_color_hbe();
-}
-
-void game_backdrop::update_transparent_color_hbe()
-{
-    if(_transparent_color_hbe.visible())
-    {
-        _transparent_color_hbe.reload_colors_ref();
-    }
+    _transparent_color_hbe.reload_colors_ref();
 }
 
 }

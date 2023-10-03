@@ -97,11 +97,7 @@ bn::optional<scene_type> game_scene::update()
         }
     }
 
-    if(_pause.paused())
-    {
-        _backdrop.update_transparent_color_hbe();
-    }
-    else
+    if(! _pause.paused())
     {
         _backdrop.update();
     }

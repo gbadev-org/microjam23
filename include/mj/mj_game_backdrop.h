@@ -27,8 +27,6 @@ public:
 
     void update();
 
-    void update_transparent_color_hbe();
-
 private:
     bn::color _transparent_colors[160];
     bn::vector<bn::sprite_ptr, 8> _sprites;
