@@ -16,6 +16,10 @@
 #include "bn_regular_bg_items_mj_big_pumpkin_6.h"
 #include "bn_regular_bg_items_mj_big_pumpkin_7.h"
 #include "bn_regular_bg_items_mj_big_pumpkin_8.h"
+#include "bn_regular_bg_items_mj_big_pumpkin_9.h"
+#include "bn_regular_bg_items_mj_big_pumpkin_10.h"
+#include "bn_regular_bg_items_mj_big_pumpkin_11.h"
+#include "bn_regular_bg_items_mj_big_pumpkin_12.h"
 
 namespace mj
 {
@@ -146,7 +150,7 @@ bool game_scene::_update_fade()
     {
         if(_big_pumpkin_inc)
         {
-            if(_big_pumpkin_stage < 9)
+            if(_big_pumpkin_stage < 13)
             {
                 ++_big_pumpkin_stage;
             }
@@ -177,7 +181,7 @@ bool game_scene::_update_fade()
         }
 
         const bn::regular_bg_item* bg_item = nullptr;
-        _big_pumpkin_counter = 3;
+        _big_pumpkin_counter = 2;
 
         switch(_big_pumpkin_stage)
         {
@@ -185,12 +189,28 @@ bool game_scene::_update_fade()
         case 1:
             bg_item = &bn::regular_bg_items::mj_big_pumpkin_1;
             _big_pumpkin_counter = 60;
-            _game.reset();
-            _print_info();
             break;
 
         case 2:
             bg_item = &bn::regular_bg_items::mj_big_pumpkin_2;
+            break;
+
+        case 3:
+            bg_item = &bn::regular_bg_items::mj_big_pumpkin_3;
+            break;
+
+        case 4:
+            bg_item = &bn::regular_bg_items::mj_big_pumpkin_4;
+
+            if(! _big_pumpkin_inc)
+            {
+                _game.reset();
+                _print_info();
+            }
+            break;
+
+        case 5:
+            bg_item = &bn::regular_bg_items::mj_big_pumpkin_5;
 
             if(_big_pumpkin_inc)
             {
@@ -214,25 +234,13 @@ bool game_scene::_update_fade()
             }
             break;
 
-        case 3:
-            bg_item = &bn::regular_bg_items::mj_big_pumpkin_3;
-            break;
-
-        case 4:
-            bg_item = &bn::regular_bg_items::mj_big_pumpkin_4;
-            break;
-
-        case 5:
-            bg_item = &bn::regular_bg_items::mj_big_pumpkin_5;
+        case 6:
+            bg_item = &bn::regular_bg_items::mj_big_pumpkin_6;
 
             if(_big_pumpkin_inc)
             {
                 _title.show(_game->title(), _core);
             }
-            break;
-
-        case 6:
-            bg_item = &bn::regular_bg_items::mj_big_pumpkin_6;
             break;
 
         case 7:
@@ -241,6 +249,22 @@ bool game_scene::_update_fade()
 
         case 8:
             bg_item = &bn::regular_bg_items::mj_big_pumpkin_8;
+            break;
+
+        case 9:
+            bg_item = &bn::regular_bg_items::mj_big_pumpkin_9;
+            break;
+
+        case 10:
+            bg_item = &bn::regular_bg_items::mj_big_pumpkin_10;
+            break;
+
+        case 11:
+            bg_item = &bn::regular_bg_items::mj_big_pumpkin_11;
+            break;
+
+        case 12:
+            bg_item = &bn::regular_bg_items::mj_big_pumpkin_12;
             break;
 
         default:

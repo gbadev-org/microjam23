@@ -6,6 +6,10 @@ hj_big_pumpkin_5.bmp
 hj_big_pumpkin_6.bmp
 hj_big_pumpkin_7.bmp
 hj_big_pumpkin_8.bmp
+hj_big_pumpkin_9.bmp
+hj_big_pumpkin_10.bmp
+hj_big_pumpkin_11.bmp
+hj_big_pumpkin_12.bmp
 	codeinfernogames
 	CC0 1.0 Universal (CC0 1.0)
 	https://opengameart.org/content/pumpkin
