@@ -4,6 +4,7 @@
 #include "bn_dmg_music.h"
 #include "bn_keypad.h"
 #include "bn_music.h"
+#include "bn_sound.h"
 #include "bn_sprite_builder.h"
 #include "bn_sprite_palettes.h"
 
@@ -157,6 +158,8 @@ bool pause::update(bool& exit)
             {
                 bn::dmg_music::pause();
             }
+
+            bn::sound::stop_all();
         }
         else
         {
