@@ -1,7 +1,9 @@
 #include "mj/mj_pause.h"
 
 #include "bn_bg_palettes.h"
+#include "bn_dmg_music.h"
 #include "bn_keypad.h"
+#include "bn_music.h"
 #include "bn_sprite_builder.h"
 #include "bn_sprite_palettes.h"
 
@@ -82,6 +84,16 @@ pause::~pause()
 {
     bn::bg_palettes::set_grayscale_intensity(0);
     bn::sprite_palettes::set_grayscale_intensity(0);
+
+    if(bn::music::playing())
+    {
+        bn::music::stop();
+    }
+
+    if(bn::dmg_music::playing())
+    {
+        bn::dmg_music::stop();
+    }
 }
 
 bool pause::update(bool& exit)
@@ -130,7 +142,35 @@ bool pause::update(bool& exit)
 
     if(old_paused != new_paused)
     {
-        bn::fixed grayscale_intensity = new_paused ? 1 : 0;
+        bn::fixed grayscale_intensity;
+
+        if(new_paused)
+        {
+            grayscale_intensity = 1;
+
+            if(bn::music::playing() && ! bn::music::paused())
+            {
+                bn::music::pause();
+            }
+
+            if(bn::dmg_music::playing() && ! bn::dmg_music::paused())
+            {
+                bn::dmg_music::pause();
+            }
+        }
+        else
+        {
+            if(bn::music::paused())
+            {
+                bn::music::resume();
+            }
+
+            if(bn::dmg_music::paused())
+            {
+                bn::dmg_music::resume();
+            }
+        }
+
         bn::bg_palettes::set_grayscale_intensity(grayscale_intensity);
         bn::sprite_palettes::set_grayscale_intensity(grayscale_intensity);
 
