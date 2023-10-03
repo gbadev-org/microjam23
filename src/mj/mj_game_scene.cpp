@@ -34,6 +34,7 @@ game_scene::game_scene(core& core) :
     _data({ core.text_generator(), core.small_text_generator(), core.random(), 0 }),
     _pause(core)
 {
+    _print_info();
 }
 
 game_scene::~game_scene()
