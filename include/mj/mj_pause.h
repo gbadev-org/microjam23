@@ -17,6 +17,11 @@ public:
 
     ~pause();
 
+    [[nodiscard]] bool paused() const
+    {
+        return _sprites[0].visible();
+    }
+
     [[nodiscard]] bool update(bool& exit);
 
 private:

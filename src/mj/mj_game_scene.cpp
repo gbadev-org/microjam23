@@ -97,6 +97,15 @@ bn::optional<scene_type> game_scene::update()
         }
     }
 
+    if(_pause.paused())
+    {
+        _backdrop.update_transparent_color_hbe();
+    }
+    else
+    {
+        _backdrop.update();
+    }
+
     return result;
 }
 
@@ -194,6 +203,11 @@ bool game_scene::_update_fade()
 
         case 2:
             bg_item = &bn::regular_bg_items::mj_big_pumpkin_2;
+
+            if(_big_pumpkin_inc)
+            {
+                _backdrop.start_fade();
+            }
             break;
 
         case 3:
@@ -203,9 +217,14 @@ bool game_scene::_update_fade()
         case 4:
             bg_item = &bn::regular_bg_items::mj_big_pumpkin_4;
 
-            if(! _big_pumpkin_inc)
+            if(_big_pumpkin_inc)
+            {
+                _backdrop.stop();
+            }
+            else
             {
                 _game.reset();
+                _backdrop.restart();
                 _print_info();
                 _pending_frames = 0;
             }

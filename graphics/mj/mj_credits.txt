@@ -1,27 +1,32 @@
-hj_big_pumpkin_1.bmp
-hj_big_pumpkin_2.bmp
-hj_big_pumpkin_3.bmp
-hj_big_pumpkin_4.bmp
-hj_big_pumpkin_5.bmp
-hj_big_pumpkin_6.bmp
-hj_big_pumpkin_7.bmp
-hj_big_pumpkin_8.bmp
-hj_big_pumpkin_9.bmp
-hj_big_pumpkin_10.bmp
-hj_big_pumpkin_11.bmp
-hj_big_pumpkin_12.bmp
+mj_big_pumpkin_1.bmp
+mj_big_pumpkin_2.bmp
+mj_big_pumpkin_3.bmp
+mj_big_pumpkin_4.bmp
+mj_big_pumpkin_5.bmp
+mj_big_pumpkin_6.bmp
+mj_big_pumpkin_7.bmp
+mj_big_pumpkin_8.bmp
+mj_big_pumpkin_9.bmp
+mj_big_pumpkin_10.bmp
+mj_big_pumpkin_11.bmp
+mj_big_pumpkin_12.bmp
 	codeinfernogames
 	CC0 1.0 Universal (CC0 1.0)
 	https://opengameart.org/content/pumpkin
+	
+mj_bat.bmp
+	bevouliin.com
+	CC BY 3.0 Deed (CC-BY 3.0)
+	https://opengameart.org/content/fluffy-flappy-bat-game-character
 
-hj_font.bmp
-hj_small_font.bmp
+mj_font.bmp
+mj_small_font.bmp
 	Sparklin Labs by Pixel-boy
 	Creative Commons Zero: http://creativecommons.org/publicdomain/zero/1.0/
 	https://twitter.com/2pblog1
 
-hj_pause_dialog.bmp
-hj_pause_dialog_lateral.bmp
+mj_pause_dialog.bmp
+mj_pause_dialog_lateral.bmp
 	GValiente
 	CC0 1.0 Universal (CC0 1.0)
 	gustavo.valiente@protonmail.com

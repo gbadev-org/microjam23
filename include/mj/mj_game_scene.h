@@ -7,6 +7,7 @@
 #include "mj_game.h"
 #include "mj_pause.h"
 #include "mj_scene.h"
+#include "mj_game_backdrop.h"
 #include "mj_game_timer.h"
 #include "mj_game_title.h"
 
@@ -30,6 +31,7 @@ private:
     bn::unique_ptr<game> _game;
     game_data _data;
     pause _pause;
+    game_backdrop _backdrop;
     game_title _title;
     game_timer _timer;
     bn::optional<bn::regular_bg_ptr> _big_pumpkin;

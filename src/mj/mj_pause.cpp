@@ -88,7 +88,7 @@ bool pause::update(bool& exit)
 {
     exit = false;
 
-    bool old_paused = _sprites[0].visible();
+    bool old_paused = paused();
     bool new_paused = old_paused;
 
     if(_back_to_game_delay)
