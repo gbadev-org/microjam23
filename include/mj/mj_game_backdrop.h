@@ -19,11 +19,9 @@ public:
 
     ~game_backdrop();
 
-    void start_fade();
+    void fade_out();
 
-    void stop();
-
-    void restart();
+    void fade_in();
 
     void update(core& core);
 

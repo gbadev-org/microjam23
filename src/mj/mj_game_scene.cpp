@@ -202,7 +202,7 @@ bool game_scene::_update_fade()
 
             if(_big_pumpkin_inc)
             {
-                _backdrop.start_fade();
+                _backdrop.fade_out();
             }
             break;
 
@@ -213,14 +213,10 @@ bool game_scene::_update_fade()
         case 4:
             bg_item = &bn::regular_bg_items::mj_big_pumpkin_4;
 
-            if(_big_pumpkin_inc)
-            {
-                _backdrop.stop();
-            }
-            else
+            if(! _big_pumpkin_inc)
             {
                 _game.reset();
-                _backdrop.restart();
+                _backdrop.fade_in();
                 _print_info();
                 _pending_frames = 0;
             }

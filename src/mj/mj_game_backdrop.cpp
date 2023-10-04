@@ -82,27 +82,14 @@ game_backdrop::~game_backdrop()
     _disable_blending();
 }
 
-void game_backdrop::start_fade()
+void game_backdrop::fade_out()
 {
     _fade_intensity = 0;
     _fade_inc = true;
     _fade_dec = false;
 }
 
-void game_backdrop::stop()
-{
-    _counter = -1;
-    _sprites.clear();
-    _transparent_color_hbe.set_visible(false);
-
-    _fade_intensity = 0;
-    _fade_inc = false;
-    _fade_dec = false;
-
-    _disable_blending();
-}
-
-void game_backdrop::restart()
+void game_backdrop::fade_in()
 {
     _counter = 0;
     _sprites.clear();
@@ -120,6 +107,36 @@ void game_backdrop::update(core& core)
     if(_counter < 0)
     {
         return;
+    }
+
+    if(_fade_inc)
+    {
+        _fade_intensity += bn::fixed(1) / 8;
+
+        if(_fade_intensity >= 1)
+        {
+            _counter = -1;
+            _sprites.clear();
+            _transparent_color_hbe.set_visible(false);
+
+            _fade_intensity = 0;
+            _fade_inc = false;
+            _fade_dec = false;
+
+            _disable_blending();
+            return;
+        }
+    }
+
+    if(_fade_dec)
+    {
+        _fade_intensity -= bn::fixed(1) / 16;
+
+        if(_fade_intensity <= 0)
+        {
+            _fade_intensity = 0;
+            _fade_dec = false;
+        }
     }
 
     bn::fixed y = sprite_y;
@@ -162,28 +179,6 @@ void game_backdrop::update(core& core)
     bn::sprite_tiles_ptr tiles = _sprites[0].tiles();
     tiles.set_tiles_ref(bn::sprite_items::mj_bat.tiles_item(), _counter / 3);
     _counter = (_counter + 1) % 18;
-
-    if(_fade_inc)
-    {
-        _fade_intensity += bn::fixed(1) / 7;
-
-        if(_fade_intensity >= 1)
-        {
-            _fade_intensity = 1;
-            _fade_inc = false;
-        }
-    }
-
-    if(_fade_dec)
-    {
-        _fade_intensity -= bn::fixed(1) / 16;
-
-        if(_fade_intensity <= 0)
-        {
-            _fade_intensity = 0;
-            _fade_dec = false;
-        }
-    }
 
     bn::sprite_palette_ptr palette = _sprites[0].palette();
     palette.set_fade(bn::color(), _fade_intensity);
