@@ -6,6 +6,8 @@
 
 #include "bn_sprite_items_mj_bat.h"
 
+#include "mj/mj_core.h"
+
 namespace mj
 {
 
@@ -113,7 +115,7 @@ void game_backdrop::restart()
     _enable_blending();
 }
 
-void game_backdrop::update()
+void game_backdrop::update(core& core)
 {
     if(_counter < 0)
     {
@@ -124,7 +126,8 @@ void game_backdrop::update()
 
     while(! _sprites.full())
     {
-        bn::fixed x = sprite_xs[_sprites.size()];
+        int sprite_index = _sprites.size();
+        bn::fixed x = sprite_xs[sprite_index];
         y -= 32;
 
         if(y <= -sprite_y)
@@ -136,6 +139,8 @@ void game_backdrop::update()
         sprite.set_bg_priority(2);
         sprite.set_z_order(-32766);
         sprite.set_blending_enabled(true);
+        sprite.set_horizontal_flip(sprite_index % 2 == 1);
+        sprite.set_vertical_flip(core.random().get() % 128 == 0);
         _sprites.push_back(bn::move(sprite));
     }
 
@@ -146,6 +151,7 @@ void game_backdrop::update()
         if(y <= -sprite_y)
         {
             sprite.set_y(sprite_y);
+            sprite.set_vertical_flip(core.random().get() % 128 == 0);
         }
         else
         {

@@ -99,7 +99,7 @@ bn::optional<scene_type> game_scene::update()
 
     if(! _pause.paused())
     {
-        _backdrop.update();
+        _backdrop.update(_core);
     }
 
     return result;

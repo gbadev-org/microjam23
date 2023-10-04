@@ -25,7 +25,7 @@ public:
 
     void restart();
 
-    void update();
+    void update(core& core);
 
 private:
     bn::color _transparent_colors[160];
