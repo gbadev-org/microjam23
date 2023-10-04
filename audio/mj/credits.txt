@@ -1,0 +1,7 @@
+mj_pause_begin.wav
+mj_pause_cursor.wav
+mj_pause_end.wav
+mj_pause_exit.wav
+	By Tempest
+	Licensed under the Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) license
+	https://soundcloud.com/janne-suni

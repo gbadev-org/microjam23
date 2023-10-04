@@ -10,6 +10,7 @@
 
 #include "mj/mj_core.h"
 
+#include "bn_sound_items.h"
 #include "bn_sprite_items_mj_font.h"
 #include "bn_sprite_tiles_items_mj_pause_dialog.h"
 #include "bn_sprite_tiles_items_mj_pause_dialog_lateral.h"
@@ -104,17 +105,30 @@ bool pause::update(bool& exit)
     bool old_paused = paused();
     bool new_paused = old_paused;
 
-    if(_back_to_game_delay)
+    if(_back_to_game_delay_frames)
     {
-        _back_to_game_delay = false;
-        new_paused = false;
+        --_back_to_game_delay_frames;
+
+        if(! _back_to_game_delay_frames)
+        {
+            new_paused = false;
+        }
     }
     else
     {
+        bool back_to_game = false;
+
         if(bn::keypad::start_pressed())
         {
-            _exit_selected = false;
-            new_paused = ! new_paused;
+            if(old_paused)
+            {
+                back_to_game = true;
+            }
+            else
+            {
+                _exit_selected = false;
+                new_paused = true;
+            }
         }
 
         if(old_paused && new_paused)
@@ -124,20 +138,28 @@ bool pause::update(bool& exit)
                 if(_exit_selected)
                 {
                     exit = true;
+                    bn::sound_items::mj_pause_exit.play();
                 }
                 else
                 {
-                    _back_to_game_delay = true;
+                    back_to_game = true;
                 }
             }
             else if(bn::keypad::b_pressed())
             {
-                _back_to_game_delay = true;
+                back_to_game = true;
             }
             else if(bn::keypad::left_pressed() || bn::keypad::right_pressed())
             {
                 _exit_selected = ! _exit_selected;
+                bn::sound_items::mj_pause_cursor.play();
             }
+        }
+
+        if(back_to_game)
+        {
+            _back_to_game_delay_frames = 14;
+            bn::sound_items::mj_pause_end.play();
         }
     }
 
@@ -160,6 +182,7 @@ bool pause::update(bool& exit)
             }
 
             bn::sound::stop_all();
+            bn::sound_items::mj_pause_begin.play();
         }
         else
         {

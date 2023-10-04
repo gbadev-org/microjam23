@@ -26,8 +26,8 @@ public:
 
 private:
     bn::vector<bn::sprite_ptr, 16> _sprites;
+    int _back_to_game_delay_frames = 0;
     bool _exit_selected = false;
-    bool _back_to_game_delay = false;
 };
 
 }
