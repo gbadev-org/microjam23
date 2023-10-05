@@ -34,6 +34,7 @@ game_scene::game_scene(core& core) :
     _pause(core)
 {
     _print_info();
+    _lives.show();
 }
 
 game_scene::~game_scene()
@@ -91,6 +92,7 @@ bn::optional<scene_type> game_scene::update()
                 }
             }
 
+            _lives.update();
             _title.update();
             _timer.update(_pending_frames, _total_frames);
         }
@@ -108,16 +110,12 @@ void game_scene::_print_info()
 {
     bn::sprite_text_generator& text_generator = _core.text_generator();
     text_generator.set_bg_priority(0);
-    text_generator.set_right_alignment();
 
-    bn::fixed x = 120 - 10;
+    bn::fixed x = 10 - 120;
     bn::fixed y = 16 - 80;
-    text_generator.generate(x, y, "Lives: " + bn::to_string<16>(_lives), _info_sprites);
-    y += 16;
     text_generator.generate(x, y, "Stage: " + bn::to_string<16>(_completed_games + 1), _info_sprites);
 
     text_generator.set_bg_priority(3);
-    text_generator.set_left_alignment();
 }
 
 void game_scene::_update_play()
@@ -139,7 +137,7 @@ void game_scene::_update_play()
         }
         else
         {
-            --_lives;
+            _lives.decrease();
         }
     }
 }
@@ -174,7 +172,7 @@ bool game_scene::_update_fade()
             }
             else
             {
-                if(_lives)
+                if(_lives.left())
                 {
                     ++_big_pumpkin_stage;
                     _big_pumpkin_inc = true;
@@ -203,6 +201,7 @@ bool game_scene::_update_fade()
             if(_big_pumpkin_inc)
             {
                 _backdrop.fade_out();
+                _lives.hide();
             }
             break;
 
@@ -218,6 +217,7 @@ bool game_scene::_update_fade()
                 _game_manager.reset();
                 _backdrop.fade_in();
                 _print_info();
+                _lives.show();
                 _pending_frames = 0;
                 _total_frames = 1;
             }

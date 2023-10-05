@@ -14,6 +14,11 @@ mj_big_pumpkin_12.bmp
 	CC0 1.0 Universal (CC0 1.0)
 	https://opengameart.org/content/pumpkin
 	
+mj_small_pumpkin.bmp
+	Emcee Flesher
+	OGA-BY 3.0
+	https://opengameart.org/content/pumpkin-hat-for-16x16-chibi-rpg-characters
+	
 mj_bat.bmp
 	bevouliin.com
 	CC BY 3.0 Deed (CC-BY 3.0)

@@ -6,6 +6,11 @@
 namespace mj
 {
 
+namespace
+{
+    constexpr int animation_frames = 6;
+}
+
 game_timer::game_timer() :
     _palette(bn::sprite_items::mj_font.palette_item().create_palette())
 {
@@ -50,10 +55,10 @@ void game_timer::update(int pending_frames, int total_frames)
             }
             else
             {
-                _tiles_counter = 8;
+                _tiles_counter = animation_frames * 2;
             }
 
-            tiles_index = _tiles_counter < 4 ? 1 : 2;
+            tiles_index = _tiles_counter < animation_frames ? 1 : 2;
         }
 
         if(_sprites.size() == index)

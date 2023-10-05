@@ -5,6 +5,7 @@
 
 #include "mj_pause.h"
 #include "mj_scene.h"
+#include "mj_game_lives.h"
 #include "mj_game_backdrop.h"
 #include "mj_game_manager.h"
 #include "mj_game_timer.h"
@@ -32,10 +33,10 @@ private:
     game_backdrop _backdrop;
     game_title _title;
     game_timer _timer;
+    game_lives _lives;
     bn::optional<game_manager> _game_manager;
     bn::optional<bn::regular_bg_ptr> _big_pumpkin;
     bn::vector<bn::sprite_ptr, 16> _info_sprites;
-    int _lives = 4;
     int _completed_games = 0;
     int _pending_frames = 0;
     int _total_frames = 1;
