@@ -2,12 +2,11 @@
 #define MJ_GAME_SCENE_H
 
 #include "bn_regular_bg_ptr.h"
-#include "bn_unique_ptr.h"
 
-#include "mj_game.h"
 #include "mj_pause.h"
 #include "mj_scene.h"
 #include "mj_game_backdrop.h"
+#include "mj_game_manager.h"
 #include "mj_game_timer.h"
 #include "mj_game_title.h"
 
@@ -28,12 +27,12 @@ public:
 
 private:
     core& _core;
-    bn::unique_ptr<game> _game;
     game_data _data;
     pause _pause;
     game_backdrop _backdrop;
     game_title _title;
     game_timer _timer;
+    bn::optional<game_manager> _game_manager;
     bn::optional<bn::regular_bg_ptr> _big_pumpkin;
     bn::vector<bn::sprite_ptr, 16> _info_sprites;
     int _lives = 4;

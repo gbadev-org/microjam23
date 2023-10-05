@@ -96,6 +96,8 @@ pause::~pause()
     {
         bn::dmg_music::stop();
     }
+
+    bn::sound::set_master_volume(1);
 }
 
 bool pause::update(bool& exit)
@@ -181,7 +183,9 @@ bool pause::update(bool& exit)
                 bn::dmg_music::pause();
             }
 
+            _sound_master_volume = bn::sound::master_volume();
             bn::sound::stop_all();
+            bn::sound::set_master_volume(1);
             bn::sound_items::mj_pause_begin.play();
         }
         else
@@ -195,6 +199,8 @@ bool pause::update(bool& exit)
             {
                 bn::dmg_music::resume();
             }
+
+            bn::sound::set_master_volume(_sound_master_volume);
         }
 
         bn::bg_palettes::set_grayscale_intensity(grayscale_intensity);

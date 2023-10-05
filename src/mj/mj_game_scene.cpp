@@ -5,7 +5,6 @@
 #include "bn_sprite_palettes.h"
 
 #include "mj/mj_core.h"
-#include "mj/mj_game_list.h"
 #include "mj/mj_scene_type.h"
 
 #include "bn_regular_bg_items_mj_big_pumpkin_1.h"
@@ -123,7 +122,8 @@ void game_scene::_print_info()
 
 void game_scene::_update_play()
 {
-    game_result game_result = _game->play(_data);
+    game& game = _game_manager->game();
+    game_result game_result = game.play(_data);
     _playing = ! game_result.exit && _pending_frames;
 
     if(! _playing || game_result.remove_title)
@@ -133,7 +133,7 @@ void game_scene::_update_play()
 
     if(! _playing)
     {
-        if(_game->victory())
+        if(game.victory())
         {
             ++_completed_games;
         }
@@ -215,7 +215,7 @@ bool game_scene::_update_fade()
 
             if(! _big_pumpkin_inc)
             {
-                _game.reset();
+                _game_manager.reset();
                 _backdrop.fade_in();
                 _print_info();
                 _pending_frames = 0;
@@ -227,23 +227,14 @@ bool game_scene::_update_fade()
 
             if(_big_pumpkin_inc)
             {
-                bn::span<game_list::function_type> game_list_entries = game_list::get();
-                int game_list_entries_count = game_list_entries.size();
-                BN_BASIC_ASSERT(game_list_entries_count, "No game list entries found");
+                _info_sprites.clear();
 
-                game_list::function_type game_list_entry =
-                        game_list_entries[_core.random().get_int(game_list_entries_count)];
-
-                game* game_ptr = game_list_entry(_completed_games, _data);
-                BN_BASIC_ASSERT(game_ptr, "Game create failed");
-
-                int total_frames = game_ptr->total_frames();
+                game_manager& game_manager = _game_manager.emplace(_completed_games, _data, _core);
+                int total_frames = game_manager.game().total_frames();
                 BN_ASSERT(total_frames >= game::minimum_frames && total_frames <= game::maximum_frames,
                           "Invalid game total frames: ", total_frames);
 
                 _pending_frames = total_frames;
-                _info_sprites.clear();
-                _game.reset(game_ptr);
             }
             break;
 
@@ -252,7 +243,7 @@ bool game_scene::_update_fade()
 
             if(_big_pumpkin_inc)
             {
-                _title.show(_game->title(), _core);
+                _title.show(_game_manager->game().title(), _core);
             }
             break;
 
@@ -314,15 +305,17 @@ bool game_scene::_update_fade()
 
     if(! _playing)
     {
-        if(game* game = _game.get())
+        if(_game_manager)
         {
+            game& game = _game_manager->game();
+
             if(_big_pumpkin_inc)
             {
-                game->fade_in(_data);
+                game.fade_in(_data);
             }
             else
             {
-                game->fade_out(_data);
+                game.fade_out(_data);
 
                 if(_pending_frames)
                 {
