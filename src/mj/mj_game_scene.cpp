@@ -92,7 +92,7 @@ bn::optional<scene_type> game_scene::update()
             }
 
             _title.update();
-            _timer.update(_pending_frames, _core);
+            _timer.update(_pending_frames, _total_frames);
         }
     }
 
@@ -219,6 +219,7 @@ bool game_scene::_update_fade()
                 _backdrop.fade_in();
                 _print_info();
                 _pending_frames = 0;
+                _total_frames = 1;
             }
             break;
 
@@ -235,6 +236,7 @@ bool game_scene::_update_fade()
                           "Invalid game total frames: ", total_frames);
 
                 _pending_frames = total_frames;
+                _total_frames = total_frames;
             }
             break;
 

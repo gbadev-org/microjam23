@@ -34,11 +34,7 @@ game_manager::game_manager(int completed_games, const mj::game_data& data, core&
 
     game_list::function_type game_list_entry =
             game_list_entries[core.random().get_int(game_list_entries_count)];
-
-    mj::game* game_ptr = game_list_entry(completed_games, data);
-    BN_BASIC_ASSERT(game_ptr, "Game create failed");
-
-    _game.reset(game_ptr);
+    _game.reset(game_list_entry(completed_games, data));
 }
 
 game_manager::~game_manager()

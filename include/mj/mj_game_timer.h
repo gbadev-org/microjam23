@@ -2,21 +2,26 @@
 #define MJ_GAME_TIMER_H
 
 #include "bn_sprite_ptr.h"
+#include "bn_sprite_tiles_ptr.h"
+#include "bn_sprite_palette_ptr.h"
 #include "bn_vector.h"
 
 namespace mj
 {
 
-class core;
-
 class game_timer
 {
 
 public:
-    void update(int pending_frames, core& core);
+    game_timer();
+
+    void update(int pending_frames, int total_frames);
 
 private:
-    bn::vector<bn::sprite_ptr, 8> _sprites;
+    bn::vector<bn::sprite_ptr, 16> _sprites;
+    bn::vector<bn::sprite_tiles_ptr, 3> _tiles;
+    bn::sprite_palette_ptr _palette;
+    int _tiles_counter = 0;
 };
 
 }

@@ -38,6 +38,7 @@ private:
     int _lives = 4;
     int _completed_games = 0;
     int _pending_frames = 0;
+    int _total_frames = 1;
     int _big_pumpkin_stage = 0;
     int _big_pumpkin_counter = 0;
     int _exit_frames = 0;
