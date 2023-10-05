@@ -192,7 +192,7 @@ bool game_scene::_update_fade()
 
         case 1:
             bg_item = &bn::regular_bg_items::mj_big_pumpkin_1;
-            _big_pumpkin_counter = 60;
+            _big_pumpkin_counter = 70;
             break;
 
         case 2:
