@@ -133,7 +133,7 @@ void game_scene::_update_play()
     {
         if(game.victory())
         {
-            ++_completed_games;
+            _completed_games = bn::min(_completed_games + 1, 999);
         }
         else
         {
