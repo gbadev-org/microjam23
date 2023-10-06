@@ -36,7 +36,7 @@ void game_lives::update()
             {
                 for(int index = 0; index < _lives; ++index)
                 {
-                    bn::fixed x = 128 + (index * 23);
+                    bn::fixed x = 128 + (index * 22);
                     bn::sprite_ptr sprite = bn::sprite_items::mj_small_pumpkin.create_sprite(x, 20 - 80);
                     sprite.set_bg_priority(0);
 
@@ -53,7 +53,7 @@ void game_lives::update()
                 sprite_animation.update();
             }
 
-            if(_sprite_animations[0].sprite().x() == 120 - (_lives * 23))
+            if(_sprite_animations[0].sprite().x() == 120 - (_lives * 22))
             {
                 for(bn::isprite_animate_action& sprite_animation : _sprite_animations)
                 {
