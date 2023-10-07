@@ -13,40 +13,40 @@ namespace pyro_sc
 
 using namespace bn; //Style guide, shmyle guide!
 
-class skull{
+class Skull{
 public:
-	skull(fixed_point p, fixed_point v);
+	Skull(fixed_point p);
 	
 	void update();
 	
-	void toss(fixed_point p, fixed_point v){
-		pos = p;
+	void toss(fixed_point v){
 		vel = v;
 		active = true;
 	}
+	
+	fixed_point offset;
+	bool active;
 
 private:
-	bool active;
 	fixed_point pos;
 	fixed_point vel;
 	fixed angle;
 	fixed angle_vel;
+	sprite_ptr sprite;
 };
 
-class skelebro{
+class Skelebro{
 public:
-	skelebro(fixed_point p, bool hflip);
+	Skelebro(fixed_point p, bool hflip);
 	
 	void update();
 	
 	const int maxFlipTimer = 30;
 
 private:
-	int frame;
 	sprite_ptr sprite_body;
-	sprite_ptr sprite_head;
 	int flip_timer;
-	bool has_head;
+	Skull skull;
 };
 
 class skullCatch : public mj::game
@@ -86,7 +86,7 @@ private:
 	int _player_anim_timer = 0;
 	int _player_anim_frame = 0;
 	sprite_ptr _player_sprite;
-	skelebro _skelebros[4];
+	Skelebro _skelebros[4];
 };
 
 }

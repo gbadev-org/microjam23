@@ -16,30 +16,40 @@ MJ_GAME_LIST_ADD(pyro_sc::skullCatch)
 namespace pyro_sc
 {
 
-skull::skull(fixed_point p, fixed_point v)
+Skull::Skull(fixed_point p):
+	sprite(sprite_items::pyro_skeletonhead.create_sprite(p.x(),p.y()))
 {
 	active = false;
 	pos = p;
-	vel = v;
+	vel = fixed_point(0,0);
 	angle = 0;
 	angle_vel = 0;
 }
 
-void skull::update()
+void Skull::update()
 {
-	vel.set_y(vel.y() + fixed(0.2));
+	if(active)
+	{
+		vel.set_y(vel.y() + fixed(0.2));
+		pos = pos + vel;
+		sprite.set_position(pos);
+	}
+	else
+	{
+		sprite.set_position(pos + offset);
+	}
+	
 }
 
-skelebro::skelebro(fixed_point p, bool hflip) :
+Skelebro::Skelebro(fixed_point p, bool hflip) :
 	sprite_body(sprite_items::pyro_skeletonbody.create_sprite(p.x(),p.y())),
-	sprite_head(sprite_items::pyro_skeletonhead.create_sprite(p.x(),p.y()-15))
+	skull(Skull(fixed_point(p.x(),p.y()-15)))
 {
 	flip_timer = maxFlipTimer;
 	sprite_body.set_horizontal_flip(hflip);
-	has_head = true;
 }
 
-void skelebro::update()
+void Skelebro::update()
 {
 	flip_timer--;
 	if(flip_timer <= 0)
@@ -48,31 +58,32 @@ void skelebro::update()
 		sprite_body.set_horizontal_flip(!sprite_body.horizontal_flip());
 		if(sprite_body.horizontal_flip())
 		{
-			sprite_head.set_x(sprite_body.x() + 1);
+			skull.offset.set_x(1);
 		}
 		else
 		{
-			sprite_head.set_x(sprite_body.x() - 1);
+			skull.offset.set_x(-1);
 		}
 	}
 	if(flip_timer >= (maxFlipTimer/2))
 	{
-		sprite_head.set_y(sprite_body.y() - 15);
+		skull.offset.set_y(0);
 	}
 	else
 	{
-		sprite_head.set_y(sprite_body.y() - 14);
+		skull.offset.set_y(1);
 	}
+	skull.update();
 }
 
 skullCatch::skullCatch(int completed_games, const mj::game_data& data) :
 	_bg(regular_bg_items::pyro_skullcatch_stage.create_bg((256 - 240) / 2, (256 - 160) / 2)),
 	_player_sprite(sprite_items::pyro_skeletonbody.create_sprite(0,38)),
 	_skelebros{
-		skelebro(fixed_point(-92,23),false),
-		skelebro(fixed_point(-41,19),true),
-		skelebro(fixed_point(41,19),false),
-		skelebro(fixed_point(92,23),true)
+		Skelebro(fixed_point(-92,23),false),
+		Skelebro(fixed_point(-41,19),true),
+		Skelebro(fixed_point(41,19),false),
+		Skelebro(fixed_point(92,23),true)
 	}
 {
 	constexpr int frames_diff = maximum_frames - minimum_frames;
