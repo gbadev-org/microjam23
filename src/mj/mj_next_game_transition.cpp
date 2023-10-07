@@ -201,6 +201,36 @@ void next_game_transition::_update_stage_2()
 
         bn::sprite_palette_ptr palette = _digit_sprites[0].palette();
         palette.set_fade(bn::color(31, 31, 0), 1 - scale);
+
+        bn::fixed desp_x;
+        bn::fixed desp_y;
+
+        if(scale < 1)
+        {
+            switch(_counter % 4)
+            {
+
+            case 0:
+                desp_x = -2;
+                desp_y = 2;
+                break;
+
+            case 1:
+                desp_x = 2;
+                break;
+
+            case 2:
+                desp_y = -2;
+                break;
+
+            default:
+                desp_x = 2;
+                break;
+            }
+        }
+
+        _coffin_sprites[0].set_position(-32 + desp_x, coffin_y + desp_y);
+        _coffin_sprites[1].set_position(32 + desp_x, coffin_y + desp_y);
     }
 
     if(_counter == stage_2_frames)
