@@ -9,14 +9,13 @@ namespace mj
 
 namespace
 {
-    constexpr int candle_animation_frames = 6;
     constexpr bn::fixed candle_y = 65;
 }
 
 game_timer::game_timer() :
     _palette(bn::sprite_items::mj_font.palette_item().create_palette())
 {
-    for(int index = 0; index < 3; ++index)
+    for(int index = 0; index < 2; ++index)
     {
         _tiles.push_back(bn::sprite_tiles_items::mj_candle.create_tiles(index));
     }
@@ -50,16 +49,7 @@ void game_timer::update(int pending_frames, int total_frames)
 
         if(index == width_sprites - 1)
         {
-            if(_candle_counter)
-            {
-                --_candle_counter;
-            }
-            else
-            {
-                _candle_counter = candle_animation_frames * 2;
-            }
-
-            tiles_index = _candle_counter < candle_animation_frames ? 1 : 2;
+            tiles_index = 1;
         }
 
         if(_sprites.size() == index)
