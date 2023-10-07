@@ -9,7 +9,7 @@ namespace mj
 
 namespace
 {
-    constexpr bn::fixed candle_y = 65;
+    constexpr bn::fixed candle_y = 72;
 }
 
 game_timer::game_timer() :
