@@ -1,8 +1,6 @@
 #ifndef MJ_GAME_SCENE_H
 #define MJ_GAME_SCENE_H
 
-#include "bn_regular_bg_ptr.h"
-
 #include "mj_pause.h"
 #include "mj_scene.h"
 #include "mj_game_lives.h"
@@ -10,6 +8,7 @@
 #include "mj_game_manager.h"
 #include "mj_game_timer.h"
 #include "mj_game_title.h"
+#include "mj_next_game_transition.h"
 
 namespace mj
 {
@@ -36,7 +35,7 @@ private:
     game_lives _lives;
     bn::optional<game_manager> _game_manager;
     bn::optional<bn::regular_bg_ptr> _big_pumpkin;
-    bn::vector<bn::sprite_ptr, 16> _info_sprites;
+    bn::optional<next_game_transition> _next_game_transition;
     int _completed_games = 0;
     int _pending_frames = 0;
     int _total_frames = 1;
@@ -45,8 +44,6 @@ private:
     int _exit_frames = 0;
     bool _playing = false;
     bool _big_pumpkin_inc = true;
-
-    void _print_info();
 
     void _update_play();
 

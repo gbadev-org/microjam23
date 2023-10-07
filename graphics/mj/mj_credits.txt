@@ -23,6 +23,16 @@ mj_bat.bmp
 	bevouliin.com
 	CC BY 3.0 Deed (CC-BY 3.0)
 	https://opengameart.org/content/fluffy-flappy-bat-game-character
+	
+mj_coffin.bmp
+	Paul Wortmann
+	CC0 1.0 Universal (CC0 1.0)
+	https://opengameart.org/content/coffin-0
+
+mj_big_digits.bmp
+	CloutierFontes
+	Free for Personal Use
+	https://www.1001freefonts.com/cf-halloween.font
 
 mj_font.bmp
 mj_small_font.bmp
@@ -31,6 +41,7 @@ mj_small_font.bmp
 	https://twitter.com/2pblog1
 
 mj_candle.bmp
+mj_coffin_light.bmp
 mj_pause_dialog.bmp
 mj_pause_dialog_lateral.bmp
 	GValiente

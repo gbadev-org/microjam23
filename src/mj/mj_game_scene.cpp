@@ -33,7 +33,6 @@ game_scene::game_scene(core& core) :
     _data({ core.text_generator(), core.small_text_generator(), core.random(), 0 }),
     _pause(core)
 {
-    _print_info();
     _lives.show();
 }
 
@@ -106,18 +105,6 @@ bn::optional<scene_type> game_scene::update()
     return result;
 }
 
-void game_scene::_print_info()
-{
-    bn::sprite_text_generator& text_generator = _core.text_generator();
-    text_generator.set_bg_priority(0);
-
-    bn::fixed x = 10 - 120;
-    bn::fixed y = 16 - 80;
-    text_generator.generate(x, y, "Stage: " + bn::to_string<16>(_completed_games + 1), _info_sprites);
-
-    text_generator.set_bg_priority(3);
-}
-
 void game_scene::_update_play()
 {
     game& game = _game_manager->game();
@@ -133,7 +120,7 @@ void game_scene::_update_play()
     {
         if(game.victory())
         {
-            _completed_games = bn::min(_completed_games + 1, 999);
+            _completed_games = bn::min(_completed_games + 1, 998);
         }
         else
         {
@@ -146,7 +133,14 @@ bool game_scene::_update_fade()
 {
     bool exit = false;
 
-    if(_big_pumpkin_counter)
+    if(_next_game_transition)
+    {
+        if(! _next_game_transition->update())
+        {
+            _next_game_transition.reset();
+        }
+    }
+    else if(_big_pumpkin_counter)
     {
         --_big_pumpkin_counter;
     }
@@ -192,7 +186,8 @@ bool game_scene::_update_fade()
 
         case 1:
             bg_item = &bn::regular_bg_items::mj_big_pumpkin_1;
-            _big_pumpkin_counter = 70;
+            _big_pumpkin_counter = 0;
+            _next_game_transition.emplace(_completed_games);
             break;
 
         case 2:
@@ -216,7 +211,6 @@ bool game_scene::_update_fade()
             {
                 _game_manager.reset();
                 _backdrop.fade_in();
-                _print_info();
                 _lives.show();
                 _pending_frames = 0;
                 _total_frames = 1;
@@ -228,8 +222,6 @@ bool game_scene::_update_fade()
 
             if(_big_pumpkin_inc)
             {
-                _info_sprites.clear();
-
                 game_manager& game_manager = _game_manager.emplace(_completed_games, _data, _core);
                 int total_frames = game_manager.game().total_frames();
                 BN_ASSERT(total_frames >= game::minimum_frames && total_frames <= game::maximum_frames,
