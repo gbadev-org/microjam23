@@ -17,7 +17,7 @@ class Skull{
 public:
 	Skull(fixed_point p);
 	
-	void update();
+	void update(const mj::game_data& data);
 	
 	void toss(fixed_point v){
 		vel = v;
@@ -39,14 +39,18 @@ class Skelebro{
 public:
 	Skelebro(fixed_point p, bool hflip);
 	
-	void update();
+	void update(const mj::game_data& data);
+	
+	void throwSkull();
 	
 	const int maxFlipTimer = 30;
 
 private:
+	fixed_point pos;
 	sprite_ptr sprite_body;
-	int flip_timer;
+	int timer;
 	Skull skull;
+	bool throwing;
 };
 
 class skullCatch : public mj::game

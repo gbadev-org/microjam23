@@ -1,9 +1,27 @@
 #include "pyro_skull_catch.h"
 
+// I don't know which ones I do and don't need anymore, here's all the ones the sprites example uses.
+#include "bn_core.h"
+#include "bn_math.h"
 #include "bn_keypad.h"
-#include "bn_fixed_point.h"
-
+#include "bn_display.h"
+#include "bn_blending.h"
+#include "bn_bg_palettes.h"
 #include "bn_regular_bg_ptr.h"
+#include "bn_sprites_mosaic.h"
+#include "bn_sprite_actions.h"
+#include "bn_sprite_builder.h"
+#include "bn_sprite_text_generator.h"
+#include "bn_sprite_animate_actions.h"
+#include "bn_sprite_first_attributes.h"
+#include "bn_sprite_third_attributes.h"
+#include "bn_sprite_position_hbe_ptr.h"
+#include "bn_sprite_first_attributes_hbe_ptr.h"
+#include "bn_sprite_third_attributes_hbe_ptr.h"
+#include "bn_sprite_affine_second_attributes.h"
+#include "bn_sprite_regular_second_attributes.h"
+#include "bn_sprite_affine_second_attributes_hbe_ptr.h"
+#include "bn_sprite_regular_second_attributes_hbe_ptr.h"
 
 #include "mj/mj_game_list.h"
 
@@ -16,6 +34,26 @@ MJ_GAME_LIST_ADD(pyro_sc::skullCatch)
 namespace pyro_sc
 {
 
+void approach(fixed val, fixed target, fixed vel)
+{
+	if(val > target)
+	{
+		val -= vel;
+		if(val < target)
+		{
+			val = target;
+		}
+	}
+	else if(val < target)
+	{
+		val += vel;
+		if(val > target)
+		{
+			val = target;
+		}
+	}
+}
+
 Skull::Skull(fixed_point p):
 	sprite(sprite_items::pyro_skeletonhead.create_sprite(p.x(),p.y()))
 {
@@ -23,16 +61,25 @@ Skull::Skull(fixed_point p):
 	pos = p;
 	vel = fixed_point(0,0);
 	angle = 0;
-	angle_vel = 0;
+	angle_vel = 1;
 }
 
-void Skull::update()
+void Skull::update(const mj::game_data& data)
 {
 	if(active)
 	{
-		vel.set_y(vel.y() + fixed(0.2));
+		fixed velX = vel.x();
+		approach(velX, fixed(0), fixed(0.1));
+		vel.set_x(velX);
+		vel.set_y(vel.y() + fixed(0.1));
 		pos = pos + vel;
 		sprite.set_position(pos);
+		angle += angle_vel;
+		while(angle > fixed(360))
+		{
+			angle -= fixed(360);
+		}
+		sprite.set_rotation_angle(angle);
 	}
 	else
 	{
@@ -45,35 +92,64 @@ Skelebro::Skelebro(fixed_point p, bool hflip) :
 	sprite_body(sprite_items::pyro_skeletonbody.create_sprite(p.x(),p.y())),
 	skull(Skull(fixed_point(p.x(),p.y()-15)))
 {
-	flip_timer = maxFlipTimer;
+	timer = maxFlipTimer;
 	sprite_body.set_horizontal_flip(hflip);
+	throwing = false;
+	pos = p;
 }
 
-void Skelebro::update()
+void Skelebro::update(const mj::game_data& data)
 {
-	flip_timer--;
-	if(flip_timer <= 0)
+	if(throwing)
 	{
-		flip_timer = maxFlipTimer;
-		sprite_body.set_horizontal_flip(!sprite_body.horizontal_flip());
-		if(sprite_body.horizontal_flip())
+		timer--;
+		if(timer == 0)
 		{
-			skull.offset.set_x(1);
+			sprite_body.set_tiles(sprite_items::pyro_skeletonbody.tiles_item().create_tiles(2));
+			fixed velX = data.random.get_fixed(fixed(-0.5),fixed(2));
+			if(pos.x() > 0)
+			{
+				velX = -velX;
+			}
+			skull.toss(fixed_point(velX,fixed(-4)));
 		}
-		else
-		{
-			skull.offset.set_x(-1);
-		}
-	}
-	if(flip_timer >= (maxFlipTimer/2))
-	{
-		skull.offset.set_y(0);
 	}
 	else
 	{
-		skull.offset.set_y(1);
+		timer--;
+		if(timer <= 0)
+		{
+			timer = maxFlipTimer;
+			sprite_body.set_horizontal_flip(!sprite_body.horizontal_flip());
+			if(sprite_body.horizontal_flip())
+			{
+				skull.offset.set_x(1);
+			}
+			else
+			{
+				skull.offset.set_x(-1);
+			}
+		}
+		if(timer >= (maxFlipTimer/2))
+		{
+			skull.offset.set_y(0);
+		}
+		else
+		{
+			skull.offset.set_y(1);
+		}
 	}
-	skull.update();
+	skull.update(data);
+}
+
+void Skelebro::throwSkull()
+{
+	if(!throwing)
+	{
+		throwing = true;
+		timer = 30;
+		sprite_body.set_tiles(sprite_items::pyro_skeletonbody.tiles_item().create_tiles(1));
+	}
 }
 
 skullCatch::skullCatch(int completed_games, const mj::game_data& data) :
@@ -107,10 +183,19 @@ mj::game_result skullCatch::play(const mj::game_data& data)
 	mj::game_result result;
 	result.exit = data.pending_frames == 0;
 	
-	_skelebros[0].update();
-	_skelebros[1].update();
-	_skelebros[2].update();
-	_skelebros[3].update();
+	_skelebros[0].update(data);
+	_skelebros[1].update(data);
+	_skelebros[2].update(data);
+	_skelebros[3].update(data);
+	
+	if(keypad::a_pressed())
+	{
+		_skelebros[0].throwSkull();
+	}
+	if(keypad::b_pressed())
+	{
+		_skelebros[2].throwSkull();
+	}
 	
 	if(keypad::left_held())
 	{
