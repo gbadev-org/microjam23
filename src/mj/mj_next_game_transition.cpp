@@ -211,20 +211,20 @@ void next_game_transition::_update_stage_2()
             {
 
             case 0:
-                desp_x = -2;
-                desp_y = 2;
+                desp_x = -1;
+                desp_y = 1;
                 break;
 
             case 1:
-                desp_x = 2;
+                desp_x = 1;
                 break;
 
             case 2:
-                desp_y = -2;
+                desp_y = -1;
                 break;
 
             default:
-                desp_x = 2;
+                desp_x = 1;
                 break;
             }
         }
