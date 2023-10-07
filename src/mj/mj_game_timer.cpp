@@ -2,13 +2,15 @@
 
 #include "bn_sprite_items_mj_font.h"
 #include "bn_sprite_tiles_items_mj_candle.h"
+#include "bn_sprite_tiles_items_mj_candle_fire.h"
 
 namespace mj
 {
 
 namespace
 {
-    constexpr int animation_frames = 6;
+    constexpr int candle_animation_frames = 6;
+    constexpr bn::fixed candle_y = 65;
 }
 
 game_timer::game_timer() :
@@ -35,36 +37,35 @@ void game_timer::update(int pending_frames, int total_frames)
         _sprites.shrink(width_sprites);
     }
 
-    bn::fixed start_x = 8 - 120;
+    bn::fixed x = 6 - 120;
 
     if(int x_desp = width_pixels % 16)
     {
-        start_x -= 16 - x_desp;
+        x -= 16 - x_desp;
     }
 
     for(int index = 0; index < width_sprites; ++index)
     {
-        bn::fixed x = start_x + (index * 16);
         int tiles_index = 0;
 
         if(index == width_sprites - 1)
         {
-            if(_tiles_counter)
+            if(_candle_counter)
             {
-                --_tiles_counter;
+                --_candle_counter;
             }
             else
             {
-                _tiles_counter = animation_frames * 2;
+                _candle_counter = candle_animation_frames * 2;
             }
 
-            tiles_index = _tiles_counter < animation_frames ? 1 : 2;
+            tiles_index = _candle_counter < candle_animation_frames ? 1 : 2;
         }
 
         if(_sprites.size() == index)
         {
             bn::sprite_ptr sprite = bn::sprite_ptr::create(
-                        x, 65, bn::sprite_tiles_items::mj_candle_shape_size, _tiles[tiles_index], _palette);
+                        x, candle_y, bn::sprite_tiles_items::mj_candle_shape_size, _tiles[tiles_index], _palette);
             sprite.set_bg_priority(1);
             sprite.set_z_order(-32767);
             _sprites.push_back(bn::move(sprite));
@@ -75,6 +76,40 @@ void game_timer::update(int pending_frames, int total_frames)
             sprite.set_x(x);
             sprite.set_tiles(_tiles[tiles_index]);
         }
+
+        x += 16;
+    }
+
+    if(width_pixels)
+    {
+        ++_fire_counter;
+
+        if(_fire_counter >= 6 * 2)
+        {
+            _fire_counter = 0;
+        }
+
+        int tiles_index = _fire_counter / 2;
+        x -= 8;
+
+        if(_fire_sprite)
+        {
+            _fire_sprite->set_x(x);
+            _fire_sprite->set_tiles(bn::sprite_tiles_items::mj_candle_fire, tiles_index);
+        }
+        else
+        {
+            bn::sprite_ptr sprite = bn::sprite_ptr::create(
+                        x, candle_y - 5, bn::sprite_tiles_items::mj_candle_fire_shape_size,
+                        bn::sprite_tiles_items::mj_candle_fire.create_tiles(tiles_index), _palette);
+            sprite.set_bg_priority(1);
+            sprite.set_z_order(-32767);
+            _fire_sprite = bn::move(sprite);
+        }
+    }
+    else
+    {
+        _fire_sprite.reset();
     }
 }
 
