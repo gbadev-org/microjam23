@@ -30,7 +30,7 @@ namespace
 
 game_scene::game_scene(core& core) :
     _core(core),
-    _data({ core.text_generator(), core.small_text_generator(), core.random(), 0 }),
+    _data({ core.text_generator(), core.small_text_generator(), core.big_text_generator(), core.random(), 0 }),
     _pause(core)
 {
     _lives.show();

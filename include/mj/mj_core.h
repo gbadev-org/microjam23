@@ -23,6 +23,11 @@ public:
         return _small_text_generator;
     }
 
+    [[nodiscard]] bn::sprite_text_generator& big_text_generator()
+    {
+        return _big_text_generator;
+    }
+
     [[nodiscard]] bn::random& random()
     {
         return _random;
@@ -33,6 +38,7 @@ public:
 private:
     bn::sprite_text_generator _text_generator;
     bn::sprite_text_generator _small_text_generator;
+    bn::sprite_text_generator _big_text_generator;
     bn::random _random;
     bool _reset_ready = false;
 

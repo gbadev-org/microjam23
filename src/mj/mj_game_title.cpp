@@ -14,7 +14,7 @@ void game_title::show(const bn::istring& title, core& core)
 
     clear();
 
-    bn::sprite_text_generator& text_generator = core.text_generator();
+    bn::sprite_text_generator& text_generator = core.big_text_generator();
     text_generator.set_bg_priority(0);
     text_generator.set_center_alignment();
     text_generator.set_one_sprite_per_character(true);

@@ -30,6 +30,7 @@ mj_coffin.bmp
 	https://opengameart.org/content/coffin-0
 
 mj_big_digits.bmp
+mj_big_font.bmp
 	CloutierFontes
 	Free for Personal Use
 	https://www.1001freefonts.com/cf-halloween.font
