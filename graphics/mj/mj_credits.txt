@@ -42,7 +42,7 @@ mj_small_font.bmp
 
 mj_candle_fire.bmp
 	Evan Bowman
-	Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
+	Public domain
 	https://github.com/evanbowman
 	
 mj_candle.bmp
