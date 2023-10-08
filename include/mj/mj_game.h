@@ -3,6 +3,7 @@
 
 #include "bn_string.h"
 
+#include "mj_credits_type.h"
 #include "mj_game_data.h"
 #include "mj_game_result.h"
 
@@ -67,6 +68,13 @@ public:
      * @param data Shared data between all games.
      */
     virtual void fade_out(const game_data& data) = 0;
+
+    /**
+     * @brief Returns the credits of the game.
+     * @param type Credits category.
+     * @param output Output credits are stored in this vector.
+     */
+    virtual void credits(credits_type type, bn::ivector<bn::string_view>& output) const;
 
 protected:
     game() = default;

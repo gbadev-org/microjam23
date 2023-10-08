@@ -70,4 +70,28 @@ void test_game::fade_out([[maybe_unused]] const mj::game_data& data)
 {
 }
 
+void test_game::credits(mj::credits_type type, bn::ivector<bn::string_view>& output) const
+{
+    switch(type)
+    {
+
+    case mj::credits_type::CODE:
+        output.push_back("GValiente");
+        break;
+
+    case mj::credits_type::GRAPHICS:
+        output.push_back("GValiente");
+        break;
+
+    case mj::credits_type::MUSIC:
+        break;
+
+    case mj::credits_type::SOUND_EFFECTS:
+        break;
+
+    default:
+        break;
+    }
+}
+
 }
