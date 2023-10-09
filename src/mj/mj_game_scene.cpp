@@ -118,11 +118,9 @@ void game_scene::_update_play()
 
     if(! _playing)
     {
-        if(game.victory())
-        {
-            _completed_games = bn::min(_completed_games + 1, 998);
-        }
-        else
+        _completed_games = bn::min(_completed_games + 1, 998);
+
+        if(! game.victory())
         {
             _lives.decrease();
         }
