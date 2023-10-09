@@ -119,8 +119,9 @@ void game_scene::_update_play()
     if(! _playing)
     {
         _completed_games = bn::min(_completed_games + 1, 998);
+        _victory = game.victory();
 
-        if(! game.victory())
+        if(! _victory)
         {
             _lives.decrease();
         }
@@ -131,7 +132,24 @@ bool game_scene::_update_fade()
 {
     bool exit = false;
 
-    if(_next_game_transition)
+    if(_result_animation)
+    {
+        if(! _result_animation->update())
+        {
+            _result_animation.reset();
+
+            if(_big_pumpkin)
+            {
+                _big_pumpkin->set_visible(true);
+            }
+
+            if(_lives.left())
+            {
+                _next_game_transition.emplace(_completed_games);
+            }
+        }
+    }
+    else if(_next_game_transition)
     {
         if(! _next_game_transition->update())
         {
@@ -185,7 +203,15 @@ bool game_scene::_update_fade()
         case 1:
             bg_item = &bn::regular_bg_items::mj_big_pumpkin_1;
             _big_pumpkin_counter = 0;
-            _next_game_transition.emplace(_completed_games);
+
+            if(_completed_games)
+            {
+                _result_animation = game_result_animation::create(_victory);
+            }
+            else
+            {
+                _next_game_transition.emplace(_completed_games);
+            }
             break;
 
         case 2:
@@ -288,6 +314,8 @@ bool game_scene::_update_fade()
                 big_pumpkin.set_priority(0);
                 _big_pumpkin = bn::move(big_pumpkin);
             }
+
+            _big_pumpkin->set_visible(! _result_animation);
         }
         else
         {

@@ -1,3 +1,4 @@
+mj_big_pumpkin.bmp
 mj_big_pumpkin_1.bmp
 mj_big_pumpkin_2.bmp
 mj_big_pumpkin_3.bmp
@@ -10,6 +11,7 @@ mj_big_pumpkin_9.bmp
 mj_big_pumpkin_10.bmp
 mj_big_pumpkin_11.bmp
 mj_big_pumpkin_12.bmp
+mj_big_pumpkin_eye.bmp
 	codeinfernogames
 	CC0 1.0 Universal (CC0 1.0)
 	https://opengameart.org/content/pumpkin

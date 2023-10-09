@@ -6,6 +6,7 @@
 #include "mj_game_lives.h"
 #include "mj_game_backdrop.h"
 #include "mj_game_manager.h"
+#include "mj_game_result_animation.h"
 #include "mj_game_timer.h"
 #include "mj_game_title.h"
 #include "mj_next_game_transition.h"
@@ -35,6 +36,7 @@ private:
     game_lives _lives;
     bn::optional<game_manager> _game_manager;
     bn::optional<bn::regular_bg_ptr> _big_pumpkin;
+    bn::unique_ptr<game_result_animation> _result_animation;
     bn::optional<next_game_transition> _next_game_transition;
     int _completed_games = 0;
     int _pending_frames = 0;
@@ -43,6 +45,7 @@ private:
     int _big_pumpkin_counter = 0;
     int _exit_frames = 0;
     bool _playing = false;
+    bool _victory = false;
     bool _big_pumpkin_inc = true;
 
     void _update_play();
