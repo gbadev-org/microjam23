@@ -152,8 +152,4 @@ int game::play_jingle(game_jingle_type jingle, int completed_games, const game_d
     return recommended_total_frames(base_total_frames, completed_games, data);
 }
 
-void game::credits([[maybe_unused]] credits_type type, [[maybe_unused]] bn::ivector<bn::string_view>& output) const
-{
-}
-
 }

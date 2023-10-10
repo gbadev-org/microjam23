@@ -8,7 +8,17 @@
 #include "bn_regular_bg_items_tmg_you_lose.h"
 #include "bn_regular_bg_items_tmg_you_win.h"
 
+namespace
+{
+    constexpr bn::string_view code_credits[] = { "GValiente" };
+    constexpr bn::string_view graphics_credits[] = { "GValiente" };
+}
+
 MJ_GAME_LIST_ADD(tmg::test_game)
+MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
+MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
+// MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
+// MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
 
 namespace tmg
 {
@@ -60,30 +70,6 @@ mj::game_result test_game::play(const mj::game_data& data)
 
 void test_game::fade_out([[maybe_unused]] const mj::game_data& data)
 {
-}
-
-void test_game::credits(mj::credits_type type, bn::ivector<bn::string_view>& output) const
-{
-    switch(type)
-    {
-
-    case mj::credits_type::CODE:
-        output.push_back("GValiente");
-        break;
-
-    case mj::credits_type::GRAPHICS:
-        output.push_back("GValiente");
-        break;
-
-    case mj::credits_type::MUSIC:
-        break;
-
-    case mj::credits_type::SOUND_EFFECTS:
-        break;
-
-    default:
-        break;
-    }
 }
 
 }

@@ -35,8 +35,6 @@ public:
 
     void fade_out(const mj::game_data& data) final;
 
-    void credits(mj::credits_type type, bn::ivector<bn::string_view>& output) const final;
-
 private:
     bn::regular_bg_ptr _bg;
     int _total_frames;
