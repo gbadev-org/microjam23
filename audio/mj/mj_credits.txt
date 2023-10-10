@@ -4,6 +4,7 @@ mj_metronome_16beat.xm
 mj_metronome_20beat.xm
 	exelotl
 	CC0 1.0 Universal (CC0 1.0)
+	https://exelo.tl/
 
 mj_exelotl01.xm
 mj_exelotl02a.xm
