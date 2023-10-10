@@ -2,6 +2,8 @@
 
 #include "bn_bg_palettes.h"
 #include "bn_colors.h"
+#include "bn_dmg_music.h"
+#include "bn_music.h"
 #include "bn_sprite_palettes.h"
 
 #include "mj/mj_core.h"
@@ -26,6 +28,7 @@ namespace mj
 namespace
 {
     constexpr int exit_frames = 64;
+    constexpr int volume_dec_frames = 24;
 }
 
 game_scene::game_scene(core& core) :
@@ -94,6 +97,7 @@ bn::optional<scene_type> game_scene::update()
             _lives.update();
             _title.update();
             _timer.update(_pending_frames, _total_frames);
+            _update_volume_dec();
         }
     }
 
@@ -120,6 +124,17 @@ void game_scene::_update_play()
     {
         _completed_games = bn::min(_completed_games + 1, 998);
         _victory = game.victory();
+
+        if(bn::music::playing())
+        {
+            _music_volume_dec = bn::music::volume() / volume_dec_frames;
+        }
+
+        if(bn::dmg_music::playing())
+        {
+            _dmg_music_left_volume_dec = bn::dmg_music::left_volume() / volume_dec_frames;
+            _dmg_music_right_volume_dec = bn::dmg_music::right_volume() / volume_dec_frames;
+        }
 
         if(! _victory)
         {
@@ -346,6 +361,57 @@ bool game_scene::_update_fade()
     }
 
     return exit;
+}
+
+void game_scene::_update_volume_dec()
+{
+    if(_music_volume_dec > 0)
+    {
+        if(bn::music::playing())
+        {
+            bn::fixed volume = bn::music::volume() - _music_volume_dec;
+
+            if(volume > 0)
+            {
+                bn::music::set_volume(volume);
+            }
+            else
+            {
+                bn::music::stop();
+                _music_volume_dec = 0;
+            }
+        }
+        else
+        {
+            _music_volume_dec = 0;
+        }
+    }
+
+    if(_dmg_music_left_volume_dec > 0 || _dmg_music_right_volume_dec > 0)
+    {
+        if(bn::dmg_music::playing())
+        {
+            bn::fixed left_volume = bn::dmg_music::left_volume() - _dmg_music_left_volume_dec;
+            bn::fixed right_volume = bn::dmg_music::right_volume() - _dmg_music_right_volume_dec;
+
+            if(left_volume > 0 && right_volume > 0)
+            {
+                bn::dmg_music::set_left_volume(left_volume);
+                bn::dmg_music::set_right_volume(right_volume);
+            }
+            else
+            {
+                bn::dmg_music::stop();
+                _dmg_music_left_volume_dec = 0;
+                _dmg_music_right_volume_dec = 0;
+            }
+        }
+        else
+        {
+            _dmg_music_left_volume_dec = 0;
+            _dmg_music_right_volume_dec = 0;
+        }
+    }
 }
 
 }

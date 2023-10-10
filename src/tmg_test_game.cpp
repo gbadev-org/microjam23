@@ -14,17 +14,9 @@ namespace tmg
 {
 
 test_game::test_game(int completed_games, const mj::game_data& data) :
-    _bg(bn::regular_bg_items::tmg_press_a.create_bg((256 - 240) / 2, (256 - 160) / 2))
+    _bg(bn::regular_bg_items::tmg_press_a.create_bg((256 - 240) / 2, (256 - 160) / 2)),
+    _total_frames(play_jingle(mj::game_jingle_type::EXELOTL01, completed_games, data))
 {
-    constexpr int frames_diff = maximum_frames - minimum_frames;
-    constexpr int maximum_speed_completed_games = 30;
-
-    completed_games = bn::min(completed_games, maximum_speed_completed_games);
-
-    int frames_reduction = (frames_diff * completed_games) / maximum_speed_completed_games;
-    _total_frames = maximum_frames - frames_reduction;
-    _total_frames -= data.random.get_int(60);
-    _total_frames = bn::clamp(_total_frames, minimum_frames, maximum_frames);
 }
 
 void test_game::fade_in([[maybe_unused]] const mj::game_data& data)
