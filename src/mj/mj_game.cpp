@@ -42,6 +42,25 @@ int game::play_jingle(game_jingle_type jingle, int completed_games, const game_d
     switch(jingle)
     {
 
+    case game_jingle_type::METRONOME_8BEAT:
+        play_music(bn::music_items::mj_metronome_8beat, completed_games, data);
+        base_seconds = 4;
+        break;
+
+    case game_jingle_type::METRONOME_12BEAT:
+        play_music(bn::music_items::mj_metronome_12beat, completed_games, data);
+        base_seconds = 6;
+        break;
+
+    case game_jingle_type::METRONOME_16BEAT:
+        play_music(bn::music_items::mj_metronome_16beat, completed_games, data);
+        break;
+
+    case game_jingle_type::METRONOME_20BEAT:
+        play_music(bn::music_items::mj_metronome_20beat, completed_games, data);
+        base_seconds = 10;
+        break;
+
     case game_jingle_type::EXELOTL01:
         play_music(bn::music_items::mj_exelotl01, completed_games, data);
         base_seconds = 6;
