@@ -1,10 +1,17 @@
+mj_metronome_8beat.xm
+mj_metronome_12beat.xm
+mj_metronome_16beat.xm
+mj_metronome_20beat.xm
+	exelotl
+	CC0 1.0 Universal (CC0 1.0)
+
 mj_exelotl01.xm
 mj_exelotl02a.xm
 mj_exelotl02b.xm
 	exelotl
-	Attribution-ShareAlike 4.0 International (CC BY-SA 4.0 Deed)
+	Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 	https://exelo.tl/
-	
+
 mj_totsnuk01.xm
 mj_totsnuk02.xm
 mj_totsnuk03.xm
@@ -23,7 +30,7 @@ mj_totsnuk15.xm
 mj_totsnuk16.xm
 mj_totsnuk17.xm
 	Totsnuk
-	Attribution-ShareAlike 4.0 International (CC BY-SA 4.0 Deed)
+	Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 	totmusicbusiness@gmail.com
 
 mj_pause_begin.wav
