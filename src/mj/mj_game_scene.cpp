@@ -27,7 +27,7 @@ namespace mj
 
 namespace
 {
-    constexpr int exit_frames = 64;
+    constexpr int fade_frames = 32;
     constexpr int volume_dec_frames = 24;
 }
 
@@ -35,8 +35,13 @@ game_scene::game_scene(core& core) :
     _core(core),
     _data({ core.text_generator(), core.small_text_generator(), core.big_text_generator(), core.random(), 0 }),
     _pause(core),
-    _music_tempo(game::recommended_music_tempo(0, _data))
+    _music_tempo(game::recommended_music_tempo(0, _data)),
+    _fade_in_frames(fade_frames)
 {
+    bn::bg_palettes::set_fade(bn::colors::black, 1);
+    bn::sprite_palettes::set_fade(bn::colors::black, 1);
+
+    _update_big_pumpkin(&bn::regular_bg_items::mj_big_pumpkin_1);
     _lives.show(false, false);
 }
 
@@ -51,13 +56,21 @@ bn::optional<scene_type> game_scene::update()
     bn::optional<scene_type> result;
     bool update_again = false;
 
-    if(_exit_frames)
+    if(_fade_in_frames)
     {
-        --_exit_frames;
+        --_fade_in_frames;
 
-        if(_exit_frames)
+        bn::fixed fade_intensity = bn::fixed(_fade_in_frames) / fade_frames;
+        bn::bg_palettes::set_fade(bn::colors::black, fade_intensity);
+        bn::sprite_palettes::set_fade(bn::colors::black, fade_intensity);
+    }
+    else if(_fade_out_frames)
+    {
+        --_fade_out_frames;
+
+        if(_fade_out_frames)
         {
-            bn::fixed fade_intensity = 1 - (bn::fixed(_exit_frames) / exit_frames);
+            bn::fixed fade_intensity = 1 - (bn::fixed(_fade_out_frames) / fade_frames);
             bn::bg_palettes::set_fade(bn::colors::black, fade_intensity);
             bn::sprite_palettes::set_fade(bn::colors::black, fade_intensity);
         }
@@ -74,7 +87,7 @@ bn::optional<scene_type> game_scene::update()
         {
             if(exit)
             {
-                _exit_frames = exit_frames;
+                _fade_out_frames = fade_frames;
             }
         }
         else
@@ -100,7 +113,7 @@ bn::optional<scene_type> game_scene::update()
 
                 if(_update_fade(update_again))
                 {
-                    _exit_frames = exit_frames;
+                    _fade_out_frames = fade_frames;
                 }
             }
 
@@ -368,25 +381,7 @@ bool game_scene::_update_fade(bool update_again)
             break;
         }
 
-        if(bg_item)
-        {
-            if(_big_pumpkin)
-            {
-                _big_pumpkin->set_item(*bg_item);
-            }
-            else
-            {
-                bn::regular_bg_ptr big_pumpkin = bg_item->create_bg(0, (256 - 160) / 2);
-                big_pumpkin.set_priority(0);
-                _big_pumpkin = bn::move(big_pumpkin);
-            }
-
-            _big_pumpkin->set_visible(! _result_animation);
-        }
-        else
-        {
-            _big_pumpkin.reset();
-        }
+        _update_big_pumpkin(bg_item);
     }
 
     if(! _playing)
@@ -412,6 +407,29 @@ bool game_scene::_update_fade(bool update_again)
     }
 
     return exit;
+}
+
+void game_scene::_update_big_pumpkin(const bn::regular_bg_item* bg_item)
+{
+    if(bg_item)
+    {
+        if(_big_pumpkin)
+        {
+            _big_pumpkin->set_item(*bg_item);
+        }
+        else
+        {
+            bn::regular_bg_ptr big_pumpkin = bg_item->create_bg(0, (256 - 160) / 2);
+            big_pumpkin.set_priority(0);
+            _big_pumpkin = bn::move(big_pumpkin);
+        }
+
+        _big_pumpkin->set_visible(! _result_animation);
+    }
+    else
+    {
+        _big_pumpkin.reset();
+    }
 }
 
 void game_scene::_update_volume_dec()

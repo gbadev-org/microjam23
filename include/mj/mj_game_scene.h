@@ -49,7 +49,8 @@ private:
     int _total_frames = 1;
     int _big_pumpkin_stage = 0;
     int _big_pumpkin_counter = 0;
-    int _exit_frames = 0;
+    int _fade_in_frames = 0;
+    int _fade_out_frames = 0;
     bool _playing = false;
     bool _victory = false;
     bool _big_pumpkin_inc = true;
@@ -57,6 +58,8 @@ private:
     void _update_play();
 
     [[nodiscard]] bool _update_fade(bool update_again);
+
+    void _update_big_pumpkin(const bn::regular_bg_item* bg_item);
 
     void _update_volume_dec();
 };
