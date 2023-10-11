@@ -37,6 +37,7 @@ private:
     bn::optional<game_manager> _game_manager;
     bn::optional<bn::regular_bg_ptr> _big_pumpkin;
     bn::unique_ptr<game_result_animation> _result_animation;
+    bn::unique_ptr<game_result_animation> _speed_inc_animation;
     bn::optional<next_game_transition> _next_game_transition;
     bn::fixed _music_volume_dec;
     bn::fixed _dmg_music_left_volume_dec;

@@ -14,12 +14,15 @@ class game_result_animation
 public:
     [[nodiscard]] static bn::unique_ptr<game_result_animation> create(int completed_games, bool victory);
 
+    [[nodiscard]] static bn::unique_ptr<game_result_animation> create_speed_inc();
+
     virtual ~game_result_animation() = default;
 
     [[nodiscard]] bool update();
 
 protected:
     static constexpr bn::fixed _initial_y = 16;
+    static constexpr bn::fixed _initial_hand_y = 160;
 
     bn::fixed _x;
     bn::fixed _y = _initial_y;
@@ -37,10 +40,11 @@ protected:
     bn::fixed _right_eye_vertical_scale = 1;
     bn::fixed _right_eye_rotation_angle;
     bn::fixed _hand_x;
-    bn::fixed _hand_y = 160;
+    bn::fixed _hand_y = _initial_hand_y;
     bn::fixed _hand_horizontal_scale = 1;
     bn::fixed _hand_vertical_scale = 1;
     bn::fixed _hand_rotation_angle;
+    bn::fixed _fade_intensity;
     int _delay_frames = 8;
     int _pending_frames = 100;
 

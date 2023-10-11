@@ -1,7 +1,11 @@
 #include "mj/mj_game_result_animation.h"
 
+#include "bn_bg_palette_ptr.h"
+#include "bn_color_effect.h"
 #include "bn_math.h"
+#include "bn_sprite_palette_ptr.h"
 
+#include "bn_affine_bg_items_mj_speed_up.h"
 #include "bn_affine_bg_items_mj_big_pumpkin.h"
 #include "bn_affine_bg_items_mj_big_pumpkin_hand.h"
 #include "bn_sprite_items_mj_big_pumpkin_eye.h"
@@ -294,6 +298,93 @@ namespace
     private:
         bn::fixed _x_desp;
     };
+
+    class speed_inc_animation : public game_result_animation
+    {
+
+    public:
+        speed_inc_animation()
+        {
+            _pending_frames = 150;
+        }
+
+    protected:
+        void _update_impl() final
+        {
+            if(_pending_frames >= 120)
+            {
+                _y -= 0.1;
+                _horizontal_scale += 0.035;
+                _left_eye_rotation_angle -= 5;
+            }
+            else if(_pending_frames >= 30)
+            {
+                if(_pending_frames >= 60)
+                {
+                    _horizontal_scale += 0.005;
+                    _left_eye_vertical_scale -= 0.0025;
+                }
+                else
+                {
+                    _horizontal_scale -= 0.005 * 2;
+                    _left_eye_vertical_scale += 0.0025 * 2;
+                }
+
+                _left_eye_horizontal_scale = 2 - _left_eye_vertical_scale;
+                _hand_y = 0;
+                _update_speed_up();
+            }
+            else
+            {
+                _y += 0.1;
+                _horizontal_scale -= 0.035;
+                _left_eye_horizontal_scale = 1;
+                _left_eye_vertical_scale = 1;
+                _left_eye_rotation_angle += 5;
+                _hand_y = _initial_hand_y;
+            }
+
+            _right_eye_horizontal_scale = _left_eye_horizontal_scale;
+            _right_eye_vertical_scale = _left_eye_vertical_scale;
+            _right_eye_rotation_angle = -_left_eye_rotation_angle;
+            _vertical_scale = _horizontal_scale;
+        }
+
+    private:
+        void _update_speed_up()
+        {
+            int counter = _pending_frames - 30;
+
+            if(counter >= 70)
+            {
+                _hand_vertical_scale = 1 + (bn::fixed(70 - counter) / 20);
+                _hand_rotation_angle = 32 - (_hand_vertical_scale * 32);
+            }
+            else if(counter >= 58)
+            {
+                _fade_intensity += 0.04;
+            }
+            else if(counter >= 46)
+            {
+                _fade_intensity -= 0.04;
+            }
+            else if(counter >= 34)
+            {
+                _fade_intensity += 0.04;
+            }
+            else if(counter >= 20)
+            {
+                _fade_intensity = bn::max(_fade_intensity - 0.04, bn::fixed(0));
+            }
+            else
+            {
+                _hand_vertical_scale = bn::fixed(counter) / 20;
+                _hand_rotation_angle = (_hand_vertical_scale * 32) - 32;
+            }
+
+            _hand_vertical_scale = bn::max(_hand_vertical_scale, bn::fixed(0.01));
+        }
+    };
 }
 
 bn::unique_ptr<game_result_animation> game_result_animation::create(int completed_games, bool victory)
@@ -328,6 +419,13 @@ bn::unique_ptr<game_result_animation> game_result_animation::create(int complete
     }
 
     return result;
+}
+
+bn::unique_ptr<game_result_animation> game_result_animation::create_speed_inc()
+{
+    auto animation = new speed_inc_animation();
+    animation->_hand.set_item(bn::affine_bg_items::mj_speed_up);
+    return bn::unique_ptr<game_result_animation>(animation);
 }
 
 bool game_result_animation::update()
@@ -413,6 +511,12 @@ void game_result_animation::_update_gfx()
     _hand.set_position(_hand_x, _hand_y);
     _hand.set_scale(_hand_horizontal_scale, _hand_vertical_scale);
     _hand.set_rotation_angle(fixed_angle(_hand_rotation_angle));
+
+    bn::bg_palette_ptr bg_palette = _hand.palette();
+    bg_palette.set_fade(bn::color(24, 0, 12), _fade_intensity);
+
+    bn::sprite_palette_ptr sprite_palette = _left_eye.palette();
+    sprite_palette.set_fade(bn::color(24, 0, 12), _fade_intensity);
 }
 
 }

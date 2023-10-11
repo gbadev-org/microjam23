@@ -22,11 +22,11 @@ bn::fixed game::recommended_music_tempo(int completed_games, [[maybe_unused]] co
     constexpr bn::fixed minimum_tempo = 1.15;
     constexpr bn::fixed maximum_tempo = 1.85;
     constexpr bn::fixed tempo_diff = maximum_tempo - minimum_tempo;
-    constexpr int minimum_games = 0;
-    constexpr int maximum_games = 45;
+    constexpr int minimum_waves = 0;
+    constexpr int maximum_waves = 45 / games_per_speed_inc;
 
-    completed_games = bn::clamp(completed_games, minimum_games, maximum_games);
-    return minimum_tempo + ((completed_games * tempo_diff) / maximum_games);
+    int completed_waves = bn::clamp(completed_games / games_per_speed_inc, minimum_waves, maximum_waves);
+    return minimum_tempo + ((completed_waves * tempo_diff) / maximum_waves);
 }
 
 void game::play_music(bn::music_item music_item, int completed_games, const game_data& data)

@@ -38,6 +38,7 @@ mj_coffin.bmp
 
 mj_big_digits.bmp
 mj_big_font.bmp
+mj_speed_up.bmp
 	CloutierFontes
 	Free for Personal Use
 	https://www.1001freefonts.com/cf-halloween.font

@@ -151,19 +151,33 @@ bool game_scene::_update_fade()
     {
         if(! _result_animation->update())
         {
+            bool big_pumpkin_visible = true;
             _result_animation.reset();
-
-            if(_big_pumpkin)
-            {
-                _big_pumpkin->set_visible(true);
-            }
-
             _lives.stop();
 
             if(_lives.left())
             {
-                _next_game_transition.emplace(_completed_games);
+                if(_completed_games % game::games_per_speed_inc == 0)
+                {
+                    _speed_inc_animation = game_result_animation::create_speed_inc();
+                    big_pumpkin_visible = false;
+                }
+                else
+                {
+                    _next_game_transition.emplace(_completed_games);
+                }
             }
+
+            _big_pumpkin->set_visible(big_pumpkin_visible);
+        }
+    }
+    else if(_speed_inc_animation)
+    {
+        if(! _speed_inc_animation->update())
+        {
+            _speed_inc_animation.reset();
+            _big_pumpkin->set_visible(true);
+            _next_game_transition.emplace(_completed_games);
         }
     }
     else if(_next_game_transition)
