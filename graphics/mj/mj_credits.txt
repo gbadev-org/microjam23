@@ -16,6 +16,11 @@ mj_big_pumpkin_eye.bmp
 	CC0 1.0 Universal (CC0 1.0)
 	https://opengameart.org/content/pumpkin
 	
+mj_big_pumpkin_hand.bmp
+	Pixabay
+	Pixabay Content License (https://pixabay.com/service/license-summary/)
+	https://pixabay.com/vectors/thumbs-up-like-thumb-confirm-okay-297593/
+	
 mj_small_pumpkin.bmp
 	Emcee Flesher
 	OGA-BY 3.0

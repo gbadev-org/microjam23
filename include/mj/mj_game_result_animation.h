@@ -36,6 +36,11 @@ protected:
     bn::fixed _right_eye_horizontal_scale = 1;
     bn::fixed _right_eye_vertical_scale = 1;
     bn::fixed _right_eye_rotation_angle;
+    bn::fixed _hand_x;
+    bn::fixed _hand_y = 160;
+    bn::fixed _hand_horizontal_scale = 1;
+    bn::fixed _hand_vertical_scale = 1;
+    bn::fixed _hand_rotation_angle;
     int _delay_frames = 8;
     int _pending_frames = 100;
 
@@ -45,6 +50,7 @@ protected:
 
 private:
     bn::affine_bg_ptr _head;
+    bn::affine_bg_ptr _hand;
     bn::sprite_ptr _left_eye;
     bn::sprite_ptr _right_eye;
 
