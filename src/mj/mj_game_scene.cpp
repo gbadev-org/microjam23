@@ -36,7 +36,7 @@ game_scene::game_scene(core& core) :
     _data({ core.text_generator(), core.small_text_generator(), core.big_text_generator(), core.random(), 0 }),
     _pause(core)
 {
-    _lives.show();
+    _lives.show(false, false);
 }
 
 game_scene::~game_scene()
@@ -158,6 +158,8 @@ bool game_scene::_update_fade()
                 _big_pumpkin->set_visible(true);
             }
 
+            _lives.stop();
+
             if(_lives.left())
             {
                 _next_game_transition.emplace(_completed_games);
@@ -250,7 +252,7 @@ bool game_scene::_update_fade()
             {
                 _game_manager.reset();
                 _backdrop.fade_in();
-                _lives.show();
+                _lives.show(_victory, ! _victory);
                 _pending_frames = 0;
                 _total_frames = 1;
             }
