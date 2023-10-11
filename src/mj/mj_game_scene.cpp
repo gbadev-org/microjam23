@@ -223,7 +223,7 @@ bool game_scene::_update_fade()
 
             if(_completed_games)
             {
-                _result_animation = game_result_animation::create(_victory);
+                _result_animation = game_result_animation::create(_completed_games, _victory);
             }
             else
             {

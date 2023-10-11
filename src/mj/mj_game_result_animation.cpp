@@ -10,11 +10,11 @@ namespace mj
 
 namespace
 {
-    class victory_animation : public game_result_animation
+    class wink_victory_animation : public game_result_animation
     {
 
     public:
-        victory_animation() = default;
+        wink_victory_animation() = default;
 
     protected:
         void _update_impl() final
@@ -52,18 +52,68 @@ namespace
         }
     };
 
-    class defeat_animation : public game_result_animation
+    class rotate_victory_animation : public game_result_animation
     {
 
     public:
-        defeat_animation() = default;
+        rotate_victory_animation() = default;
 
     protected:
         void _update_impl() final
         {
             if(_pending_frames >= 70)
             {
-                _x += 0.2;
+                int counter = 100 - _pending_frames;
+                bn::fixed sin = bn::degrees_lut_sin(bn::fixed(counter * 180) / 30);
+                _rotation_angle += sin;
+            }
+            else
+            {
+                if(_pending_frames >= 30)
+                {
+                    int counter = 70 - _pending_frames;
+                    bn::fixed sin = bn::degrees_lut_sin(bn::fixed(counter * 180) / 40);
+                    _rotation_angle -= sin.unsafe_multiplication(bn::fixed(14.8965));
+                    _left_eye_rotation_angle += sin * 2;
+                    _right_eye_rotation_angle = _left_eye_rotation_angle;
+                }
+                else
+                {
+                    _rotation_angle = 0;
+                }
+
+                if(_left_eye_rotation_angle > -360)
+                {
+                    int counter = 70 - _pending_frames;
+                    bn::fixed sin = bn::degrees_lut_sin(bn::fixed(counter * 180) / 70);
+                    _left_eye_rotation_angle -= sin.unsafe_multiplication(bn::fixed(9.25));
+
+                    if(_left_eye_rotation_angle < -360)
+                    {
+                        _left_eye_rotation_angle = -360;
+                    }
+
+                    _right_eye_rotation_angle = _left_eye_rotation_angle;
+                }
+            }
+        }
+    };
+
+    class defeat_animation : public game_result_animation
+    {
+
+    public:
+        explicit defeat_animation(bn::fixed x_desp) :
+            _x_desp(x_desp)
+        {
+        }
+
+    protected:
+        void _update_impl() final
+        {
+            if(_pending_frames >= 70)
+            {
+                _x += _x_desp;
                 _y += 0.9;
                 _vertical_scale -= 0.015;
                 _rotation_angle += 0.05;
@@ -110,7 +160,7 @@ namespace
             }
             else
             {
-                _x -= 0.2;
+                _x -= _x_desp;
                 _y -= 0.9;
                 _vertical_scale += 0.015;
                 _rotation_angle -= 0.05;
@@ -120,20 +170,41 @@ namespace
                 _right_eye_rotation_angle -= 0.2;
             }
         }
+
+    private:
+        bn::fixed _x_desp;
     };
 }
 
-bn::unique_ptr<game_result_animation> game_result_animation::create(bool victory)
+bn::unique_ptr<game_result_animation> game_result_animation::create(int completed_games, bool victory)
 {
     bn::unique_ptr<game_result_animation> result;
 
     if(victory)
     {
-        result.reset(new victory_animation());
+        switch(completed_games % 4)
+        {
+
+        case 0:
+            result.reset(new wink_victory_animation());
+            break;
+
+        case 1:
+            result.reset(new rotate_victory_animation());
+            break;
+
+        case 2:
+            result.reset(new wink_victory_animation());
+            break;
+
+        default:
+            result.reset(new rotate_victory_animation());
+            break;
+        }
     }
     else
     {
-        result.reset(new defeat_animation());
+        result.reset(new defeat_animation(completed_games % 2 ? bn::fixed(0.2) : bn::fixed(-0.2)));
     }
 
     return result;

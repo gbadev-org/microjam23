@@ -12,7 +12,7 @@ class game_result_animation
 {
 
 public:
-    [[nodiscard]] static bn::unique_ptr<game_result_animation> create(bool victory);
+    [[nodiscard]] static bn::unique_ptr<game_result_animation> create(int completed_games, bool victory);
 
     virtual ~game_result_animation() = default;
 
