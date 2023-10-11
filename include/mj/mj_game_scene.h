@@ -39,9 +39,11 @@ private:
     bn::unique_ptr<game_result_animation> _result_animation;
     bn::unique_ptr<game_result_animation> _speed_inc_animation;
     bn::optional<next_game_transition> _next_game_transition;
+    bn::fixed _music_tempo;
     bn::fixed _music_volume_dec;
     bn::fixed _dmg_music_left_volume_dec;
     bn::fixed _dmg_music_right_volume_dec;
+    bn::fixed _updates;
     int _completed_games = 0;
     int _pending_frames = 0;
     int _total_frames = 1;
@@ -54,7 +56,7 @@ private:
 
     void _update_play();
 
-    [[nodiscard]] bool _update_fade();
+    [[nodiscard]] bool _update_fade(bool update_again);
 
     void _update_volume_dec();
 };

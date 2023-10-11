@@ -34,7 +34,8 @@ namespace
 game_scene::game_scene(core& core) :
     _core(core),
     _data({ core.text_generator(), core.small_text_generator(), core.big_text_generator(), core.random(), 0 }),
-    _pause(core)
+    _pause(core),
+    _music_tempo(game::recommended_music_tempo(0, _data))
 {
     _lives.show(false, false);
 }
@@ -48,6 +49,7 @@ game_scene::~game_scene()
 bn::optional<scene_type> game_scene::update()
 {
     bn::optional<scene_type> result;
+    bool update_again = false;
 
     if(_exit_frames)
     {
@@ -77,6 +79,14 @@ bn::optional<scene_type> game_scene::update()
         }
         else
         {
+            _updates += _music_tempo - 1;
+            update_again = _updates >= 1;
+
+            if(update_again)
+            {
+                _updates -= 1;
+            }
+
             if(_playing)
             {
                 _data.pending_frames = _pending_frames;
@@ -88,13 +98,12 @@ bn::optional<scene_type> game_scene::update()
             {
                 _data.pending_frames = 0;
 
-                if(_update_fade())
+                if(_update_fade(update_again))
                 {
                     _exit_frames = exit_frames;
                 }
             }
 
-            _lives.update();
             _title.update();
             _timer.update(_pending_frames, _total_frames);
             _update_volume_dec();
@@ -104,6 +113,11 @@ bn::optional<scene_type> game_scene::update()
     if(! _pause.paused())
     {
         _backdrop.update(_core);
+
+        if(update_again)
+        {
+            _backdrop.update(_core);
+        }
     }
 
     return result;
@@ -143,13 +157,26 @@ void game_scene::_update_play()
     }
 }
 
-bool game_scene::_update_fade()
+bool game_scene::_update_fade(bool update_again)
 {
     bool exit = false;
+    _lives.update();
+
+    if(update_again)
+    {
+        _lives.update();
+    }
 
     if(_result_animation)
     {
-        if(! _result_animation->update())
+        bool active = _result_animation->update();
+
+        if(active && update_again)
+        {
+            active = _result_animation->update();
+        }
+
+        if(! active)
         {
             bool big_pumpkin_visible = true;
             _result_animation.reset();
@@ -159,6 +186,7 @@ bool game_scene::_update_fade()
             {
                 if(_completed_games % game::games_per_speed_inc == 0)
                 {
+                    _music_tempo = game::recommended_music_tempo(_completed_games, _data);
                     _speed_inc_animation = game_result_animation::create_speed_inc();
                     big_pumpkin_visible = false;
                 }
@@ -182,7 +210,14 @@ bool game_scene::_update_fade()
     }
     else if(_next_game_transition)
     {
-        if(! _next_game_transition->update())
+        bool active = _next_game_transition->update();
+
+        if(active && update_again)
+        {
+            active = _next_game_transition->update();
+        }
+
+        if(! active)
         {
             _next_game_transition.reset();
         }
