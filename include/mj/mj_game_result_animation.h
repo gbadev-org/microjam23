@@ -19,8 +19,10 @@ public:
     [[nodiscard]] bool update();
 
 protected:
+    static constexpr bn::fixed _initial_y = 16;
+
     bn::fixed _x;
-    bn::fixed _y = 16;
+    bn::fixed _y = _initial_y;
     bn::fixed _horizontal_scale = 1;
     bn::fixed _vertical_scale = 1;
     bn::fixed _rotation_angle;

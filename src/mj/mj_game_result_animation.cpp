@@ -99,6 +99,53 @@ namespace
         }
     };
 
+    class up_victory_animation : public game_result_animation
+    {
+
+    public:
+        up_victory_animation() = default;
+
+    protected:
+        void _update_impl() final
+        {
+            if(_pending_frames >= 90)
+            {
+                _left_eye_horizontal_scale -= 0.02;
+                _left_eye_vertical_scale += 0.01;
+            }
+            else if(_pending_frames >= 50)
+            {
+                int counter = 90 - _pending_frames;
+                bn::fixed sin = bn::degrees_lut_sin(bn::fixed(counter * 90) / 40);
+                _y -= sin.unsafe_multiplication(bn::fixed(7.41));
+                _horizontal_scale -= sin.unsafe_multiplication(bn::fixed(0.02));
+
+                if(_pending_frames == 50)
+                {
+                    _y += 380;
+                }
+            }
+            else if(_pending_frames >= 10)
+            {
+                int counter = 50 - _pending_frames;
+                bn::fixed sin = bn::degrees_lut_sin(90 + (bn::fixed(counter * 90) / 40));
+                _y -= sin.unsafe_multiplication(bn::fixed(7.5175));
+                _horizontal_scale += sin.unsafe_multiplication(bn::fixed(0.02055));
+            }
+            else
+            {
+                _y = _initial_y;
+                _horizontal_scale = 1;
+                _left_eye_horizontal_scale += 0.02;
+                _left_eye_vertical_scale -= 0.01;
+            }
+
+            _vertical_scale = 2 - _horizontal_scale;
+            _right_eye_horizontal_scale = _left_eye_horizontal_scale;
+            _right_eye_vertical_scale = _left_eye_vertical_scale;
+        }
+    };
+
     class defeat_animation : public game_result_animation
     {
 
@@ -198,7 +245,7 @@ bn::unique_ptr<game_result_animation> game_result_animation::create(int complete
             break;
 
         default:
-            result.reset(new rotate_victory_animation());
+            result.reset(new up_victory_animation());
             break;
         }
     }
