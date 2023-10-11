@@ -28,6 +28,15 @@ void game_lives::show(bool victory, bool defeat)
     _sprite_animations.clear();
 }
 
+void game_lives::look_down()
+{
+    for(bn::isprite_animate_action& sprite_animation : _sprite_animations)
+    {
+        bn::sprite_ptr sprite = sprite_animation.sprite();
+        sprite.set_tiles(bn::sprite_items::mj_small_pumpkin.tiles_item(), 7);
+    }
+}
+
 void game_lives::hide()
 {
     _show = false;

@@ -201,6 +201,7 @@ bool game_scene::_update_fade(bool update_again)
                 {
                     _music_tempo = game::recommended_music_tempo(_completed_games, _data);
                     _speed_inc_animation = game_result_animation::create_speed_inc();
+                    _lives.look_down();
                     big_pumpkin_visible = false;
                 }
                 else

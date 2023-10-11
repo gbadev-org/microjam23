@@ -27,6 +27,8 @@ public:
         _stop = true;
     }
 
+    void look_down();
+
     void hide();
 
     void update();
