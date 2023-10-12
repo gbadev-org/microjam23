@@ -12,6 +12,7 @@ mj_big_pumpkin_10.bmp
 mj_big_pumpkin_11.bmp
 mj_big_pumpkin_12.bmp
 mj_big_pumpkin_eye.bmp
+mj_game_over_backdrop.bmp
 	codeinfernogames
 	CC0 1.0 Universal (CC0 1.0)
 	https://opengameart.org/content/pumpkin
@@ -54,6 +55,7 @@ mj_candle_fire.bmp
 	Public domain
 	https://github.com/evanbowman
 	
+mj_big_font_highlight.bmp
 mj_candle.bmp
 mj_coffin_light.bmp
 mj_pause_dialog.bmp

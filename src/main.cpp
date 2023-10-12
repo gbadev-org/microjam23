@@ -35,6 +35,10 @@ int main()
                 switch(*next_scene_ptr)
                 {
 
+                case mj::scene_type::TITLE:
+                    scene.reset(new mj::game_scene(core));
+                    break;
+
                 case mj::scene_type::GAME:
                     scene.reset(new mj::game_scene(core));
                     break;

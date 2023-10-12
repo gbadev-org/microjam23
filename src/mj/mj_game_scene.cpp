@@ -7,6 +7,8 @@
 #include "bn_sprite_palettes.h"
 
 #include "mj/mj_core.h"
+#include "mj/mj_game_over_scene.h"
+#include "mj/mj_game_result_animation.h"
 #include "mj/mj_scene_type.h"
 
 #include "bn_regular_bg_items_mj_big_pumpkin_1.h"
@@ -27,7 +29,8 @@ namespace mj
 
 namespace
 {
-    constexpr int fade_frames = 32;
+    constexpr int fade_in_frames = 32;
+    constexpr int fade_out_frames = 64;
     constexpr int volume_dec_frames = 24;
 }
 
@@ -36,7 +39,7 @@ game_scene::game_scene(core& core) :
     _data({ core.text_generator(), core.small_text_generator(), core.big_text_generator(), core.random(), 0 }),
     _pause(core),
     _music_tempo(game::recommended_music_tempo(0, _data)),
-    _fade_in_frames(fade_frames)
+    _fade_in_frames(fade_in_frames)
 {
     bn::bg_palettes::set_fade(bn::colors::black, 1);
     bn::sprite_palettes::set_fade(bn::colors::black, 1);
@@ -60,23 +63,37 @@ bn::optional<scene_type> game_scene::update()
     {
         --_fade_in_frames;
 
-        bn::fixed fade_intensity = bn::fixed(_fade_in_frames) / fade_frames;
+        bn::fixed fade_intensity = bn::fixed(_fade_in_frames) / fade_in_frames;
         bn::bg_palettes::set_fade(bn::colors::black, fade_intensity);
         bn::sprite_palettes::set_fade(bn::colors::black, fade_intensity);
     }
-    else if(_fade_out_frames)
+    else if(_next_scene)
     {
         --_fade_out_frames;
 
-        if(_fade_out_frames)
+        if(_fade_out_frames > 0)
         {
-            bn::fixed fade_intensity = 1 - (bn::fixed(_fade_out_frames) / fade_frames);
+            bn::fixed fade_intensity = 1 - (bn::fixed(_fade_out_frames) / fade_out_frames);
             bn::bg_palettes::set_fade(bn::colors::black, fade_intensity);
             bn::sprite_palettes::set_fade(bn::colors::black, fade_intensity);
+
+            if(_game_over_scene)
+            {
+                _game_over_scene->update_gfx();
+            }
         }
         else
         {
-            result = scene_type::GAME;
+            result = _next_scene;
+        }
+    }
+    else if(_game_over_scene)
+    {
+        _next_scene = _game_over_scene->update();
+
+        if(_next_scene)
+        {
+            _fade_out_frames = fade_out_frames;
         }
     }
     else
@@ -87,7 +104,8 @@ bn::optional<scene_type> game_scene::update()
         {
             if(exit)
             {
-                _fade_out_frames = fade_frames;
+                _next_scene = scene_type::TITLE;
+                _fade_out_frames = fade_out_frames;
             }
         }
         else
@@ -113,7 +131,7 @@ bn::optional<scene_type> game_scene::update()
 
                 if(_update_fade(update_again))
                 {
-                    _fade_out_frames = fade_frames;
+                    _game_over_scene.reset(new game_over_scene(_completed_games, _core));
                 }
             }
 
@@ -123,7 +141,7 @@ bn::optional<scene_type> game_scene::update()
         }
     }
 
-    if(! _pause.paused())
+    if(! _pause.paused() && ! _game_over_scene)
     {
         _backdrop.update(_core);
 
@@ -284,13 +302,16 @@ bool game_scene::_update_fade(bool update_again)
             bg_item = &bn::regular_bg_items::mj_big_pumpkin_1;
             _big_pumpkin_counter = 0;
 
-            if(_completed_games)
+            if(! exit)
             {
-                _result_animation = game_result_animation::create(_completed_games, _victory);
-            }
-            else
-            {
-                _next_game_transition.emplace(_completed_games);
+                if(_completed_games)
+                {
+                    _result_animation = game_result_animation::create(_completed_games, _victory);
+                }
+                else
+                {
+                    _next_game_transition.emplace(_completed_games);
+                }
             }
             break;
 

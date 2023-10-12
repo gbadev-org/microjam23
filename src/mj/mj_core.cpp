@@ -29,6 +29,7 @@ core::core() :
     _small_text_generator(small_sprite_font),
     _big_text_generator(big_sprite_font)
 {
+    _sram_data.init();
 }
 
 void core::update()

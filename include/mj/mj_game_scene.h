@@ -6,7 +6,6 @@
 #include "mj_game_lives.h"
 #include "mj_game_backdrop.h"
 #include "mj_game_manager.h"
-#include "mj_game_result_animation.h"
 #include "mj_game_timer.h"
 #include "mj_game_title.h"
 #include "mj_next_game_transition.h"
@@ -15,6 +14,8 @@ namespace mj
 {
 
 class core;
+class game_over_scene;
+class game_result_animation;
 
 class game_scene final : public scene
 {
@@ -39,11 +40,13 @@ private:
     bn::unique_ptr<game_result_animation> _result_animation;
     bn::unique_ptr<game_result_animation> _speed_inc_animation;
     bn::optional<next_game_transition> _next_game_transition;
+    bn::unique_ptr<game_over_scene> _game_over_scene;
     bn::fixed _music_tempo;
     bn::fixed _music_volume_dec;
     bn::fixed _dmg_music_left_volume_dec;
     bn::fixed _dmg_music_right_volume_dec;
     bn::fixed _updates;
+    bn::optional<scene_type> _next_scene;
     int _completed_games = 0;
     int _pending_frames = 0;
     int _total_frames = 1;

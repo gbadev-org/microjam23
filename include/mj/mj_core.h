@@ -4,6 +4,8 @@
 #include "bn_random.h"
 #include "bn_sprite_text_generator.h"
 
+#include "mj_sram_data.h"
+
 namespace mj
 {
 
@@ -33,6 +35,11 @@ public:
         return _random;
     }
 
+    [[nodiscard]] mj::sram_data& sram_data()
+    {
+        return _sram_data;
+    }
+
     void update();
 
 private:
@@ -40,6 +47,7 @@ private:
     bn::sprite_text_generator _small_text_generator;
     bn::sprite_text_generator _big_text_generator;
     bn::random _random;
+    mj::sram_data _sram_data;
     bool _reset_ready = false;
 
     void _update_keypad();
