@@ -8,10 +8,10 @@
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
 
-#include "bn_sprite_palette_items_mj_big_font_highlight.h"
 #include "bn_regular_bg_items_mj_game_over_backdrop.h"
 #include "bn_sound_items.h"
 #include "bn_sprite_items_mj_font.h"
+#include "bn_sprite_palette_items_mj_big_font_highlight.h"
 
 namespace mj
 {

@@ -4,6 +4,7 @@
 #include "bn_string.h"
 #include "bn_music_item.h"
 
+#include "mj_difficulty_level.h"
 #include "mj_game_data.h"
 #include "mj_game_jingle_type.h"
 #include "mj_game_result.h"
@@ -31,6 +32,14 @@ public:
      */
     [[nodiscard]] static int recommended_total_frames(
             int base_total_frames, int completed_games, const game_data& data);
+
+    /**
+     * @brief Returns the recommended difficulty level for the given completed games.
+     * @param completed_games Number of completed games.
+     * @param data Shared data between all games.
+     * @return Recommended difficulty level.
+     */
+    [[nodiscard]] static difficulty_level recommended_difficulty_level(int completed_games, const game_data& data);
 
     /**
      * @brief Returns the recommended music tempo for the given completed games.

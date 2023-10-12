@@ -17,6 +17,11 @@ int game::recommended_total_frames(int base_total_frames, int completed_games, c
     return total_frames;
 }
 
+difficulty_level game::recommended_difficulty_level(int completed_games, [[maybe_unused]] const game_data& data)
+{
+    return difficulty_level(bn::clamp(completed_games / 9, 0, 2));
+}
+
 bn::fixed game::recommended_music_tempo(int completed_games, [[maybe_unused]] const game_data& data)
 {
     constexpr bn::fixed minimum_tempo = 1.15;
