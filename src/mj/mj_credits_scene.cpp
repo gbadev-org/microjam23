@@ -24,11 +24,9 @@ namespace
     constexpr int blending_height = 16;
     constexpr bn::fixed big_pumpkin_initial_distance = 8;
     constexpr bn::fixed big_pumpkin_final_distance = 0.5;
-    constexpr bn::fixed big_pumpkin_distance_inc = (big_pumpkin_final_distance - big_pumpkin_initial_distance) / 360;
 }
 
 credits_scene::credits_scene(core& core) :
-    _core(core),
     _land_map(bn::affine_bg_items::mj_credits_land.create_map()),
     _sky_map(bn::affine_bg_items::mj_credits_sky.create_map()),
     _pumpkin_bg(bn::affine_bg_items::mj_big_pumpkin_night.create_bg(0, 0)),
@@ -39,7 +37,7 @@ credits_scene::credits_scene(core& core) :
     _pumpkin_animation(bn::create_sprite_animate_action_forever(
                            bn::sprite_items::mj_small_pumpkin_night.create_sprite(0, 60), 16,
                            bn::sprite_items::mj_small_pumpkin_night.tiles_item(), 1, 0, 1, 2)),
-    _big_pumpkin_distance(big_pumpkin_initial_distance),
+    _credits(core),
     _transparency_attributes_hbe(bn::blending_transparency_attributes_hbe_ptr::create(_transparency_attributes))
 {
     bn::affine_bg_attributes land_attributes(_land_map, 3, true, false);
@@ -76,28 +74,41 @@ bn::optional<scene_type> credits_scene::update()
 {
     bn::optional<scene_type> result;
 
-    _update_gfx();
+    if(_credits.update())
+    {
+        _update_gfx();
+    }
+    else
+    {
+        result = scene_type::TITLE;
+    }
 
     return result;
 }
 
 void credits_scene::_update_gfx()
 {
-    bn::fixed dir_z = bn::fixed::from_data(16);
-    _camera_z -= dir_z * camera_cos;
+    bn::fixed dir_z = bn::fixed::from_data(8);
+    int updates = bn::keypad::a_held() ? credits::speed_up_frames : 1;
+    _elapsed_frames += updates;
+    _camera_z -= dir_z * camera_cos * updates;
     _update_hbe_values();
     _pa_hbe.reload_values_ref();
     _dx_hbe.reload_values_ref();
     _dy_hbe.reload_values_ref();
 
-    _pumpkin_animation.update();
+    for(int index = 0; index < updates; ++index)
+    {
+        _pumpkin_animation.update();
+    }
 
-    _big_pumpkin_distance = bn::max(_big_pumpkin_distance + big_pumpkin_distance_inc, big_pumpkin_final_distance);
-
-    bn::fixed scale = bn::fixed(1).unsafe_division(_big_pumpkin_distance);
+    bn::fixed big_pumpkin_distance_diff = big_pumpkin_final_distance - big_pumpkin_initial_distance;
+    bn::fixed distance_inc = (_elapsed_frames * big_pumpkin_distance_diff) / _credits.total_frames();
+    bn::fixed distance = bn::max(big_pumpkin_initial_distance + distance_inc, big_pumpkin_final_distance);
+    bn::fixed scale = bn::fixed(1).unsafe_division(distance);
     _pumpkin_bg.set_position(32, -56 - (scale * 52));
     _pumpkin_bg.set_scale(scale);
-    _pumpkin_bg.set_rotation_angle(360 - ((_big_pumpkin_distance - big_pumpkin_final_distance) * 2));
+    _pumpkin_bg.set_rotation_angle(360 - ((distance - big_pumpkin_final_distance) * 2));
 }
 
 void credits_scene::_update_hbe_values()

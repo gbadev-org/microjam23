@@ -11,6 +11,7 @@
 #include "bn_blending_transparency_attributes_hbe_ptr.h"
 #include "bn_sprite_animate_actions.h"
 
+#include "mj_credits.h"
 #include "mj_scene.h"
 
 namespace mj
@@ -27,7 +28,6 @@ public:
     [[nodiscard]] bn::optional<scene_type> update() final;
 
 private:
-    core& _core;
     alignas(int) int16_t _pa_values[160];
     alignas(int) int _dx_values[160];
     alignas(int) int _dy_values[160];
@@ -42,9 +42,10 @@ private:
     bn::vector<bn::affine_bg_attributes, 160> _bg_attributes;
     bn::optional<bn::affine_bg_attributes_hbe_ptr> _bg_attributes_hbe;
     bn::sprite_animate_action<4> _pumpkin_animation;
+    mj::credits _credits;
     bn::fixed _camera_z;
-    bn::fixed _big_pumpkin_distance;
     bn::blending_transparency_attributes_hbe_ptr _transparency_attributes_hbe;
+    int _elapsed_frames = 0;
 
     void _update_gfx();
 

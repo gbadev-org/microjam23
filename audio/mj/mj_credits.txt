@@ -33,6 +33,11 @@ mj_totsnuk17.xm
 	Totsnuk
 	Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
 	totmusicbusiness@gmail.com
+	
+mj_ven_sopena_halloween.xm
+	Ven Sopeña
+	Attribution 4.0 International (CC BY 4.0)
+	https://modarchive.org/index.php?request=view_by_moduleid&query=196065
 
 mj_pause_begin.wav
 mj_pause_cursor.wav
