@@ -12,6 +12,7 @@ mj_big_pumpkin_10.bmp
 mj_big_pumpkin_11.bmp
 mj_big_pumpkin_12.bmp
 mj_big_pumpkin_eye.bmp
+mj_big_pumpkin_night.bmp
 mj_game_over_backdrop.bmp
 	codeinfernogames
 	CC0 1.0 Universal (CC0 1.0)
@@ -23,13 +24,14 @@ mj_big_pumpkin_hand.bmp
 	https://pixabay.com/vectors/thumbs-up-like-thumb-confirm-okay-297593/
 	
 mj_small_pumpkin.bmp
+mj_small_pumpkin_night.bmp
 	Emcee Flesher
 	OGA-BY 3.0
 	https://opengameart.org/content/pumpkin-hat-for-16x16-chibi-rpg-characters
 	
 mj_bat.bmp
 	bevouliin.com
-	CC BY 3.0 Deed (CC-BY 3.0)
+	CC BY 3.0
 	https://opengameart.org/content/fluffy-flappy-bat-game-character
 	
 mj_coffin.bmp
@@ -54,6 +56,16 @@ mj_candle_fire.bmp
 	Evan Bowman
 	Public domain
 	https://github.com/evanbowman
+	
+mj_credits_land.bmp
+	Leonard Pabin
+	CC BY 3.0
+	https://opengameart.org/content/whispers-of-avalon-grassland-tileset
+	
+mj_credits_sky.bmp
+	Screaming Brain Studios
+	CC0 1.0 Universal (CC0 1.0)
+	https://opengameart.org/content/seamless-sky-backgrounds
 	
 mj_big_font_highlight.bmp
 mj_candle.bmp

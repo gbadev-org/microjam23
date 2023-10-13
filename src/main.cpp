@@ -1,9 +1,10 @@
 #include "bn_core.h"
 
 #include "mj/mj_core.h"
+#include "mj/mj_credits_scene.h"
+#include "mj/mj_game_scene.h"
 #include "mj/mj_scene.h"
 #include "mj/mj_scene_type.h"
-#include "mj/mj_game_scene.h"
 
 int main()
 {
@@ -13,7 +14,7 @@ int main()
     mj::core& core = *core_ptr;
 
     bn::unique_ptr<mj::scene> scene;
-    bn::optional<mj::scene_type> next_scene = mj::scene_type::GAME;
+    bn::optional<mj::scene_type> next_scene = mj::scene_type::TITLE;
 
     while(true)
     {
@@ -41,6 +42,10 @@ int main()
 
                 case mj::scene_type::GAME:
                     scene.reset(new mj::game_scene(core));
+                    break;
+
+                case mj::scene_type::CREDITS:
+                    scene.reset(new mj::credits_scene(core));
                     break;
 
                 default:

@@ -9,6 +9,7 @@ namespace mj
     {
         TITLE,
         GAME,
+        CREDITS,
     };
 }
 
