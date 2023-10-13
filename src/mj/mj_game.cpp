@@ -36,7 +36,7 @@ bn::fixed game::recommended_music_tempo(int completed_games, [[maybe_unused]] co
 
 void game::play_music(bn::music_item music_item, int completed_games, const game_data& data)
 {
-    bn::music::play(music_item, 1, false);
+    bn::music::play(music_item, 0.5, false);
     bn::music::set_tempo(recommended_music_tempo(completed_games, data));
 }
 
