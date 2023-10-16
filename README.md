@@ -1,6 +1,6 @@
 # microjam23
 
-GBA Microjam '23
+[GBA Microjam '23](https://itch.io/jam/gba-microjam-23)
 
 
 ## How to add a new microgame
