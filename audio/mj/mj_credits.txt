@@ -1,4 +1,3 @@
-mj_metronome_8beat.xm
 mj_metronome_12beat.xm
 mj_metronome_16beat.xm
 mj_metronome_20beat.xm

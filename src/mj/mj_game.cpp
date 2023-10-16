@@ -47,11 +47,6 @@ int game::play_jingle(game_jingle_type jingle, int completed_games, const game_d
     switch(jingle)
     {
 
-    case game_jingle_type::METRONOME_8BEAT:
-        play_music(bn::music_items::mj_metronome_8beat, completed_games, data);
-        base_seconds = 4;
-        break;
-
     case game_jingle_type::METRONOME_12BEAT:
         play_music(bn::music_items::mj_metronome_12beat, completed_games, data);
         base_seconds = 6;

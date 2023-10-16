@@ -10,7 +10,6 @@ namespace mj
      */
     enum class game_jingle_type : uint8_t
     {
-        METRONOME_8BEAT,
         METRONOME_12BEAT,
         METRONOME_16BEAT,
         METRONOME_20BEAT,

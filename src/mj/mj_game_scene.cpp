@@ -135,7 +135,7 @@ bn::optional<scene_type> game_scene::update()
                 }
             }
 
-            _title.update();
+            _title.update(_total_frames);
             _timer.update(_pending_frames, _total_frames);
             _update_volume_dec();
         }

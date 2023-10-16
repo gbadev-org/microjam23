@@ -17,7 +17,7 @@ public:
 
     void clear();
 
-    void update();
+    void update(int total_frames);
 
 private:
     bn::vector<bn::sprite_ptr, 24> _sprites;
