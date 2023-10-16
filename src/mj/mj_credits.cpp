@@ -129,6 +129,8 @@ void credits::_generate_text_items()
     text_items_set.insert("Leonard Pabin");
     text_items_set.insert("Screaming Brain Studios");
     text_items_set.insert("GValiente");
+    text_items_set.insert("Pickpik");
+    text_items_set.insert("Jono");
 
     for(bn::span<const bn::string_view> game_credits : game_list::get_graphics_credits())
     {
