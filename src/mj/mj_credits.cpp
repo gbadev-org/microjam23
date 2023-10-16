@@ -131,6 +131,8 @@ void credits::_generate_text_items()
     text_items_set.insert("GValiente");
     text_items_set.insert("Pickpik");
     text_items_set.insert("Jono");
+    text_items_set.insert("vectorportal.com");
+    text_items_set.insert("Sun Ladder");
 
     for(bn::span<const bn::string_view> game_credits : game_list::get_graphics_credits())
     {

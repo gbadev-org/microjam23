@@ -1,3 +1,13 @@
+mj_intro_backdrop.bmp
+	vectorportal.com
+	CC BY 4.0
+	https://vectorportal.com/es/vector/tema-de-feliz-halloween/21016
+	
+mj_intro_butano.bmp
+    Sun Ladder
+    CC BY-SA 3.0
+    https://commons.wikimedia.org/wiki/File:ButaneGasCylinder_WhiteBack.jpg
+	
 mj_tombstone_1.bmp
 mj_tombstone_2.bmp
 mj_tombstone_3.bmp

@@ -4,6 +4,7 @@
 #include "mj/mj_core.h"
 #include "mj/mj_credits_scene.h"
 #include "mj/mj_game_scene.h"
+#include "mj/mj_intro_scene.h"
 #include "mj/mj_scene.h"
 #include "mj/mj_scene_type.h"
 #include "mj/mj_title_scene.h"
@@ -20,7 +21,7 @@ int main()
     #if MJ_SKIP_INITIAL_TITLE
         bn::optional<mj::scene_type> next_scene = mj::scene_type::GAME;
     #else
-        bn::optional<mj::scene_type> next_scene = mj::scene_type::TITLE;
+        bn::optional<mj::scene_type> next_scene = mj::scene_type::INTRO;
     #endif
 
     while(true)
@@ -42,6 +43,10 @@ int main()
             {
                 switch(*next_scene_ptr)
                 {
+
+                case mj::scene_type::INTRO:
+                    scene.reset(new mj::intro_scene(core));
+                    break;
 
                 case mj::scene_type::TITLE:
                     scene.reset(new mj::title_scene(core));
