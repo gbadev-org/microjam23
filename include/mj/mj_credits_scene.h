@@ -44,8 +44,8 @@ private:
     bn::sprite_animate_action<4> _pumpkin_animation;
     mj::credits _credits;
     bn::fixed _camera_z;
-    bn::blending_transparency_attributes_hbe_ptr _transparency_attributes_hbe;
     int _elapsed_frames = 0;
+    bn::blending_transparency_attributes_hbe_ptr _transparency_attributes_hbe;
 
     void _update_gfx();
 

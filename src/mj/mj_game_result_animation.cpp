@@ -1,7 +1,6 @@
 #include "mj/mj_game_result_animation.h"
 
 #include "bn_bg_palette_ptr.h"
-#include "bn_color_effect.h"
 #include "bn_math.h"
 #include "bn_sprite_palette_ptr.h"
 

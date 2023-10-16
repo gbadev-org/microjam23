@@ -19,7 +19,7 @@ class game
 {
 
 public:
-    static constexpr int minimum_frames = 2.25 * 60; //!< Minimum number of frames per game.
+    static constexpr auto minimum_frames = int(2.25 * 60); //!< Minimum number of frames per game.
     static constexpr int maximum_frames = 10 * 60; //!< Maximum number of frames per game.
     static constexpr int games_per_speed_inc = 3; //!< Number of completed games for a speed increase.
 
