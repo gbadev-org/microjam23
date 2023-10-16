@@ -205,6 +205,7 @@ void title_scene::_create_title_sprites()
         title_sprite.set_blending_enabled(true);
         title_sprite.set_affine_mat(_affine_mat);
         title_sprite.set_double_size_mode(bn::sprite_double_size_mode::ENABLED);
+        title_sprite.set_z_order(-1);
     }
 
     for(bn::sprite_ptr& title_sprite : _title_sprites_2)
@@ -231,15 +232,15 @@ void title_scene::_update_title_sprites(bool update_first)
         if(! update_first)
         {
             scale += (1 - transparency_alpha) / 2;
+        }
 
-            if(transparency_alpha < 0.5)
-            {
-                intensity_alpha = transparency_alpha * 2;
-            }
-            else
-            {
-                intensity_alpha = (1 - transparency_alpha) * 2;
-            }
+        if(transparency_alpha < 0.75)
+        {
+            intensity_alpha = 1;
+        }
+        else
+        {
+            intensity_alpha = (1 - transparency_alpha) * 4;
         }
 
         for(int index = 0; index < 100; ++index)
