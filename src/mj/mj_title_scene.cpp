@@ -10,6 +10,7 @@
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
 
+#include "bn_music_items.h"
 #include "bn_regular_bg_items_mj_tombstone_1.h"
 #include "bn_regular_bg_items_mj_tombstone_2.h"
 #include "bn_regular_bg_items_mj_tombstone_3.h"
@@ -29,7 +30,7 @@ namespace
     constexpr int frames_per_bg_update = 3;
     constexpr int fade_frames = 22 * frames_per_bg_update;
 
-    constexpr int title_frames = 96;
+    constexpr int title_frames = 128;
 }
 
 title_scene::title_scene(core& core) :
@@ -151,7 +152,7 @@ void title_scene::_update_bgs()
             _bg_1.set_item(bn::regular_bg_items::mj_tombstone_1);
             camera_x = 0;
 
-            if(! _bgs_fade_action)
+            if(! _bgs_fade_action && ! _next_scene)
             {
                 _bgs_fade_action.emplace(fade_frames, 0);
             }
