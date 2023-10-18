@@ -22,6 +22,7 @@
 #include "bn_sprite_regular_second_attributes.h"
 #include "bn_sprite_affine_second_attributes_hbe_ptr.h"
 #include "bn_sprite_regular_second_attributes_hbe_ptr.h"
+#include "bn_fixed.h"
 
 #include "mj/mj_game_list.h"
 
@@ -29,7 +30,15 @@
 #include "bn_sprite_items_pyro_skeletonbody.h"
 #include "bn_sprite_items_pyro_skeletonhead.h"
 
+namespace
+{
+	constexpr bn::string_view code_credits[] = { "PyroPyro" };
+	constexpr bn::string_view graphics_credits[] = { "PyroPyro" };
+}
+
 MJ_GAME_LIST_ADD(pyro_sc::skullCatch)
+MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
+MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 
 namespace pyro_sc
 {
@@ -92,7 +101,7 @@ Skelebro::Skelebro(fixed_point p, bool hflip) :
 	sprite_body(sprite_items::pyro_skeletonbody.create_sprite(p.x(),p.y())),
 	skull(Skull(fixed_point(p.x(),p.y()-15)))
 {
-	timer = maxFlipTimer;
+	flipTimer = maxFlipTimer;
 	sprite_body.set_horizontal_flip(hflip);
 	throwing = false;
 	pos = p;
@@ -116,10 +125,10 @@ void Skelebro::update(const mj::game_data& data)
 	}
 	else
 	{
-		timer--;
-		if(timer <= 0)
+		flipTimer -= fixed(1);
+		if(flipTimer <= fixed(0))
 		{
-			timer = maxFlipTimer;
+			flipTimer += maxFlipTimer;
 			sprite_body.set_horizontal_flip(!sprite_body.horizontal_flip());
 			if(sprite_body.horizontal_flip())
 			{
@@ -130,7 +139,7 @@ void Skelebro::update(const mj::game_data& data)
 				skull.offset.set_x(-1);
 			}
 		}
-		if(timer >= (maxFlipTimer/2))
+		if(flipTimer >= (maxFlipTimer/2))
 		{
 			skull.offset.set_y(0);
 		}
@@ -147,13 +156,14 @@ void Skelebro::throwSkull()
 	if(!throwing)
 	{
 		throwing = true;
-		timer = 30;
+		timer = maxFlipTimer.integer();
 		sprite_body.set_tiles(sprite_items::pyro_skeletonbody.tiles_item().create_tiles(1));
 	}
 }
 
 skullCatch::skullCatch(int completed_games, const mj::game_data& data) :
 	_bg(regular_bg_items::pyro_skullcatch_stage.create_bg((256 - 240) / 2, (256 - 160) / 2)),
+	_total_frames(play_jingle(mj::game_jingle_type::METRONOME_16BEAT, completed_games, data)),
 	_player_sprite(sprite_items::pyro_skeletonbody.create_sprite(0,38)),
 	_skelebros{
 		Skelebro(fixed_point(-92,23),false),
@@ -168,10 +178,19 @@ skullCatch::skullCatch(int completed_games, const mj::game_data& data) :
 	completed_games = min(completed_games, maximum_speed_completed_games);
 	
 	int frames_reduction = (frames_diff * completed_games) / maximum_speed_completed_games;
-	_total_frames = maximum_frames - frames_reduction;
-	_total_frames -= data.random.get_int(60);
-	_total_frames = clamp(_total_frames, minimum_frames, maximum_frames);
 	
+	int actual_total_frames = _total_frames + 48;
+	
+	fixed beatLength = fixed(actual_total_frames)/16;
+	
+	_skelebros[0].maxFlipTimer = beatLength;
+	_skelebros[0].flipTimer = beatLength - 24;
+	_skelebros[1].maxFlipTimer = beatLength;
+	_skelebros[1].flipTimer = beatLength - 24;
+	_skelebros[2].maxFlipTimer = beatLength;
+	_skelebros[2].flipTimer = beatLength - 24;
+	_skelebros[3].maxFlipTimer = beatLength;
+	_skelebros[3].flipTimer = beatLength - 24;
 }
 
 void skullCatch::fade_in([[maybe_unused]] const mj::game_data& data)

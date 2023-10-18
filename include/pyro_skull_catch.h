@@ -43,14 +43,15 @@ public:
 	
 	void throwSkull();
 	
-	const int maxFlipTimer = 30;
+	fixed maxFlipTimer;
+	fixed flipTimer;
 
 private:
 	fixed_point pos;
 	sprite_ptr sprite_body;
-	int timer;
 	Skull skull;
 	bool throwing;
+	int timer;
 };
 
 class skullCatch : public mj::game
