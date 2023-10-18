@@ -8,13 +8,19 @@
 namespace mj
 {
 
+namespace
+{
+    constexpr int scale_frames = 12;
+    constexpr int max_wait_frames = 50;
+}
+
 void game_title::show(const bn::istring& title, core& core)
 {
     BN_BASIC_ASSERT(! title.empty(), "Game title is empty");
 
     clear();
 
-    bn::sprite_text_generator& text_generator = core.text_generator();
+    bn::sprite_text_generator& text_generator = core.big_text_generator();
     text_generator.set_bg_priority(0);
     text_generator.set_center_alignment();
     text_generator.set_one_sprite_per_character(true);
@@ -42,7 +48,7 @@ void game_title::clear()
     _counter = 0;
 }
 
-void game_title::update()
+void game_title::update(int total_frames)
 {
     if(! _sprites.empty())
     {
@@ -58,7 +64,7 @@ void game_title::update()
         else
         {
             bn::sprite_affine_mat_ptr affine_mat = *_sprites[0].affine_mat();
-            bn::fixed scale = affine_mat.horizontal_scale() - (bn::fixed(1) / 12);
+            bn::fixed scale = affine_mat.horizontal_scale() - (bn::fixed(1) / scale_frames);
 
             if(scale > 1)
             {
@@ -73,7 +79,7 @@ void game_title::update()
             else
             {
                 affine_mat.set_scale(1);
-                _counter = 50;
+                _counter = bn::min(total_frames / 4, max_wait_frames);
 
                 for(int index = 0, limit = _sprites.size(); index < limit; ++index)
                 {

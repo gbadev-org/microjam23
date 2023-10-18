@@ -8,23 +8,25 @@
 #include "bn_regular_bg_items_tmg_you_lose.h"
 #include "bn_regular_bg_items_tmg_you_win.h"
 
+namespace
+{
+    constexpr bn::string_view code_credits[] = { "GValiente" };
+    constexpr bn::string_view graphics_credits[] = { "GValiente" };
+}
+
 MJ_GAME_LIST_ADD(tmg::test_game)
+MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
+MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
+// MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
+// MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
 
 namespace tmg
 {
 
 test_game::test_game(int completed_games, const mj::game_data& data) :
-    _bg(bn::regular_bg_items::tmg_press_a.create_bg((256 - 240) / 2, (256 - 160) / 2))
+    _bg(bn::regular_bg_items::tmg_press_a.create_bg((256 - 240) / 2, (256 - 160) / 2)),
+    _total_frames(play_jingle(mj::game_jingle_type::METRONOME_16BEAT, completed_games, data))
 {
-    constexpr int frames_diff = maximum_frames - minimum_frames;
-    constexpr int maximum_speed_completed_games = 30;
-
-    completed_games = bn::min(completed_games, maximum_speed_completed_games);
-
-    int frames_reduction = (frames_diff * completed_games) / maximum_speed_completed_games;
-    _total_frames = maximum_frames - frames_reduction;
-    _total_frames -= data.random.get_int(60);
-    _total_frames = bn::clamp(_total_frames, minimum_frames, maximum_frames);
 }
 
 void test_game::fade_in([[maybe_unused]] const mj::game_data& data)

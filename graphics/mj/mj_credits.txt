@@ -1,3 +1,30 @@
+mj_intro_backdrop.bmp
+	vectorportal.com
+	CC BY 4.0
+	https://vectorportal.com/es/vector/tema-de-feliz-halloween/21016
+	
+mj_intro_butano.bmp
+    Sun Ladder
+    CC BY-SA 3.0
+    https://commons.wikimedia.org/wiki/File:ButaneGasCylinder_WhiteBack.jpg
+	
+mj_tombstone_1.bmp
+mj_tombstone_2.bmp
+mj_tombstone_3.bmp
+	Pickpik
+	Free to use for personal and commercial projects (https://www.pickpik.com/terms-of-service)
+	https://www.pickpik.com/starry-night-night-with-graveyard-silhouette-tombstone-cemetery-41198
+
+mj_title.bmp
+mj_title_23.bmp
+mj_title_a.bmp
+mj_title_micro.bmp
+	Jono
+	CC0 1.0 Universal (CC0 1.0)
+	https://foopod.itch.io/
+
+mj_game_over_backdrop.bmp
+mj_big_pumpkin.bmp
 mj_big_pumpkin_1.bmp
 mj_big_pumpkin_2.bmp
 mj_big_pumpkin_3.bmp
@@ -10,18 +37,27 @@ mj_big_pumpkin_9.bmp
 mj_big_pumpkin_10.bmp
 mj_big_pumpkin_11.bmp
 mj_big_pumpkin_12.bmp
+mj_big_pumpkin_eye.bmp
+mj_big_pumpkin_night.bmp
+mj_title_pumpkin.bmp
 	codeinfernogames
 	CC0 1.0 Universal (CC0 1.0)
 	https://opengameart.org/content/pumpkin
 	
+mj_big_pumpkin_hand.bmp
+	Pixabay
+	Pixabay Content License (https://pixabay.com/service/license-summary/)
+	https://pixabay.com/vectors/thumbs-up-like-thumb-confirm-okay-297593/
+	
 mj_small_pumpkin.bmp
+mj_small_pumpkin_night.bmp
 	Emcee Flesher
 	OGA-BY 3.0
 	https://opengameart.org/content/pumpkin-hat-for-16x16-chibi-rpg-characters
 	
 mj_bat.bmp
 	bevouliin.com
-	CC BY 3.0 Deed (CC-BY 3.0)
+	CC BY 3.0
 	https://opengameart.org/content/fluffy-flappy-bat-game-character
 	
 mj_coffin.bmp
@@ -30,6 +66,8 @@ mj_coffin.bmp
 	https://opengameart.org/content/coffin-0
 
 mj_big_digits.bmp
+mj_big_font.bmp
+mj_speed_up.bmp
 	CloutierFontes
 	Free for Personal Use
 	https://www.1001freefonts.com/cf-halloween.font
@@ -42,9 +80,20 @@ mj_small_font.bmp
 
 mj_candle_fire.bmp
 	Evan Bowman
-	Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
+	Public domain
 	https://github.com/evanbowman
 	
+mj_credits_land.bmp
+	Leonard Pabin
+	CC BY 3.0
+	https://opengameart.org/content/whispers-of-avalon-grassland-tileset
+	
+mj_credits_sky.bmp
+	Screaming Brain Studios
+	CC0 1.0 Universal (CC0 1.0)
+	https://opengameart.org/content/seamless-sky-backgrounds
+	
+mj_big_font_highlight.bmp
 mj_candle.bmp
 mj_coffin_light.bmp
 mj_pause_dialog.bmp
