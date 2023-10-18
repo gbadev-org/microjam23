@@ -3,6 +3,7 @@
 #include "bn_bg_palettes.h"
 #include "bn_colors.h"
 #include "bn_dmg_music.h"
+#include "bn_dmg_music_item.h"
 #include "bn_music.h"
 #include "bn_sprite_palettes.h"
 
@@ -480,7 +481,9 @@ void game_scene::_update_volume_dec()
 
     if(_dmg_music_left_volume_dec > 0 || _dmg_music_right_volume_dec > 0)
     {
-        if(bn::dmg_music::playing())
+        bn::optional<bn::dmg_music_item> dmg_music_item = bn::dmg_music::playing_item();
+
+        if(dmg_music_item && dmg_music_item->type() == bn::dmg_music_type::GBT_PLAYER)
         {
             bn::fixed left_volume = bn::dmg_music::left_volume() - _dmg_music_left_volume_dec;
             bn::fixed right_volume = bn::dmg_music::right_volume() - _dmg_music_right_volume_dec;
