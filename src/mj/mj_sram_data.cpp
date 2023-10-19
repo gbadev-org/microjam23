@@ -1,6 +1,5 @@
 #include "mj_sram_data.h"
 
-#include "bn_span.h"
 #include "bn_sram.h"
 #include "bn_string_view.h"
 
@@ -9,7 +8,7 @@ namespace mj
 
 namespace
 {
-    constexpr bn::string_view valid_label = "mj001";
+    constexpr bn::string_view valid_label = "mj002";
 }
 
 void sram_data::init()
@@ -26,13 +25,10 @@ void sram_data::init()
         bn::istring_base label_istring(_label);
         bn::ostringstream label_stream(label_istring);
         label_stream.append(valid_label);
+
+        bn::sram::clear(bn::sram::size());
         write();
     }
-}
-
-bn::span<const int> sram_data::high_scores() const
-{
-    return _high_scores;
 }
 
 void sram_data::add_high_score(int high_score)
