@@ -43,7 +43,7 @@ MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 namespace pyro_sc
 {
 
-void approach(fixed val, fixed target, fixed vel)
+void approach(fixed &val, fixed target, fixed vel)
 {
 	if(val > target)
 	{
@@ -71,6 +71,8 @@ Skull::Skull(fixed_point p):
 	vel = fixed_point(0,0);
 	angle = 0;
 	angle_vel = 1;
+	cracked = false;
+	sprite.set_bg_priority(1);
 }
 
 void Skull::update(const mj::game_data& data)
@@ -78,17 +80,23 @@ void Skull::update(const mj::game_data& data)
 	if(active)
 	{
 		fixed velX = vel.x();
-		approach(velX, fixed(0), fixed(0.1));
+		approach(velX, fixed(0), fixed(0.01));
 		vel.set_x(velX);
 		vel.set_y(vel.y() + fixed(0.1));
 		pos = pos + vel;
 		sprite.set_position(pos);
-		angle += angle_vel;
-		while(angle > fixed(360))
+		if(pos.y() >= floorY && !cracked)
 		{
-			angle -= fixed(360);
+			vel.set_y(vel.y() * fixed(-0.5));
+			cracked = true;
+			sprite.set_tiles(sprite_items::pyro_skeletonhead.tiles_item().create_tiles(1));
 		}
-		sprite.set_rotation_angle(angle);
+		//angle += angle_vel;
+		//while(angle > fixed(360))
+		//{
+		//	angle -= fixed(360);
+		//}
+		//sprite.set_rotation_angle(angle);
 	}
 	else
 	{
@@ -105,6 +113,19 @@ Skelebro::Skelebro(fixed_point p, bool hflip) :
 	sprite_body.set_horizontal_flip(hflip);
 	throwing = false;
 	pos = p;
+	timer = -1;
+	
+	sprite_body.set_bg_priority(3);
+}
+
+void Skelebro::throwSkull()
+{
+	if(!throwing)
+	{
+		throwing = true;
+		timer = maxFlipTimer.integer();
+		sprite_body.set_tiles(sprite_items::pyro_skeletonbody.tiles_item().create_tiles(1));
+	}
 }
 
 void Skelebro::update(const mj::game_data& data)
@@ -147,30 +168,29 @@ void Skelebro::update(const mj::game_data& data)
 		{
 			skull.offset.set_y(1);
 		}
+		
+		if (timer > 0)
+		{
+			timer--;
+			if (timer <= 0)
+			{
+				throwSkull();
+			}
+		}
 	}
 	skull.update(data);
-}
-
-void Skelebro::throwSkull()
-{
-	if(!throwing)
-	{
-		throwing = true;
-		timer = maxFlipTimer.integer();
-		sprite_body.set_tiles(sprite_items::pyro_skeletonbody.tiles_item().create_tiles(1));
-	}
 }
 
 skullCatch::skullCatch(int completed_games, const mj::game_data& data) :
 	_bg(regular_bg_items::pyro_skullcatch_stage.create_bg((256 - 240) / 2, (256 - 160) / 2)),
 	_total_frames(play_jingle(mj::game_jingle_type::METRONOME_16BEAT, completed_games, data)),
-	_player_sprite(sprite_items::pyro_skeletonbody.create_sprite(0,38)),
 	_skelebros{
 		Skelebro(fixed_point(-92,23),false),
 		Skelebro(fixed_point(-41,19),true),
 		Skelebro(fixed_point(41,19),false),
 		Skelebro(fixed_point(92,23),true)
-	}
+	},
+	_player_sprite(sprite_items::pyro_skeletonbody.create_sprite(0,38))
 {
 	constexpr int frames_diff = maximum_frames - minimum_frames;
 	constexpr int maximum_speed_completed_games = 30;
@@ -185,12 +205,21 @@ skullCatch::skullCatch(int completed_games, const mj::game_data& data) :
 	
 	_skelebros[0].maxFlipTimer = beatLength;
 	_skelebros[0].flipTimer = beatLength - 24;
+	_skelebros[0].timer = beatLength.integer()*3;
+	
 	_skelebros[1].maxFlipTimer = beatLength;
 	_skelebros[1].flipTimer = beatLength - 24;
+	_skelebros[1].timer = beatLength.integer()*5;
+	
 	_skelebros[2].maxFlipTimer = beatLength;
 	_skelebros[2].flipTimer = beatLength - 24;
+	_skelebros[2].timer = beatLength.integer()*7;
+	
 	_skelebros[3].maxFlipTimer = beatLength;
 	_skelebros[3].flipTimer = beatLength - 24;
+	_skelebros[3].timer = beatLength.integer()*9;
+	
+	_player_sprite.set_bg_priority(2);
 }
 
 void skullCatch::fade_in([[maybe_unused]] const mj::game_data& data)
@@ -207,13 +236,9 @@ mj::game_result skullCatch::play(const mj::game_data& data)
 	_skelebros[2].update(data);
 	_skelebros[3].update(data);
 	
-	if(keypad::a_pressed())
+	if(_skelebros[0].failed() ||	_skelebros[1].failed() ||	_skelebros[2].failed() ||	_skelebros[3].failed())
 	{
-		_skelebros[0].throwSkull();
-	}
-	if(keypad::b_pressed())
-	{
-		_skelebros[2].throwSkull();
+		_defeat = true;
 	}
 	
 	if(keypad::left_held())

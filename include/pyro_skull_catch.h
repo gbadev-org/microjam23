@@ -13,6 +13,8 @@ namespace pyro_sc
 
 using namespace bn; //Style guide, shmyle guide!
 
+const fixed floorY = fixed(50);
+
 class Skull{
 public:
 	Skull(fixed_point p);
@@ -26,6 +28,7 @@ public:
 	
 	fixed_point offset;
 	bool active;
+	bool cracked;
 
 private:
 	fixed_point pos;
@@ -43,15 +46,20 @@ public:
 	
 	void throwSkull();
 	
+	bool failed()
+	{
+		return skull.cracked;
+	}
+	
 	fixed maxFlipTimer;
 	fixed flipTimer;
+	int timer;
 
 private:
 	fixed_point pos;
 	sprite_ptr sprite_body;
 	Skull skull;
 	bool throwing;
-	int timer;
 };
 
 class skullCatch : public mj::game
@@ -76,7 +84,7 @@ public:
 	
 	[[nodiscard]] bool victory() const final
 	{
-		return _victory;
+		return !_defeat;
 	}
 	
 	void fade_out(const mj::game_data& data) final;
@@ -85,13 +93,12 @@ private:
 	regular_bg_ptr _bg;
 	int _total_frames;
 	int _show_result_frames = 60;
-	bool _victory = false;
 	bool _defeat = false;
 	int _player_x = 0;
 	int _player_anim_timer = 0;
 	int _player_anim_frame = 0;
-	sprite_ptr _player_sprite;
 	Skelebro _skelebros[4];
+	sprite_ptr _player_sprite;
 };
 
 }
