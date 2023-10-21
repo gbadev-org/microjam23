@@ -7,6 +7,7 @@
 #include "bn_music.h"
 #include "bn_sprite_palettes.h"
 
+#include "mj/mj_build_config.h"
 #include "mj/mj_core.h"
 #include "mj/mj_game_over_scene.h"
 #include "mj/mj_game_result_animation.h"
@@ -40,6 +41,7 @@ game_scene::game_scene(core& core) :
     _data({ core.text_generator(), core.small_text_generator(), core.big_text_generator(), core.random(), 0 }),
     _pause(core),
     _music_tempo(game::recommended_music_tempo(0, _data)),
+    _completed_games(MJ_INITIAL_COMPLETED_GAMES),
     _fade_in_frames(fade_in_frames)
 {
     bn::bg_palettes::set_fade(bn::colors::black, 1);
@@ -169,6 +171,7 @@ void game_scene::_update_play()
     if(! _playing)
     {
         _completed_games = bn::min(_completed_games + 1, 998);
+        _first_game_played = true;
         _victory = game.victory();
 
         if(bn::music::playing())
@@ -305,7 +308,7 @@ bool game_scene::_update_fade(bool update_again)
 
             if(! exit)
             {
-                if(_completed_games)
+                if(_first_game_played)
                 {
                     _result_animation = game_result_animation::create(_completed_games, _victory);
                 }

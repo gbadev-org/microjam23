@@ -1,7 +1,7 @@
 #include "mj/mj_credits_scene.h"
 
 #include "bn_keypad.h"
-#include "bn_math.h"
+#include "bn_reciprocal_lut.h"
 
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
