@@ -95,7 +95,7 @@ bool enemy::candy_hit(bn::fixed x, bn::fixed y)
 {
     if(alive() && ! _jump_frames)
     {
-        if(bn::abs(x - _x) < 16 && bn::abs(y - _y) < 10)
+        if(bn::abs(x - _x) < 16 && bn::abs(y - _y) < 11)
         {
             _hit_vertical_scale = 1;
             _tiles_index = hurt_tiles_index;
@@ -262,7 +262,7 @@ void enemy::_start_walking(bn::fixed tempo, bn::random& random)
         new_x = random.get_fixed(-utils::door_x, utils::door_x);
         x_diff = new_x - x;
     }
-    while(bn::abs(x_diff) < utils::door_x / 2);
+    while(bn::abs(x_diff) < utils::door_x / 3);
 
     bool left = x_diff < 0;
     _tiles_index = walk_tiles_index;
