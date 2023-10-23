@@ -1,0 +1,17 @@
+gvsnb_kid.bmp
+gvsnb_kid_big.bmp
+	bevouliin.com
+	CC0 1.0 Universal
+	https://opengameart.org/content/running-and-jumping-kid-sprite-sheets
+	
+gvsnb_candy.bmp
+gvsnb_candy_big.bmp
+	lumimae
+	CC0 1.0 Universal
+	https://opengameart.org/content/candy-pack-1
+	
+gvsnb_building.bmp
+gvsnb_hand.bmp
+	GValiente
+	CC BY-NC-SA 4.0
+	gustavo.valiente@protonmail.com

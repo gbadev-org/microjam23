@@ -81,8 +81,8 @@ mj_speed_up.bmp
 
 mj_font.bmp
 mj_small_font.bmp
-	Sparklin Labs by Pixel-boy
-	Creative Commons Zero: http://creativecommons.org/publicdomain/zero/1.0/
+	Pixel-boy at Sparklin Labs
+	CC0 1.0 Universal (CC0 1.0)
 	https://twitter.com/2pblog1
 
 mj_candle_fire.bmp
