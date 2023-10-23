@@ -112,6 +112,14 @@ int game::play_jingle(game_jingle_type jingle, int completed_games, const game_d
         play_music(bn::music_items::mj_totsnuk07, completed_games, data);
         break;
 
+    case game_jingle_type::TOTSNUK08:
+        play_music(bn::music_items::mj_totsnuk08, completed_games, data);
+        break;
+
+    case game_jingle_type::TOTSNUK09:
+        play_music(bn::music_items::mj_totsnuk09, completed_games, data);
+        break;
+
     case game_jingle_type::TOTSNUK10:
         play_music(bn::music_items::mj_totsnuk10, completed_games, data);
         break;
