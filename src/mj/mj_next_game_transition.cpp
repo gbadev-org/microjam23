@@ -12,23 +12,25 @@ namespace mj
 
 namespace
 {
+    constexpr bn::fixed length_factor = 1.2;
+
     constexpr bn::fixed coffin_y = 48;
     constexpr bn::fixed coffin_light_y = coffin_y;
 
-    constexpr int stage_0_frames = 8;
+    constexpr int stage_0_frames = (8 * length_factor).right_shift_integer();
     constexpr bn::fixed stage_0_initial_scale = 0.01;
     constexpr bn::fixed stage_0_scale_inc = (1 - stage_0_initial_scale) / stage_0_frames;
 
-    constexpr int stage_1_frames = 24;
+    constexpr int stage_1_frames = (24 * length_factor).right_shift_integer();
 
-    constexpr int stage_2_frames = 48;
+    constexpr int stage_2_frames = (48 * length_factor).right_shift_integer();
 
     constexpr int big_digit_frames = 16;
     constexpr bn::fixed big_digit_y = -6;
     constexpr bn::fixed big_digit_initial_scale = 0.01;
     constexpr bn::fixed big_digit_scale_inc = (1 - big_digit_initial_scale) / big_digit_frames;
 
-    constexpr int stage_3_frames = 8;
+    constexpr int stage_3_frames = (8 * length_factor).right_shift_integer();
     constexpr bn::fixed stage_3_scale_dec = bn::fixed(1) / stage_3_frames;
 }
 

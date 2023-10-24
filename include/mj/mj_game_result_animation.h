@@ -45,8 +45,8 @@ protected:
     bn::fixed _hand_vertical_scale = 1;
     bn::fixed _hand_rotation_angle;
     bn::fixed _fade_intensity;
-    int _delay_frames = 8;
-    int _pending_frames = 100;
+    int _delay_frames;
+    int _pending_frames;
 
     game_result_animation();
 
