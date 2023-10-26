@@ -1,0 +1,9 @@
+rower frames made using:
+https://www.blendswap.com/blend/22064 - rowboat by asterlil, CC-BY license
+https://blendswap.com/blend/13034 - wood mannequin by jgilhutton, CC-BY license
+
+Does not appear in game, but is contained in .blend files in the repo
+https://blendswap.com/blend/29466 - low poly shark by NKaap, CC-BY license
+
+water and fishy animation, .blend files in repo by Noah Nelson, CC0 license
+row/l_button.bmp and row/r_button.bmp by Noah Nelson, CC0 license
