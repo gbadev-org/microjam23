@@ -1,0 +1,6 @@
+fixxg1_ball.bmp
+fixxg1_bg.bmp
+fixxg1_club.bmp
+	fixx
+	CC0 1.0 Universal (CC0 1.0)
+	fixx@hotmail.de
