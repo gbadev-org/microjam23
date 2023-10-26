@@ -1,0 +1,7 @@
+abd_bg.bmp
+abd_bowl.bmp
+abd_candy.bmp
+abd_player_lose.bmp
+	ahmadabd
+	CC0 1.0 Universal (CC0 1.0)
+	ahmadabd.1997@gmail.com
