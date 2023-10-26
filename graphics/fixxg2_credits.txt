@@ -1,0 +1,7 @@
+fixxg2_crosshair.bmp
+fixxg2_bg.bmp
+fixxg2_zombie.bmp
+fixxg2_zombie_dead.bmp
+	fixx
+	CC0 1.0 Universal (CC0 1.0)
+	fixx@hotmail.de
