@@ -16,7 +16,7 @@ namespace
     constexpr bn::string_view graphics_credits[] = { "quadiez" };
 }
 
-MJ_GAME_LIST_ADD(tdc::tdc_game)
+// MJ_GAME_LIST_ADD(tdc::tdc_game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 // MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
