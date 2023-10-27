@@ -1,0 +1,7 @@
+tdc_dont_press.bmp
+tdc_frame.bmp
+tdc_temple_1.bmp
+tdc_you_lose.bmp
+	QuadieZ
+	CC0 1.0 Universal (CC0 1.0)
+	phpich.10@gmail.com
