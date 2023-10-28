@@ -3,7 +3,7 @@
 
 #include "mj/mj_game_list.h"
 
-#include "bn_regular_bg_items_ppick_background.h"
+#include "bn_regular_bg_items_eab_background.h"
 #include "bn_log.h"
 
 
@@ -76,16 +76,29 @@ static const unsigned char map_wave1[7][12]
 
 
 
+static const unsigned char map_scatter[7][12]
+{
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0},
+    {2, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0},
+    {0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+};
+
+
+
 robbery::robbery(int completed_games, const mj::game_data& data)
-    : bg_(bn::regular_bg_items::ppick_background.create_bg((256 - 240) / 2,
-                                                           (256 - 160) / 2)),
+    : bg_(bn::regular_bg_items::eab_background.create_bg((256 - 240) / 2,
+                                                         (256 - 160) / 2)),
       total_frames_(play_jingle(mj::game_jingle_type::TOTSNUK05,
                                 completed_games,
                                 data))
 {
     BN_LOG(total_frames_);
 
-    switch (data.random.get() % 4) {
+    switch (data.random.get() % 5) {
     default:
     case 0:
         load_map(map_circ);
@@ -101,6 +114,10 @@ robbery::robbery(int completed_games, const mj::game_data& data)
 
     case 3:
         load_map(map_wave1);
+        break;
+
+    case 4:
+        load_map(map_scatter);
         break;
     }
 
@@ -126,7 +143,7 @@ mj::game_result robbery::play(const mj::game_data& data)
     for (auto it = pumpkins_.begin(); it not_eq pumpkins_.end();) {
         if (has_intersection(*it, *theif_)) {
             auto spr = it->sprite_;
-            spr.set_item(bn::sprite_items::ppick_tileset, 2);
+            spr.set_item(bn::sprite_items::eab_tileset, 2);
             spr.put_below();
             decorations_.push_back(spr);
             it = pumpkins_.erase(it);

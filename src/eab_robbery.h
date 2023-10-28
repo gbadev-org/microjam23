@@ -11,7 +11,7 @@
 #include "bn_keypad.h"
 
 
-#include "bn_sprite_items_ppick_tileset.h"
+#include "bn_sprite_items_eab_tileset.h"
 #include "mj/mj_game.h"
 
 
@@ -93,7 +93,7 @@ private:
 
     static bn::sprite_ptr make_spr(int index)
     {
-        bn::sprite_builder bld(bn::sprite_items::ppick_tileset, index);
+        bn::sprite_builder bld(bn::sprite_items::eab_tileset, index);
         return bld.build();
     }
 
@@ -164,15 +164,15 @@ private:
                     keyframe_counter_ = 0;
                     ++run_keyframe_;
                     run_keyframe_ %= 4;
-                    top_half_.set_item(bn::sprite_items::ppick_tileset,
+                    top_half_.set_item(bn::sprite_items::eab_tileset,
                                        4 + run_keyframe_);
-                    legs_.set_item(bn::sprite_items::ppick_tileset,
+                    legs_.set_item(bn::sprite_items::eab_tileset,
                                    8 + run_keyframe_);
                 }
             } else {
                 run_keyframe_ = 0;
-                top_half_.set_item(bn::sprite_items::ppick_tileset, 3);
-                legs_.set_item(bn::sprite_items::ppick_tileset, 12);
+                top_half_.set_item(bn::sprite_items::eab_tileset, 3);
+                legs_.set_item(bn::sprite_items::eab_tileset, 12);
                 run_keyframe_ = 0;
             }
 
@@ -252,23 +252,23 @@ private:
             auto growth = pumpkin_count_;
             switch (growth) {
             case 1:
-                bag_.set_item(bn::sprite_items::ppick_tileset, 14);
+                bag_.set_item(bn::sprite_items::eab_tileset, 14);
                 break;
 
             case 2:
-                bag_.set_item(bn::sprite_items::ppick_tileset, 15);
+                bag_.set_item(bn::sprite_items::eab_tileset, 15);
                 break;
 
             case 3:
-                bag_.set_item(bn::sprite_items::ppick_tileset, 16);
+                bag_.set_item(bn::sprite_items::eab_tileset, 16);
                 break;
 
             case 4:
-                bag_.set_item(bn::sprite_items::ppick_tileset, 17);
+                bag_.set_item(bn::sprite_items::eab_tileset, 17);
                 break;
 
             case 5:
-                bag_.set_item(bn::sprite_items::ppick_tileset, 18);
+                bag_.set_item(bn::sprite_items::eab_tileset, 18);
                 break;
 
             default:
