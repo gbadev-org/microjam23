@@ -1,0 +1,9 @@
+awj_arrow.bmp
+awj_bag.bmp
+awj_bg.bmp
+awj_candy.bmp
+awj_light.bmp
+awj_shadow.bmp
+	AWJ
+	CC0 1.0 Universal (CC0 1.0)
+	alasdairwjallen@gmail.com
