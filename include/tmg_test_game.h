@@ -35,6 +35,10 @@ public:
 
     void fade_out(const mj::game_data& data) final;
 
+    void on_pause_start(const mj::game_data& data) final;
+
+    void on_pause_end(const mj::game_data& data) final;
+
 private:
     bn::regular_bg_ptr _bg;
     int _total_frames;

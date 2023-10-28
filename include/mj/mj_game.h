@@ -128,6 +128,24 @@ public:
      */
     virtual void fade_out(const game_data& data) = 0;
 
+    /**
+     * @brief Even called when the pause starts.
+     *
+     * It's called only once per pause.
+     *
+     * @param data Shared data between all games.
+     */
+    virtual void on_pause_start(const game_data& data);
+
+    /**
+     * @brief Even called when the pause ends.
+     *
+     * It's called only once per pause.
+     *
+     * @param data Shared data between all games.
+     */
+    virtual void on_pause_end(const game_data& data);
+
 protected:
     game() = default;
 };

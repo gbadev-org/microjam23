@@ -25,7 +25,7 @@
 namespace mj
 {
 
-game_manager::game_manager(int completed_games, const mj::game_data& data, core& core) :
+game_manager::game_manager(int completed_games, const game_data& data, core& core) :
     _used_alloc_ewram(bn::memory::used_alloc_ewram())
 {
     bn::span<game_list::function_type> game_list_entries = game_list::get();

@@ -8,6 +8,8 @@
 #include "bn_regular_bg_items_tmg_you_lose.h"
 #include "bn_regular_bg_items_tmg_you_win.h"
 
+#include "bn_log.h"
+
 namespace
 {
     constexpr bn::string_view code_credits[] = { "GValiente" };
@@ -69,6 +71,14 @@ mj::game_result test_game::play(const mj::game_data& data)
 }
 
 void test_game::fade_out([[maybe_unused]] const mj::game_data& data)
+{
+}
+
+void test_game::on_pause_start([[maybe_unused]] const mj::game_data& data)
+{
+}
+
+void test_game::on_pause_end([[maybe_unused]] const mj::game_data& data)
 {
 }
 

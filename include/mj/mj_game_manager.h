@@ -14,7 +14,7 @@ class game_manager
 {
 
 public:
-    game_manager(int completed_games, const mj::game_data& data, core& core);
+    game_manager(int completed_games, const game_data& data, core& core);
 
     ~game_manager();
 

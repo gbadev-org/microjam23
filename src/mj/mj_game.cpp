@@ -165,4 +165,12 @@ int game::play_jingle(game_jingle_type jingle, int completed_games, const game_d
     return recommended_total_frames(base_total_frames, completed_games, data);
 }
 
+void game::on_pause_start(const game_data&)
+{
+}
+
+void game::on_pause_end(const game_data&)
+{
+}
+
 }
