@@ -8,8 +8,6 @@
 #include "bn_regular_bg_items_tmg_you_lose.h"
 #include "bn_regular_bg_items_tmg_you_win.h"
 
-#include "bn_log.h"
-
 namespace
 {
     constexpr bn::string_view code_credits[] = { "GValiente" };
