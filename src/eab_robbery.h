@@ -29,7 +29,7 @@ public:
 
     [[nodiscard]] bn::string<16> title() const final
     {
-        return "pumpkin robbery!";
+        return "snatch pumpkins!";
     }
 
     [[nodiscard]] int total_frames() const final
