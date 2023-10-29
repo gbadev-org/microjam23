@@ -38,14 +38,23 @@ namespace
 
     constexpr int first_victory_music_position = 12;
     constexpr int second_victory_music_position = 14;
-    constexpr int defeat_music_position = 10;
-    constexpr int next_game_music_position = 8;
-    constexpr int speed_up_music_position = 16;
-    constexpr int game_over_music_position = 18;
+    constexpr bn::fixed victory_music_volume = 0.55;
 
-    void _play_music([[maybe_unused]] int position, [[maybe_unused]] bn::fixed tempo)
+    constexpr int defeat_music_position = 10;
+    constexpr bn::fixed defeat_music_volume = 0.6;
+
+    constexpr int next_game_music_position = 8;
+    constexpr bn::fixed next_game_music_volume = 0.6;
+
+    constexpr int speed_up_music_position = 16;
+    constexpr bn::fixed speed_up_music_volume = 0.55;
+
+    constexpr int game_over_music_position = 18;
+    constexpr bn::fixed game_over_music_volume = 0.6;
+
+    void _play_music(int position, bn::fixed volume, bn::fixed tempo)
     {
-        bn::music_items::mj_gbahalloween.play(0.5);
+        bn::music_items::mj_gbahalloween.play(volume);
         bn::music::set_position(position);
         bn::music::set_tempo(tempo);
     }
@@ -168,7 +177,7 @@ bn::optional<scene_type> game_scene::update()
                 {
                     _game_over_scene.reset(new game_over_scene(_completed_games, _core));
 
-                    _play_music(game_over_music_position, 1);
+                    _play_music(game_over_music_position, game_over_music_volume, 1);
                 }
             }
 
@@ -195,7 +204,7 @@ void game_scene::_create_next_game_transition()
 {
     _next_game_transition.emplace(_completed_games);
 
-    _play_music(next_game_music_position, _music_tempo);
+    _play_music(next_game_music_position, next_game_music_volume, _music_tempo);
 }
 
 void game_scene::_update_play()
@@ -267,7 +276,7 @@ bool game_scene::_update_fade(bool update_again)
                     _lives.look_down();
                     big_pumpkin_visible = false;
 
-                    _play_music(speed_up_music_position, 1.075);
+                    _play_music(speed_up_music_position, speed_up_music_volume, 1.075);
                 }
                 else
                 {
@@ -359,11 +368,11 @@ bool game_scene::_update_fade(bool update_again)
                     {
                         _play_music(
                             _completed_games % 2 ? second_victory_music_position : first_victory_music_position,
-                            _music_tempo);
+                            victory_music_volume, _music_tempo);
                     }
                     else
                     {
-                        _play_music(defeat_music_position, _music_tempo);
+                        _play_music(defeat_music_position, defeat_music_volume, _music_tempo);
                     }
                 }
                 else

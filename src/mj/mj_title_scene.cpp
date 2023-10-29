@@ -75,7 +75,7 @@ title_scene::title_scene(core& core) :
 
     _set_menu_visible(false);
 
-    bn::music_items::mj_gbahalloween.play(0.5);
+    bn::music_items::mj_gbahalloween.play(0.55);
 }
 
 title_scene::~title_scene()
