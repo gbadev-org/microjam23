@@ -89,6 +89,20 @@ static const unsigned char map_scatter[7][12]
 
 
 
+static const unsigned char map_split[7][12]
+{
+    {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0},
+    {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0},
+};
+
+
+
+
 robbery::robbery(int completed_games, const mj::game_data& data)
     : bg_(bn::regular_bg_items::eab_background.create_bg((256 - 240) / 2,
                                                          (256 - 160) / 2)),
@@ -98,7 +112,7 @@ robbery::robbery(int completed_games, const mj::game_data& data)
 {
     BN_LOG(total_frames_);
 
-    switch (data.random.get() % 5) {
+    switch (data.random.get() % 6) {
     default:
     case 0:
         load_map(map_circ);
@@ -118,6 +132,10 @@ robbery::robbery(int completed_games, const mj::game_data& data)
 
     case 4:
         load_map(map_scatter);
+        break;
+
+    case 5:
+        load_map(map_split);
         break;
     }
 
