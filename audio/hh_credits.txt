@@ -1,0 +1,32 @@
+hh_ominous_0.wav
+hh_ominous_1.wav
+hh_ominous_2.wav
+hh_ominous_3.wav
+hh_ominous_4.wav
+hh_ominous_5.wav
+hh_ominous_6.wav
+hh_ominous_7.wav
+hh_ominous_8.wav
+hh_pipe_organ.wav
+hh_waves.wav
+	Michael Elkayam
+	CC0 1.0 Universal (CC0 1.0)
+	jne@jeremyelkayam.com
+
+hh_switch_on.wav
+    3Maze - Buttons and Switches (Distributed by Soniss)
+    Soniss GDC Bundle License (https://sonniss.com/gdc-bundle-license/)
+    https://sonniss.com/gameaudiogdc
+
+hh_ambient.wav
+    Soundspark LLC - Industrial Spaces 4 (Distributed by Soniss)
+    Soniss GDC Bundle License 
+    https://sonniss.com/gameaudiogdc
+
+hh_footstep_0.wav
+hh_footstep_1.wav
+hh_footstep_2.wav
+hh_footstep_3.wav
+    Studio 23 - Winter Footsteps Collection (Distributed by Soniss)
+    Soniss GDC Bundle License 
+    https://sonniss.com/gameaudiogdc
