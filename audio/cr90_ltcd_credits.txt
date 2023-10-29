@@ -1,0 +1,9 @@
+cr90_ltcd_set_fire.wav
+	kingsrow
+	CC0 1.0 Universal (CC0 1.0)
+	https://freesound.org/people/kingsrow/sounds/181578/
+
+cr90_ltcd_correct.wav
+	copyrat90
+	CC0 1.0 Universal (CC0 1.0)
+	https://github.com/copyrat90

@@ -1,0 +1,12 @@
+cr90_ltcd_black.bmp
+cr90_ltcd_cake.bmp
+cr90_ltcd_candle.bmp
+cr90_ltcd_flying_candle.bmp
+cr90_ltcd_matchstick.bmp
+cr90_ltcd_light_w8.bmp
+cr90_ltcd_light_w16.bmp
+cr90_ltcd_light_w32.bmp
+cr90_ltcd_light_w64.bmp
+	copyrat90
+	CC0 1.0 Universal (CC0 1.0)
+	https://github.com/copyrat90
