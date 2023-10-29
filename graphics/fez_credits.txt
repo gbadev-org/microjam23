@@ -1,0 +1,11 @@
+fez_bat.bmp
+fez_bg_speed.bmp
+fez_bg_stars.bmp
+fez_cross.bmp
+fez_garlic.bmp
+fez_moon.bmp
+fez_stake.bmp
+fez_umbrella.bmp
+	Fe26
+	CC0 1.0 Universal (CC0 1.0)
+	https://fe26.itch.io/
