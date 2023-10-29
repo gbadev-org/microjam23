@@ -72,6 +72,8 @@ Skull::Skull(fixed_point p):
 	angle = 0;
 	angle_vel = 1;
 	cracked = false;
+	missed = false;
+	caught = false;
 	sprite.set_bg_priority(1);
 }
 
@@ -146,29 +148,6 @@ void Skelebro::update(const mj::game_data& data)
 	}
 	else
 	{
-		flipTimer -= fixed(1);
-		if(flipTimer <= fixed(0))
-		{
-			flipTimer += maxFlipTimer;
-			sprite_body.set_horizontal_flip(!sprite_body.horizontal_flip());
-			if(sprite_body.horizontal_flip())
-			{
-				skull.offset.set_x(1);
-			}
-			else
-			{
-				skull.offset.set_x(-1);
-			}
-		}
-		if(flipTimer >= (maxFlipTimer/2))
-		{
-			skull.offset.set_y(0);
-		}
-		else
-		{
-			skull.offset.set_y(1);
-		}
-		
 		if (timer > 0)
 		{
 			timer--;
@@ -178,6 +157,33 @@ void Skelebro::update(const mj::game_data& data)
 			}
 		}
 	}
+	
+	flipTimer -= fixed(1);
+	if(flipTimer <= fixed(0))
+	{
+		flipTimer += maxFlipTimer;
+		sprite_body.set_horizontal_flip(!sprite_body.horizontal_flip());
+		if (!skull.caught)
+		{
+			if(sprite_body.horizontal_flip())
+			{
+				skull.offset.set_x(1);
+			}
+			else
+			{
+				skull.offset.set_x(-1);
+			}
+		}
+	}
+	if(flipTimer >= (maxFlipTimer/2))
+	{
+		skull.offset.set_y(0);
+	}
+	else
+	{
+		skull.offset.set_y(1);
+	}
+	
 	skull.update(data);
 }
 
@@ -220,6 +226,12 @@ skullCatch::skullCatch(int completed_games, const mj::game_data& data) :
 	_skelebros[3].timer = beatLength.integer()*9;
 	
 	_player_sprite.set_bg_priority(2);
+	
+	_player_x = fixed(0);
+	_player_catch_x_offset = fixed(0);
+	_player_catch_y = fixed(23);
+	_target = max(1,min(4, (completed_games+10)/10));
+	_catch_count = 0;
 }
 
 void skullCatch::fade_in([[maybe_unused]] const mj::game_data& data)
@@ -241,14 +253,22 @@ mj::game_result skullCatch::play(const mj::game_data& data)
 		_defeat = true;
 	}
 	
+	fixed speed = fixed(3);
+	
+	if (keypad::a_held() || keypad::b_held())
+	{
+		speed = speed * 2;
+	}
+	
+	// Move the player
 	if(keypad::left_held())
 	{
-		_player_x-=2;
+		_player_x-=speed;
 		_player_anim_timer--;
 	}
 	else if(keypad::right_held())
 	{
-		_player_x+=2;
+		_player_x+=speed;
 		_player_anim_timer--;
 	}
 	else
@@ -256,12 +276,43 @@ mj::game_result skullCatch::play(const mj::game_data& data)
 		_player_anim_timer = 3;
 	}
 	
+	//Detect a catch
+	for (int i = 0; i <= 3; i++)
+	{
+		if (_skelebros[i].skull.active && !_skelebros[i].skull.missed)
+		{
+			if (_skelebros[i].skull.pos.y() > _player_catch_y)
+			{
+				if (abs((_player_x + _player_catch_x_offset) - _skelebros[i].skull.pos.x()) <= fixed(10))
+				{
+					_skelebros[i].skull.caught = true;
+					_skelebros[i].skull.active = false;
+					_catch_count++;
+					_skelebros[i].skull.offset.set_x(_skelebros[i].skull.pos.x() - _player_x);
+					_skelebros[i].skull.offset.set_y(_player_catch_y);
+					_player_catch_y -= fixed(8);
+					_player_catch_x_offset = _skelebros[i].skull.offset.x();
+				}
+				else
+				{
+					_skelebros[i].skull.missed = true;
+				}
+			}
+		}
+		
+		if (_skelebros[i].skull.caught)
+		{
+			_skelebros[i].skull.pos.set_x(_player_x);
+		}
+	}
+	
+	// Update Player sprite position
 	if(_player_anim_timer <= 0)
 	{
 		_player_sprite.set_horizontal_flip(!_player_sprite.horizontal_flip());
 		_player_anim_timer = 5;
 	}
-	_player_sprite.set_x(_player_x);
+	_player_sprite.set_x(_player_x.integer());
 	
 	return result;
 }

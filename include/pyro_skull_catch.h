@@ -29,9 +29,11 @@ public:
 	fixed_point offset;
 	bool active;
 	bool cracked;
+	bool missed;
+	bool caught;
+	fixed_point pos;
 
 private:
-	fixed_point pos;
 	fixed_point vel;
 	fixed angle;
 	fixed angle_vel;
@@ -54,11 +56,11 @@ public:
 	fixed maxFlipTimer;
 	fixed flipTimer;
 	int timer;
+	Skull skull;
 
 private:
 	fixed_point pos;
 	sprite_ptr sprite_body;
-	Skull skull;
 	bool throwing;
 };
 
@@ -70,7 +72,32 @@ public:
 	
 	[[nodiscard]] string<16> title() const final
 	{
-		return "Get a head!";
+		switch (_target)
+		{
+		case 0:
+			return "SOMETHING IS WRONG";
+			break;
+		
+		case 1:
+			return "Get A Head!";
+			break;
+		
+		case 2:
+			return "Double Up!";
+			break;
+		
+		case 3:
+			return "Catch 3 Skulls!";
+			break;
+		
+		case 4:
+			return "Catch 4 Skulls!";
+			break;
+		
+		default:
+			return "SOMETHING IS WRONG";
+			break;
+		}
 	}
 	
 	[[nodiscard]] int total_frames() const final
@@ -84,7 +111,7 @@ public:
 	
 	[[nodiscard]] bool victory() const final
 	{
-		return !_defeat;
+		return _catch_count >= _target;
 	}
 	
 	void fade_out(const mj::game_data& data) final;
@@ -94,11 +121,15 @@ private:
 	int _total_frames;
 	int _show_result_frames = 60;
 	bool _defeat = false;
-	int _player_x = 0;
+	fixed _player_x = 0;
+	fixed _player_catch_x_offset = 0;
+	fixed _player_catch_y = fixed(23);
 	int _player_anim_timer = 0;
 	int _player_anim_frame = 0;
 	Skelebro _skelebros[4];
 	sprite_ptr _player_sprite;
+	int _target = 0;
+	int _catch_count = 0;
 };
 
 }
