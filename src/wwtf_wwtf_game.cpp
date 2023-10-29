@@ -99,7 +99,7 @@ mj::game_result wwtf_game::play(const mj::game_data& data)
 
             _strugglesoundhandle.stop();
 
-            bn::sound_items::wwtf_awoo.play();
+            bn::sound_items::wwtf_awoo.play(0.5);
 
             for(bn::sprite_ptr& text_sprite : _win_text_sprites)
             {
