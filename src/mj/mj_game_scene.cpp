@@ -13,7 +13,7 @@
 #include "mj/mj_game_result_animation.h"
 #include "mj/mj_scene_type.h"
 
-// #include "bn_music_items.h"
+#include "bn_music_items.h"
 #include "bn_regular_bg_items_mj_big_pumpkin_1.h"
 #include "bn_regular_bg_items_mj_big_pumpkin_2.h"
 #include "bn_regular_bg_items_mj_big_pumpkin_3.h"
@@ -36,18 +36,18 @@ namespace
     constexpr int fade_out_frames = 64;
     constexpr int volume_dec_frames = 24;
 
-    constexpr int victory_music_position = 9;
-    constexpr int defeat_music_position = 4;
-    constexpr int next_game_music_position = 2;
-    constexpr int speed_up_music_position = 12;
-
-    constexpr int game_over_music_position = 13;
+    constexpr int first_victory_music_position = 12;
+    constexpr int second_victory_music_position = 14;
+    constexpr int defeat_music_position = 10;
+    constexpr int next_game_music_position = 8;
+    constexpr int speed_up_music_position = 16;
+    constexpr int game_over_music_position = 18;
 
     void _play_music([[maybe_unused]] int position, [[maybe_unused]] bn::fixed tempo)
     {
-        // bn::music_items::mj_santtest.play(0.5);
-        // bn::music::set_position(position);
-        // bn::music::set_tempo(tempo);
+        bn::music_items::mj_gbahalloween.play(0.5);
+        bn::music::set_position(position);
+        bn::music::set_tempo(tempo);
     }
 }
 
@@ -88,6 +88,7 @@ bn::optional<scene_type> game_scene::update()
     else if(_next_scene)
     {
         --_fade_out_frames;
+        _update_volume_dec();
 
         if(_fade_out_frames > 0)
         {
@@ -112,6 +113,11 @@ bn::optional<scene_type> game_scene::update()
         if(_next_scene)
         {
             _fade_out_frames = fade_out_frames;
+
+            if(bn::music::playing())
+            {
+                _music_volume_dec = bn::music::volume() / fade_out_frames;
+            }
         }
     }
     else
@@ -351,7 +357,9 @@ bool game_scene::_update_fade(bool update_again)
 
                     if(_victory)
                     {
-                        _play_music(victory_music_position + (_completed_games % 2), _music_tempo);
+                        _play_music(
+                            _completed_games % 2 ? second_victory_music_position : first_victory_music_position,
+                            _music_tempo);
                     }
                     else
                     {

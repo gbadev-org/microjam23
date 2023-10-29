@@ -154,6 +154,7 @@ void credits::_generate_text_items()
     _text_items.push_back("");
 
     text_items_set.clear();
+    text_items_set.insert("Tempest");
     text_items_set.insert("exelotl");
     text_items_set.insert("Totsnuk");
     text_items_set.insert("Ven Sopeña");
