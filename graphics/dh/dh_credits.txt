@@ -1,0 +1,43 @@
+dh_hand.bmp
+dh_candy.bmp
+dh_candy_icon.bmp
+
+dh_a_button.bmp
+dh_b_button.bmp
+dh_control_pad.bmp
+
+dh_forward_icon.bmp
+dh_backward_icon.bmp
+dh_look_icon.bmp
+dh_press_icon.bmp
+
+dh_background_alt_palette.bmp
+dh_foreground_alt_palette.bmp
+dh_pumpkin_bell_press_alt_background_palette.bmp
+dh_pumpkin_bell_press_alt_foreground_palette.bmp
+
+frames/dh_frames_*.bmp
+background_frames/dh_background_frames_*.bmp
+
+close_bell/dh_close_bell_*.bmp
+close_left_bell/dh_close_left_bell_*.bmp
+right_bell/dh_right_bell_*.bmp
+pumpkin_bell/dh_pumpkin_bell_*.bmp
+high_bell/dh_high_bell_*.bmp
+window_bell/dh_window_bell_*.bmp
+
+dh_close_bell_press/dh_close_bell_press_*.bmp
+dh_close_left_bell_press/dh_close_left_bell_press_*.bmp
+dh_right_bell_press/dh_right_bell_press_*.bmp
+dh_pumpkin_bell_press/dh_pumpkin_bell_press_*.bmp
+dh_high_bell_press/dh_high_bell_press_*.bmp
+dh_window_bell_press/dh_window_bell_press_*.bmp
+
+dh_part_2_intro/dh_part_2_intro_*.bmp
+dh_part_2_intro_back/dh_part_2_intro_back_*.bmp
+dh_part_2_intro_phone/dh_part_2_intro_phone_*.bmp
+
+	SomeRanDev (Robert Borghese)
+	CC0 1.0 Universal (CC0 1.0)
+	somerandev.contact@gmail.com
+	https://github.com/SomeRanDev/DoorHell.gba
