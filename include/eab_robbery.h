@@ -4,7 +4,6 @@
 #include "bn_regular_bg_ptr.h"
 #include "bn_sprite_builder.h"
 #include "bn_sprite_ptr.h"
-#include "bn_sprite_tiles_ptr.h"
 #include "bn_vector.h"
 #include "bn_optional.h"
 #include "bn_fixed_rect.h"

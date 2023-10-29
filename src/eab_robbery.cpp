@@ -1,10 +1,8 @@
 #include "eab_robbery.h"
-#include <string.h>
 
 #include "mj/mj_game_list.h"
 
 #include "bn_regular_bg_items_eab_background.h"
-#include "bn_log.h"
 
 
 namespace
@@ -13,7 +11,7 @@ constexpr bn::string_view code_credits[] = {"Evan Bowman"};
 constexpr bn::string_view graphics_credits[] = {"Evan Bowman"};
 } // namespace
 
-MJ_GAME_LIST_ADD(eab::robbery)
+// MJ_GAME_LIST_ADD(eab::robbery)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 
@@ -110,8 +108,6 @@ robbery::robbery(int completed_games, const mj::game_data& data)
                                 completed_games,
                                 data))
 {
-    BN_LOG(total_frames_);
-
     switch (data.random.get() % 6) {
     default:
     case 0:
