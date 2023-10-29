@@ -1,0 +1,5 @@
+eab_background.bmp
+eab_tileset.bmp
+	Evan Bowman
+	Public domain
+	https://github.com/evanbowman
