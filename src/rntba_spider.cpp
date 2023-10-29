@@ -416,6 +416,9 @@ void spider::process_shake(){
         case 3:
           _string[i].set_x(-2);
           break;
+
+        default:
+          break;
       }
 
       idx++;
