@@ -1,0 +1,24 @@
+dh_hand.bmp
+dh_candy.bmp
+dh_candy_icon.bmp
+
+dh_a_button.bmp
+dh_b_button.bmp
+dh_control_pad.bmp
+
+dh_forward_icon.bmp
+dh_backward_icon.bmp
+dh_look_icon.bmp
+dh_press_icon.bmp
+
+dh_background_alt_palette.bmp
+dh_foreground_alt_palette.bmp
+dh_pumpkin_bell_press_alt_background_palette.bmp
+dh_pumpkin_bell_press_alt_foreground_palette.bmp
+
+dh/*.bmp (all files in graphics/dh/ directory)
+
+	SomeRanDev (Robert Borghese)
+	CC0 1.0 Universal (CC0 1.0)
+	somerandev.contact@gmail.com
+	https://github.com/SomeRanDev/DoorHell.gba

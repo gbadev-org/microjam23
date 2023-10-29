@@ -1,0 +1,26 @@
+dh_denied.wav
+dh_fall.wav
+dh_success.wav
+dh_incorrect.wav
+	SomeRanDev (Robert Borghese)
+	CC0 1.0 Universal (CC0 1.0)
+	somerandev.contact@gmail.com
+
+dh_doorbell.wav
+	Amada44
+	CC0 1.0 Universal, via Wikimedia Commons
+	https://commons.wikimedia.org/wiki/File:Sound_Effect_-_Door_Bell.ogg
+	(Converted and modified by Robert Borghese)
+
+dh_door_open.wav
+dh_wood_squeak.wav
+	rubberduck
+	CC0 1.0 Universal (CC0 1.0)
+	https://opengameart.org/content/100-cc0-metal-and-wood-sfx
+	(Converted and modified by Robert Borghese)
+
+dh_footstep.wav
+	GboxMikeFozzy
+	CC0 1.0 Universal (CC0 1.0)
+	https://opengameart.org/content/footsteps-0
+	(Converted and modified by Robert Borghese)
