@@ -30,15 +30,18 @@
 #include "bn_sprite_items_pyro_skeletonbody.h"
 #include "bn_sprite_items_pyro_skeletonhead.h"
 
+#include "bn_sound_items.h"
 namespace
 {
 	constexpr bn::string_view code_credits[] = { "PyroPyro" };
 	constexpr bn::string_view graphics_credits[] = { "PyroPyro" };
+	constexpr bn::string_view sfx_credits[] = { "PyroPyro" };
 }
 
 MJ_GAME_LIST_ADD(pyro_sc::skullCatch)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
+MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
 
 namespace pyro_sc
 {
@@ -89,6 +92,7 @@ void Skull::update(const mj::game_data& data)
 		sprite.set_position(pos);
 		if(pos.y() >= floorY && !cracked)
 		{
+			sound_items::pyro_skullcatch_drop.play(1, data.random.get_fixed(0.9, 1.1), clamp(pos.x()/100,fixed(-1),fixed(1)));
 			vel.set_y(vel.y() * fixed(-0.5));
 			cracked = true;
 			sprite.set_tiles(sprite_items::pyro_skeletonhead.tiles_item().create_tiles(1));
@@ -144,6 +148,7 @@ void Skelebro::update(const mj::game_data& data)
 				velX = -velX;
 			}
 			skull.toss(fixed_point(velX,fixed(-4)));
+			sound_items::pyro_skullcatch_throw.play(1, data.random.get_fixed(0.9, 1.1), pos.x()/100);
 		}
 	}
 	else
@@ -198,13 +203,6 @@ skullCatch::skullCatch(int completed_games, const mj::game_data& data) :
 	},
 	_player_sprite(sprite_items::pyro_skeletonbody.create_sprite(0,38))
 {
-	constexpr int frames_diff = maximum_frames - minimum_frames;
-	constexpr int maximum_speed_completed_games = 30;
-	
-	completed_games = min(completed_games, maximum_speed_completed_games);
-	
-	int frames_reduction = (frames_diff * completed_games) / maximum_speed_completed_games;
-	
 	int actual_total_frames = _total_frames + 48;
 	
 	fixed beatLength = fixed(actual_total_frames)/16;
@@ -232,6 +230,7 @@ skullCatch::skullCatch(int completed_games, const mj::game_data& data) :
 	_player_catch_y = fixed(23);
 	_target = max(1,min(4, (completed_games+10)/10));
 	_catch_count = 0;
+	_player_footstep_timer = 1;
 }
 
 void skullCatch::fade_in([[maybe_unused]] const mj::game_data& data)
@@ -254,10 +253,11 @@ mj::game_result skullCatch::play(const mj::game_data& data)
 	}
 	
 	fixed speed = fixed(3);
+	bool dash = keypad::a_held() || keypad::b_held();
 	
-	if (keypad::a_held() || keypad::b_held())
+	if (dash)
 	{
-		speed = speed * 2;
+		speed = fixed(5);
 	}
 	
 	// Move the player
@@ -265,11 +265,13 @@ mj::game_result skullCatch::play(const mj::game_data& data)
 	{
 		_player_x-=speed;
 		_player_anim_timer--;
+		_player_footstep_timer--;
 	}
 	else if(keypad::right_held())
 	{
 		_player_x+=speed;
 		_player_anim_timer--;
+		_player_footstep_timer--;
 	}
 	else
 	{
@@ -283,15 +285,17 @@ mj::game_result skullCatch::play(const mj::game_data& data)
 		{
 			if (_skelebros[i].skull.pos.y() > _player_catch_y)
 			{
-				if (abs((_player_x + _player_catch_x_offset) - _skelebros[i].skull.pos.x()) <= fixed(10))
+				fixed player_catch_x = _player_x + _player_catch_x_offset;
+				if (abs((player_catch_x) - _skelebros[i].skull.pos.x()) <= fixed(10))
 				{
 					_skelebros[i].skull.caught = true;
 					_skelebros[i].skull.active = false;
-					_catch_count++;
 					_skelebros[i].skull.offset.set_x(_skelebros[i].skull.pos.x() - _player_x);
 					_skelebros[i].skull.offset.set_y(_player_catch_y);
 					_player_catch_y -= fixed(8);
 					_player_catch_x_offset = _skelebros[i].skull.offset.x();
+					sound_items::pyro_skullcatch_catch.play(1, fixed(1) + (fixed(0.1)*_catch_count), clamp(((player_catch_x)/100),fixed(-1),fixed(1)));
+					_catch_count++;
 				}
 				else
 				{
@@ -311,6 +315,18 @@ mj::game_result skullCatch::play(const mj::game_data& data)
 	{
 		_player_sprite.set_horizontal_flip(!_player_sprite.horizontal_flip());
 		_player_anim_timer = 5;
+	}
+	if (_player_footstep_timer <= 0)
+	{
+		_player_footstep_timer = 12;
+		if (dash)
+		{
+			sound_items::pyro_skullcatch_footstep.play(0.5, 1.5, clamp(((_player_x)/100),fixed(-1),fixed(1)));
+		}
+		else
+		{
+			sound_items::pyro_skullcatch_footstep.play(0.5, 1, clamp(((_player_x)/100),fixed(-1),fixed(1)));
+		}
 	}
 	_player_sprite.set_x(_player_x.integer());
 	

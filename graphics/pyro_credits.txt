@@ -1,0 +1,6 @@
+pyro_skeletonbody.bmp
+pyro_skeletonhead.bmp
+pyro_skullcatch_stage.bmp
+	PyroPyro
+	CC0 1.0 Universal (CC0 1.0)
+	

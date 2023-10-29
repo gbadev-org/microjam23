@@ -75,7 +75,8 @@ public:
 		switch (_target)
 		{
 		case 0:
-			return "SOMETHING IS WRONG";
+			//This shouldn't be possible, free win it happens though.
+			return "Do Whatever";
 			break;
 		
 		case 1:
@@ -95,6 +96,7 @@ public:
 			break;
 		
 		default:
+			// This game is impossible if this ever happens, so it shouldn't.
 			return "SOMETHING IS WRONG";
 			break;
 		}
@@ -125,6 +127,7 @@ private:
 	fixed _player_catch_x_offset = 0;
 	fixed _player_catch_y = fixed(23);
 	int _player_anim_timer = 0;
+	int _player_footstep_timer = 0;
 	int _player_anim_frame = 0;
 	Skelebro _skelebros[4];
 	sprite_ptr _player_sprite;
