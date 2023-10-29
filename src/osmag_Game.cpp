@@ -27,7 +27,7 @@ namespace osmag{
 Game::Game([[maybe_unused]] int completed_games, const mj::game_data& data){
     // Musique
     //bn::music_items::osmag_ectoplasmus.play();
-    bn::music_items::osmag_isocel_halloween.play();
+    bn::music_items::osmag_isocel_halloween.play(0.5);
 
     data.random.update(); // DEBUG
     // Initialisation du ciel
