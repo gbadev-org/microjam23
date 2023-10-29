@@ -20,6 +20,8 @@ mj_totsnuk04b.xm
 mj_totsnuk05.xm
 mj_totsnuk06.xm
 mj_totsnuk07.xm
+mj_totsnuk08.xm
+mj_totsnuk09.xm
 mj_totsnuk10.xm
 mj_totsnuk11.xm
 mj_totsnuk12a.xm

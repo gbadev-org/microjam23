@@ -3,13 +3,12 @@
 
 #include "bn_affine_mat_attributes.h"
 #include "bn_bg_palettes_actions.h"
-#include "bn_camera_ptr.h"
 #include "bn_music_actions.h"
-#include "bn_regular_bg_ptr.h"
 #include "bn_sprite_affine_mat_ptr.h"
 #include "bn_sprite_affine_mat_attributes_hbe_ptr.h"
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_palettes_actions.h"
+#include "bn_unique_ptr.h"
 #include "bn_vector.h"
 
 #include "mj_scene.h"
@@ -18,6 +17,7 @@ namespace mj
 {
 
 class core;
+class title_backdrop;
 
 class title_scene final : public scene
 {
@@ -31,8 +31,7 @@ public:
 
 private:
     bn::affine_mat_attributes _affine_mat_attributes[160];
-    bn::regular_bg_ptr _bg_1;
-    bn::regular_bg_ptr _bg_2;
+    bn::unique_ptr<title_backdrop> _backdrop;
     bn::optional<bn::bg_palettes_fade_to_action> _bgs_fade_action;
     bn::optional<bn::sprite_palettes_fade_to_action> _sprites_fade_action;
     bn::optional<bn::music_volume_to_action> _music_volume_action;
@@ -42,9 +41,7 @@ private:
     bn::vector<bn::sprite_ptr, 4> _play_sprites;
     bn::vector<bn::sprite_ptr, 4> _credits_sprites;
     bn::sprite_ptr _cursor_sprite;
-    int _bg_update_counter = 0;
     bn::optional<scene_type> _next_scene;
-    bn::camera_ptr _bg_camera;
     bn::sprite_affine_mat_ptr _affine_mat;
     bn::sprite_affine_mat_attributes_hbe_ptr _affine_mat_hbe;
 

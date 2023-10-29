@@ -40,6 +40,11 @@ void game::play_music(bn::music_item music_item, int completed_games, const game
     bn::music::set_tempo(recommended_music_tempo(completed_games, data));
 }
 
+void game::play_sound(bn::sound_item sound_item, int completed_games, const game_data& data)
+{
+    sound_item.play(1, recommended_music_tempo(completed_games, data), 0);
+}
+
 int game::play_jingle(game_jingle_type jingle, int completed_games, const game_data& data)
 {
     bn::fixed base_seconds = 8;
@@ -105,6 +110,14 @@ int game::play_jingle(game_jingle_type jingle, int completed_games, const game_d
 
     case game_jingle_type::TOTSNUK07:
         play_music(bn::music_items::mj_totsnuk07, completed_games, data);
+        break;
+
+    case game_jingle_type::TOTSNUK08:
+        play_music(bn::music_items::mj_totsnuk08, completed_games, data);
+        break;
+
+    case game_jingle_type::TOTSNUK09:
+        play_music(bn::music_items::mj_totsnuk09, completed_games, data);
         break;
 
     case game_jingle_type::TOTSNUK10:

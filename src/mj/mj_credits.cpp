@@ -124,7 +124,7 @@ void credits::_generate_text_items()
     text_items_set.insert("bevouliin.com");
     text_items_set.insert("Paul Wortmann");
     text_items_set.insert("CloutierFontes");
-    text_items_set.insert("Sparklin Labs by Pixel-boy");
+    text_items_set.insert("Pixel-boy at Sparklin Labs");
     text_items_set.insert("Evan Bowman");
     text_items_set.insert("Leonard Pabin");
     text_items_set.insert("Screaming Brain Studios");

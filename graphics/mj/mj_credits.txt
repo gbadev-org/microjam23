@@ -14,6 +14,13 @@ mj_tombstone_3.bmp
 	Pickpik
 	Free to use for personal and commercial projects (https://www.pickpik.com/terms-of-service)
 	https://www.pickpik.com/starry-night-night-with-graveyard-silhouette-tombstone-cemetery-41198
+	
+mj_graveyard_1.bmp
+mj_graveyard_2.bmp
+mj_graveyard_3.bmp
+    pmprog
+    CC BY-SA 4.0
+    https://www.pmprog.uk/
 
 mj_title.bmp
 mj_title_23.bmp
@@ -74,8 +81,8 @@ mj_speed_up.bmp
 
 mj_font.bmp
 mj_small_font.bmp
-	Sparklin Labs by Pixel-boy
-	Creative Commons Zero: http://creativecommons.org/publicdomain/zero/1.0/
+	Pixel-boy at Sparklin Labs
+	CC0 1.0 Universal (CC0 1.0)
 	https://twitter.com/2pblog1
 
 mj_candle_fire.bmp

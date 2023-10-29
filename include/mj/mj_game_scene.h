@@ -47,7 +47,7 @@ private:
     bn::fixed _dmg_music_right_volume_dec;
     bn::fixed _updates;
     bn::optional<scene_type> _next_scene;
-    int _completed_games = 0;
+    int _completed_games;
     int _pending_frames = 0;
     int _total_frames = 1;
     int _big_pumpkin_stage = 0;
@@ -57,6 +57,7 @@ private:
     bool _playing = false;
     bool _victory = false;
     bool _big_pumpkin_inc = true;
+    bool _first_game_played = false;
 
     void _update_play();
 

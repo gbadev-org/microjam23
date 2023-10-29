@@ -24,6 +24,8 @@ namespace mj
         TOTSNUK05,
         TOTSNUK06,
         TOTSNUK07,
+        TOTSNUK08,
+        TOTSNUK09,
         TOTSNUK10,
         TOTSNUK11,
         TOTSNUK12A,

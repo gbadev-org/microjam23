@@ -3,6 +3,7 @@
 
 #include "bn_string.h"
 #include "bn_music_item.h"
+#include "bn_sound_item.h"
 
 #include "mj_difficulty_level.h"
 #include "mj_game_data.h"
@@ -56,6 +57,14 @@ public:
      * @param data Shared data between all games.
      */
     static void play_music(bn::music_item music_item, int completed_games, const game_data& data);
+
+    /**
+     * @brief Plays the given sound item with the recommended speed.
+     * @param sound_item Specifies the sound effect to play.
+     * @param completed_games Number of completed games.
+     * @param data Shared data between all games.
+     */
+    static void play_sound(bn::sound_item sound_item, int completed_games, const game_data& data);
 
     /**
      * @brief Plays the given common jingle with the recommended tempo
