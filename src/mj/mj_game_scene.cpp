@@ -45,7 +45,7 @@ namespace
 
     void _play_music([[maybe_unused]] int position, [[maybe_unused]] bn::fixed tempo)
     {
-        bn::music_items::mj_gbahalloween.play(0.5);
+        bn::music_items::mj_gbahalloween.play(1.0);
         bn::music::set_position(position);
         bn::music::set_tempo(tempo);
     }
