@@ -185,7 +185,7 @@ void mystic_mansion::spawn_enemy(const mj::game_data& data, uint8_t enemy_type){
 void mystic_mansion::fade_in([[maybe_unused]] const mj::game_data& data)
 {
     // if there is going to be a fade in sound, please remove this...
-    bn::sound_items::hh_pipe_organ.play(0.5);
+    // bn::sound_items::hh_pipe_organ.play(0.5);
 }
 
 mj::game_result mystic_mansion::play(const mj::game_data& data)
@@ -211,7 +211,7 @@ mj::game_result mystic_mansion::play(const mj::game_data& data)
             _defeat = true;
             result.remove_title = true;
             _player.disable_movement();
-            bn::sound_items::hh_waves.play(1);
+            bn::sound_items::hh_waves.play(0.5);
         }
 
         if(data.pending_frames == _lightbulb_appear_frame){
@@ -222,7 +222,7 @@ mj::game_result mystic_mansion::play(const mj::game_data& data)
             if(_ambient_sound_timer){
                 --_ambient_sound_timer;
             }else{
-                _ambient_sounds.at(data.random.get_int(_ambient_sounds.size())).play(1);
+                _ambient_sounds.at(data.random.get_int(_ambient_sounds.size())).play(0.5);
                 _ambient_sound_timer = data.random.get_int(60, 120);
             }
         }

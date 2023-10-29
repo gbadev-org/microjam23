@@ -7,7 +7,6 @@ hh_ominous_5.wav
 hh_ominous_6.wav
 hh_ominous_7.wav
 hh_ominous_8.wav
-hh_pipe_organ.wav
 hh_waves.wav
 	Michael Elkayam
 	CC0 1.0 Universal (CC0 1.0)
