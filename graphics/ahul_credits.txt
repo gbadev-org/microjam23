@@ -1,0 +1,6 @@
+ahul_girl.bmp
+ahul_background.bmp
+ahul_background_dark.bmp
+	ahul
+	CC0 1.0 Universal (CC0 1.0)
+	hulsizer@hey.com
