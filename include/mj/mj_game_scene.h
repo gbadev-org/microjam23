@@ -37,7 +37,7 @@ private:
     game_lives _lives;
     bn::deque<uint8_t, 8> _game_history;
     bn::optional<game_manager> _game_manager;
-    bn::optional<bn::regular_bg_ptr> _black_bg;
+    bn::optional<bn::regular_bg_ptr> _white_bg;
     bn::optional<bn::regular_bg_ptr> _big_pumpkin;
     bn::unique_ptr<game_result_animation> _result_animation;
     bn::unique_ptr<game_result_animation> _speed_inc_animation;

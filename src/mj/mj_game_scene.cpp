@@ -26,7 +26,7 @@
 #include "bn_regular_bg_items_mj_big_pumpkin_10.h"
 #include "bn_regular_bg_items_mj_big_pumpkin_11.h"
 #include "bn_regular_bg_items_mj_big_pumpkin_12.h"
-#include "bn_regular_bg_items_mj_black_bg.h"
+#include "bn_regular_bg_items_mj_white_bg.h"
 
 namespace mj
 {
@@ -71,7 +71,12 @@ game_scene::game_scene(bool start_with_zoom_out, core& core) :
     _fade_in_frames(start_with_zoom_out ? 0 : fade_in_frames),
     _big_pumpkin_inc(! start_with_zoom_out)
 {
-    if(! start_with_zoom_out)
+    if(start_with_zoom_out)
+    {
+        bn::bg_palettes::set_fade(bn::colors::white, 1);
+        bn::sprite_palettes::set_fade(bn::colors::white, 1);
+    }
+    else
     {
         bn::bg_palettes::set_fade(bn::colors::black, 1);
         bn::sprite_palettes::set_fade(bn::colors::black, 1);
@@ -417,7 +422,7 @@ bool game_scene::_update_fade(bool update_again)
                 }
                 else
                 {
-                    _black_bg.reset();
+                    _white_bg.reset();
                 }
 
                 _backdrop.fade_in();
@@ -482,9 +487,12 @@ bool game_scene::_update_fade(bool update_again)
 
             if(! _big_pumpkin_inc && ! _first_game_played)
             {
-                bn::regular_bg_ptr black_bg = bn::regular_bg_items::mj_black_bg.create_bg(0, 0);
-                black_bg.set_priority(0);
-                _black_bg = bn::move(black_bg);
+                bn::regular_bg_ptr white_bg = bn::regular_bg_items::mj_white_bg.create_bg(0, 0);
+                white_bg.set_priority(0);
+                _white_bg = bn::move(white_bg);
+
+                bn::bg_palettes::set_fade_intensity(0);
+                bn::sprite_palettes::set_fade_intensity(0);
             }
             break;
 
