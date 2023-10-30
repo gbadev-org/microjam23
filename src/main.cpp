@@ -5,6 +5,13 @@
 #include "mj/mj_credits_scene.h"
 #include "mj/mj_game_scene.h"
 #include "mj/mj_intro_scene.h"
+#include "mj/mj_opening_a_scene.h"
+#include "mj/mj_opening_b_scene.h"
+#include "mj/mj_opening_c_scene.h"
+#include "mj/mj_opening_d_scene.h"
+#include "mj/mj_opening_e_scene.h"
+#include "mj/mj_opening_f_scene.h"
+#include "mj/mj_opening_g_scene.h"
 #include "mj/mj_scene.h"
 #include "mj/mj_scene_type.h"
 #include "mj/mj_title_scene.h"
@@ -22,7 +29,9 @@ int main()
         bn::optional<mj::scene_type> next_scene = mj::scene_type::GAME;
     #else
         bn::optional<mj::scene_type> next_scene = mj::scene_type::INTRO;
-    #endif
+    #endif  
+    
+    next_scene = mj::scene_type::OPENING_A;  // TEMP
 
     while(true)
     {
@@ -50,6 +59,34 @@ int main()
 
                 case mj::scene_type::TITLE:
                     scene.reset(new mj::title_scene(core));
+                    break;
+
+                case mj::scene_type::OPENING_A:
+                    scene.reset(new mj::opening_a_scene(core));
+                    break;
+
+                case mj::scene_type::OPENING_B:
+                    scene.reset(new mj::opening_b_scene(core));
+                    break;
+
+                case mj::scene_type::OPENING_C:
+                    scene.reset(new mj::opening_c_scene(core));
+                    break;
+
+                case mj::scene_type::OPENING_D:
+                    scene.reset(new mj::opening_d_scene(core));
+                    break;
+
+                case mj::scene_type::OPENING_E:
+                    scene.reset(new mj::opening_e_scene(core));
+                    break;
+
+                case mj::scene_type::OPENING_F:
+                    scene.reset(new mj::opening_f_scene(core));
+                    break;
+
+                case mj::scene_type::OPENING_G:
+                    scene.reset(new mj::opening_g_scene(core));
                     break;
 
                 case mj::scene_type::GAME:
