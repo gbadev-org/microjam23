@@ -130,7 +130,7 @@ void credits::_generate_text_items()
     text_items_set.insert("Screaming Brain Studios");
     text_items_set.insert("GValiente");
     text_items_set.insert("Pickpik");
-    text_items_set.insert("Jono");
+    text_items_set.insert("Jono Shields");
     text_items_set.insert("vectorportal.com");
     text_items_set.insert("Sun Ladder");
 
