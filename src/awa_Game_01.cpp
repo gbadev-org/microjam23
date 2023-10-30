@@ -37,16 +37,7 @@ namespace awa{
      _apple_moveby_0(bn::sprite_move_by_action(_apple_sprite_0,1,1)),
      _apple_moveby_1(bn::sprite_move_by_action(_apple_sprite_1,0,1)),
      _apple_moveby_2(bn::sprite_move_by_action(_apple_sprite_2,-2,-1)){
-        constexpr int frames_diff = maximum_frames - minimum_frames;
-        constexpr int maximum_speed_completed_games = 30;
-        
-        completed_games = bn::min(completed_games, maximum_speed_completed_games);
-
-        int frames_reduction = (frames_diff * completed_games) / maximum_speed_completed_games;
-        _total_frames = maximum_frames - frames_reduction;
-        _total_frames -= data.random.get_int(60);
         _total_frames = play_jingle(mj::game_jingle_type::EXELOTL02A, completed_games, data);
-
         _tempo = recommended_music_tempo(completed_games, data);
         _show_result_frames = (60 / _tempo).right_shift_integer();
 
@@ -59,11 +50,11 @@ namespace awa{
         _player_sprite.set_bg_priority(1);
     }
 
-    void Game01::fade_in(const mj::game_data& data){
+    void Game01::fade_in([[maybe_unused]] const mj::game_data& data){
         return;
     }
 
-    void Game01::fade_out(const mj::game_data& data){
+    void Game01::fade_out([[maybe_unused]] const mj::game_data& data){
         return;
     }
 
