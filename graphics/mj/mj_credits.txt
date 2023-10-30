@@ -101,6 +101,7 @@ mj_credits_sky.bmp
 	https://opengameart.org/content/seamless-sky-backgrounds
 	
 mj_big_font_highlight.bmp
+mj_black_bg.bmp
 mj_candle.bmp
 mj_coffin_light.bmp
 mj_pause_dialog.bmp

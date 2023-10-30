@@ -26,6 +26,7 @@
 #include "bn_regular_bg_items_mj_big_pumpkin_10.h"
 #include "bn_regular_bg_items_mj_big_pumpkin_11.h"
 #include "bn_regular_bg_items_mj_big_pumpkin_12.h"
+#include "bn_regular_bg_items_mj_black_bg.h"
 
 namespace mj
 {
@@ -60,18 +61,24 @@ namespace
     }
 }
 
-game_scene::game_scene(core& core) :
+game_scene::game_scene(bool start_with_zoom_out, core& core) :
     _core(core),
     _data({ core.text_generator(), core.small_text_generator(), core.big_text_generator(), core.random(), 0 }),
     _pause(core),
     _music_tempo(game::recommended_music_tempo(MJ_INITIAL_COMPLETED_GAMES, _data)),
     _completed_games(MJ_INITIAL_COMPLETED_GAMES),
-    _fade_in_frames(fade_in_frames)
+    _big_pumpkin_stage(start_with_zoom_out ? 13 : 0),
+    _fade_in_frames(start_with_zoom_out ? 0 : fade_in_frames),
+    _big_pumpkin_inc(! start_with_zoom_out)
 {
-    bn::bg_palettes::set_fade(bn::colors::black, 1);
-    bn::sprite_palettes::set_fade(bn::colors::black, 1);
+    if(! start_with_zoom_out)
+    {
+        bn::bg_palettes::set_fade(bn::colors::black, 1);
+        bn::sprite_palettes::set_fade(bn::colors::black, 1);
 
-    _update_big_pumpkin(&bn::regular_bg_items::mj_big_pumpkin_1);
+        _update_big_pumpkin(&bn::regular_bg_items::mj_big_pumpkin_1);
+    }
+
     _lives.show(false, false);
 }
 
@@ -401,11 +408,19 @@ bool game_scene::_update_fade(bool update_again)
 
             if(! _big_pumpkin_inc)
             {
-                _game_manager.reset();
+                if(_first_game_played)
+                {
+                    _game_manager.reset();
+                    _lives.show(_victory, ! _victory);
+                    _pending_frames = 0;
+                    _total_frames = 1;
+                }
+                else
+                {
+                    _black_bg.reset();
+                }
+
                 _backdrop.fade_in();
-                _lives.show(_victory, ! _victory);
-                _pending_frames = 0;
-                _total_frames = 1;
             }
             break;
 
@@ -464,6 +479,13 @@ bool game_scene::_update_fade(bool update_again)
 
         case 12:
             bg_item = &bn::regular_bg_items::mj_big_pumpkin_12;
+
+            if(! _big_pumpkin_inc && ! _first_game_played)
+            {
+                bn::regular_bg_ptr black_bg = bn::regular_bg_items::mj_black_bg.create_bg(0, 0);
+                black_bg.set_priority(0);
+                _black_bg = bn::move(black_bg);
+            }
             break;
 
         default:

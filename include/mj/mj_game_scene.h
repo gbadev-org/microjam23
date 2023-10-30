@@ -21,7 +21,7 @@ class game_scene final : public scene
 {
 
 public:
-    explicit game_scene(core& core);
+    game_scene(bool start_with_zoom_out, core& core);
 
     ~game_scene() final;
 
@@ -37,6 +37,7 @@ private:
     game_lives _lives;
     bn::deque<uint8_t, 8> _game_history;
     bn::optional<game_manager> _game_manager;
+    bn::optional<bn::regular_bg_ptr> _black_bg;
     bn::optional<bn::regular_bg_ptr> _big_pumpkin;
     bn::unique_ptr<game_result_animation> _result_animation;
     bn::unique_ptr<game_result_animation> _speed_inc_animation;
@@ -51,13 +52,13 @@ private:
     int _completed_games;
     int _pending_frames = 0;
     int _total_frames = 1;
-    int _big_pumpkin_stage = 0;
+    int _big_pumpkin_stage;
     int _big_pumpkin_counter = 0;
     int _fade_in_frames = 0;
     int _fade_out_frames = 0;
     bool _playing = false;
     bool _victory = false;
-    bool _big_pumpkin_inc = true;
+    bool _big_pumpkin_inc;
     bool _first_game_played = false;
 
     void _create_next_game_transition();

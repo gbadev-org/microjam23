@@ -10,6 +10,7 @@ namespace mj
         INTRO,
         TITLE,
         GAME,
+        GAME_ZOOM_OUT,
         CREDITS,
     };
 }

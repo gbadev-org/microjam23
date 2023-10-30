@@ -8,7 +8,7 @@ namespace mj
 
 namespace
 {
-    constexpr bn::string_view valid_label = "mj002";
+    constexpr bn::string_view valid_label = "mj003";
 }
 
 void sram_data::init()

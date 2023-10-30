@@ -53,7 +53,11 @@ int main()
                     break;
 
                 case mj::scene_type::GAME:
-                    scene.reset(new mj::game_scene(core));
+                    scene.reset(new mj::game_scene(false, core));
+                    break;
+
+                case mj::scene_type::GAME_ZOOM_OUT:
+                    scene.reset(new mj::game_scene(true, core));
                     break;
 
                 case mj::scene_type::CREDITS:
