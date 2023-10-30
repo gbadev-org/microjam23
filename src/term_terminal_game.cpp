@@ -19,7 +19,7 @@
 namespace{
     constexpr bn::string_view code_credits[] = {"tiredsasha"};
     constexpr bn::string_view graphics_credits[] = {"Darien Valentine", "Kirill Pertsev"};
-    constexpr bn::string_view sfx_credits[] = {"phoenix1291", "janbezouska", "tempest"};
+    constexpr bn::string_view sfx_credits[] = {"phoenix1291", "janbezouska", "Tempest"};
 }
 
 MJ_GAME_LIST_ADD(terminal_game::game)
