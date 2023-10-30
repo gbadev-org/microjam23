@@ -195,7 +195,7 @@ game::game([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game
 	
 	_palette_item(_colors, bn::bpp_mode::BPP_8),
     _palette(bn::bg_palette_ptr::create(_palette_item)),
-    _tiles(bn::regular_bg_tiles_ptr::allocate(30 * 20 * 2, bn::bpp_mode::BPP_8)),
+    _tiles(bn::regular_bg_tiles_ptr::allocate(TERM_STATIC_W * TERM_STATIC_H * 2, bn::bpp_mode::BPP_8)),
     _map(bn::regular_bg_map_ptr::allocate(bn::size(32, 32), _tiles, _palette)),
     _bg(bn::regular_bg_ptr::create((256 - 240) / 2, (256 - 160) / 2, _map)),
     _tiles_span(*_tiles.vram()),
