@@ -8,7 +8,7 @@
 #include "bn_regular_bg_items_fixxg1_bg.h"
 #include "bn_sprite_items_fixxg1_club.h"
 #include "bn_sprite_items_fixxg1_ball.h"
-
+#include "bn_sound_items.h"
 
 namespace
 {
@@ -132,6 +132,12 @@ mj::game_result game::play(const mj::game_data& data)
 
                 result.remove_title = true;
                 _ball_velocity=bn::fixed_point(-5,-2);
+
+                bn::sound_items::fixxg3_club.play(0.8);
+            }
+            else
+            {
+                bn::sound_items::fixxg3_swoosh.play(0.8);
             }
         }
         
