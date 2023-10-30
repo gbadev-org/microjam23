@@ -1,0 +1,9 @@
+foopod_vamp_bite.bmp
+foopod_vamp.bmp
+foopod_vamp_neck.bmp
+foopod_vamp_target.bmp
+foopod_vamp_teeth_bg.bmp
+foopod_vamp_bite_bg.bmp
+	Jono Shields
+	CC0 1.0 Universal (CC0 1.0)
+	jonoshields.com

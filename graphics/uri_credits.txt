@@ -1,0 +1,17 @@
+uri_arrow_sprite.bmp
+uri_char_1_alt.bmp
+uri_char_1.bmp
+uri_char_2_alt.bmp
+uri_char_2.bmp
+uri_char_3_alt.bmp
+uri_char_3.bmp
+uri_char_4.bmp
+uri_credits.txt
+uri_detention_room_bg.bmp
+uri_empty_bg.bmp
+uri_end_lose.bmp
+uri_end_win.bmp
+uri_police_station_bg.bmp
+	Uri
+	CC BY-NC-SA 4.0
+	https://reyoruga.itch.io/
