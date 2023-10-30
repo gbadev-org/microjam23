@@ -26,7 +26,10 @@ public:
 
 	mj::game_result play(const mj::game_data& data) final;
 
-	bool victory() const final;
+    bool victory() const final
+    {
+        return _victory;
+    }
 
 	inline void fade_in([[maybe_unused]] const mj::game_data& data) final { }
 	inline void fade_out([[maybe_unused]] const mj::game_data& data) final { }
@@ -85,6 +88,8 @@ private:
 	bn::optional<bn::sprite_ptr> moon_sprite;
 
 	bn::optional<bn::regular_bg_ptr> bg;
+
+    bool _victory = false;
 };
 
 }

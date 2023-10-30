@@ -274,9 +274,10 @@ void awj_game::play_state_user_selection([[maybe_unused]] const mj::game_data& d
 
 void awj_game::leave_state_user_selection([[maybe_unused]] const mj::game_data& data, [[maybe_unused]] mj::game_result& result)
 {
-	// BN_LOG(__FUNCTION__);
-	
-	(selection == bags[winning_bag] ? bn::sound_items::awj_succeed : bn::sound_items::awj_fail).play();
+    // BN_LOG(__FUNCTION__);
+
+    _victory = selection == bags[winning_bag];
+    (_victory ? bn::sound_items::awj_succeed : bn::sound_items::awj_fail).play();
 
 	light_sprite->set_visible(false);
 	arrow_sprite->set_visible(false);
@@ -334,11 +335,6 @@ mj::game_result awj_game::play([[maybe_unused]] const mj::game_data& data)
 	}
 
 	return result;
-}
-
-bool awj_game::victory() const
-{
-	return has_made_selection && (selection == bags[winning_bag]);
 }
 
 } // awj
