@@ -17,6 +17,7 @@
 #include "bn_sprite_palettes.h"
 #include "bn_sprites.h"
 #include "bn_sprites_mosaic.h"
+#include "bn_version.h"
 #include "bn_window.h"
 
 #include "mj/mj_core.h"
@@ -65,6 +66,7 @@ game_manager::~game_manager()
     BN_BASIC_ASSERT(bn::memory::used_alloc_ewram() == _used_alloc_ewram,
                     "Memory leak detected: ", bn::memory::used_alloc_ewram(), " - ", _used_alloc_ewram);
 
+    bn::core::set_assert_tag(BN_VERSION_STRING);
     bn::core::set_skip_frames(0);
     bn::core::set_vblank_callback(nullptr);
     bn::assert::set_callback(nullptr);
