@@ -44,7 +44,7 @@ namespace
     constexpr bn::fixed defeat_music_volume = 0.6;
 
     constexpr int next_game_music_position = 8;
-    constexpr bn::fixed next_game_music_volume = 0.6;
+    constexpr bn::fixed next_game_music_volume = 0.65;
 
     constexpr int speed_up_music_position = 16;
     constexpr bn::fixed speed_up_music_volume = 0.55;
