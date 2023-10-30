@@ -1,0 +1,7 @@
+term_fixedsys_excelsior.bmp
+	Originally by Darien Valentine
+	Updated by Kirill Pertsev
+	https://github.com/kika/fixedsys
+	The creator(s) of this content have released it to the public domain. For jurisdictions where this is not permitted, it is released under the terms of the Creative Commons Zero Dedication.
+term_black_notransparency.bmp
+	This is released to the public domain. For jurisdictions where this is not permitted, it is released under the terms of the Creative Commons Zero Dedication.

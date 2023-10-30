@@ -1,0 +1,25 @@
+term_correct.wav
+term_incorrect.wav
+	phoenix1291
+	https://opengameart.org/content/sound-effects-pack-2
+	CC0 1.0 Universal
+term_flourescent.it
+	janbezouska
+	https://freesound.org/people/janbezouska/sounds/537769/
+	tempest
+	https://7empes7.itch.io
+	CC0 1.0 Universal
+term_keyboard00.wav
+term_keyboard01.wav
+term_keyboard02.wav
+term_keyboard03.wav
+term_keyboard04.wav
+term_keyboard05.wav
+term_keyboard06.wav
+term_keyboard07.wav
+term_keyboard08.wav
+term_keyboard09.wav
+term_keyboard10.wav
+	tempest
+	https://7empes7.itch.io
+	CC0 1.0 Universal
