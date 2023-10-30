@@ -19,7 +19,7 @@ namespace
 	constexpr bn::string_view sfx_credits[] = { "PyroPyro" };
 }
 
-// MJ_GAME_LIST_ADD(pyro_sc::skullCatch)
+MJ_GAME_LIST_ADD(pyro_sc::skullCatch)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
@@ -29,6 +29,8 @@ namespace pyro_sc
 
 namespace
 {
+    constexpr fixed sfx_volume = 0.75;
+
     void approach(fixed &val, fixed target, fixed vel)
     {
         if(val > target)
@@ -76,7 +78,7 @@ void Skull::update(const mj::game_data& data)
 		sprite.set_position(pos);
 		if(pos.y() >= floorY && !cracked)
 		{
-			sound_items::pyro_skullcatch_drop.play(1, data.random.get_fixed(0.9, 1.1), clamp(pos.x()/100,fixed(-1),fixed(1)));
+            sound_items::pyro_skullcatch_drop.play(sfx_volume, data.random.get_fixed(0.9, 1.1), clamp(pos.x()/100,fixed(-1),fixed(1)));
 			vel.set_y(vel.y() * fixed(-0.5));
 			cracked = true;
 			sprite.set_tiles(sprite_items::pyro_skeletonhead.tiles_item().create_tiles(1));
@@ -132,7 +134,7 @@ void Skelebro::update(const mj::game_data& data)
 				velX = -velX;
 			}
 			skull.toss(fixed_point(velX,fixed(-4)));
-			sound_items::pyro_skullcatch_throw.play(1, data.random.get_fixed(0.9, 1.1), pos.x()/100);
+            sound_items::pyro_skullcatch_throw.play(sfx_volume, data.random.get_fixed(0.9, 1.1), pos.x()/100);
 		}
 	}
 	else
@@ -273,7 +275,7 @@ mj::game_result skullCatch::play(const mj::game_data& data)
 					_skelebros[i].skull.offset.set_y(_player_catch_y);
 					_player_catch_y -= fixed(8);
 					_player_catch_x_offset = _skelebros[i].skull.offset.x();
-					sound_items::pyro_skullcatch_catch.play(1, fixed(1) + (fixed(0.1)*_catch_count), clamp(((player_catch_x)/100),fixed(-1),fixed(1)));
+                    sound_items::pyro_skullcatch_catch.play(sfx_volume, fixed(1) + (fixed(0.1)*_catch_count), clamp(((player_catch_x)/100),fixed(-1),fixed(1)));
 					_catch_count++;
 				}
 				else
