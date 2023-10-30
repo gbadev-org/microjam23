@@ -24,7 +24,11 @@ public:
     [[nodiscard]] bn::optional<scene_type> update() final;
 
 private:
-    bn::regular_bg_ptr _chair;
+    bn::regular_bg_ptr _bg;
+    bn::regular_bg_ptr _kids;
+    bn::regular_bg_ptr _pumpkin;
+    bn::regular_bg_ptr _pumpkin_face;
+    bn::fixed _y, _vely;
 };
 
 }

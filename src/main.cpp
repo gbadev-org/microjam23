@@ -31,7 +31,7 @@ int main()
         bn::optional<mj::scene_type> next_scene = mj::scene_type::INTRO;
     #endif  
     
-    next_scene = mj::scene_type::OPENING_A;  // TEMP
+    next_scene = mj::scene_type::OPENING_F;  // TEMP
 
     while(true)
     {

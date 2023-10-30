@@ -2,6 +2,7 @@
 #define MJ_OPENING_D_SCENE_H
 
 #include "bn_bg_palettes_actions.h"
+#include "bn_fixed_fwd.h"
 #include "bn_regular_bg_ptr.h"
 #include "bn_sprite_palettes_actions.h"
 #include "bn_sprite_ptr.h"
@@ -24,7 +25,11 @@ public:
     [[nodiscard]] bn::optional<scene_type> update() final;
 
 private:
-    bn::regular_bg_ptr _chair;
+    bn::regular_bg_ptr _oldmanface;
+    bn::regular_bg_ptr _shadow;
+    bn::fixed _y;
+    bn::fixed _yvel;
+    int _ytimer;
 };
 
 }

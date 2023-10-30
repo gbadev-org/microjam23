@@ -24,7 +24,10 @@ public:
     [[nodiscard]] bn::optional<scene_type> update() final;
 
 private:
-    bn::regular_bg_ptr _chair;
+    bn::regular_bg_ptr _house;
+    bn::regular_bg_ptr _trickortreat;
+    bn::regular_bg_ptr _kids;
+    bn::regular_bg_ptr _oldman;
 };
 
 }

@@ -1,5 +1,6 @@
 #include "mj/mj_opening_c_scene.h"
 
+#include "bn_affine_bg_map_ptr.h"
 #include "bn_colors.h"
 #include "bn_fixed_point.h"
 #include "bn_keypad.h"
@@ -9,16 +10,23 @@
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
 
-#include "bn_regular_bg_items_mj_op_a_chair.h"
+#include "bn_regular_bg_items_mj_op_c_trickortreaters.h"
+#include "bn_bg_palette_items_mj_op_c_pal0.h"
+#include "bn_bg_palette_items_mj_op_c_pal1.h"
+#include "bn_bg_palette_items_mj_op_c_pal2.h"
+#include "bn_bg_palette_ptr.h"
 
 namespace mj
 {
 
-opening_c_scene::opening_c_scene(core& core) :
-    cutscene(core, 10),
-    _chair(bn::regular_bg_items::mj_op_a_chair.create_bg(0, 0))
-{
+constexpr int FADE_IN_DURATION = 2;
+constexpr int FADE_OUT_AT = 200;
+constexpr int FADE_OUT_DURATION = 2; // 20
 
+opening_c_scene::opening_c_scene(core& core) :
+    cutscene(core, FADE_IN_DURATION),
+    _trickortreaters(bn::regular_bg_items::mj_op_c_trickortreaters.create_bg(0, 0))
+{
 }
 
 bn::optional<scene_type> opening_c_scene::update()
@@ -26,7 +34,58 @@ bn::optional<scene_type> opening_c_scene::update()
     bn::optional<scene_type> result;
     
     
-    // result = scene_type::TITLE;
+    if (!_bgs_fader.done())
+    {
+        _bgs_fader.update();
+        _sprites_fader.update();
+    }
+    
+    if (_handle_skipping(result))
+    {
+        return result;
+    }
+    
+    bn::bg_palette_ptr pal = _trickortreaters.palette();
+    
+    // TODO: interpolate smoothly instead of flickering (or just make better palettes)
+    
+    if ((_t / 4) % 2 == 0)
+    {
+        pal.set_colors(bn::bg_palette_items::mj_op_c_pal1);
+    }
+    else
+    {
+        pal.set_colors(bn::bg_palette_items::mj_op_c_pal2);
+    }
+    
+    // switch ((_t / 6) % 4)
+    // {
+    //     case 0: pal.set_colors(bn::bg_palette_items::mj_op_c_pal0); break;
+    //     case 1: pal.set_colors(bn::bg_palette_items::mj_op_c_pal1); break;
+    //     case 2: pal.set_colors(bn::bg_palette_items::mj_op_c_pal2); break;
+    //     case 3: pal.set_colors(bn::bg_palette_items::mj_op_c_pal1); break;
+    // }
+    
+    // pal.set_colors(const bg_palette_item &palette_item)
+    
+    // switch ((_t / 4) % 2)
+    // {
+    //     case 0: pal.set_colors(bn::bg_palette_items::mj_op_c_pal1); break;
+    //     case 1: pal.set_colors(bn::bg_palette_items::mj_op_c_pal2); break;
+    // }
+    
+    if (_t == FADE_OUT_AT)
+    {
+        _bgs_fader = _create_bgs_fade_out_action(FADE_OUT_DURATION);
+        _sprites_fader = _create_sprites_fade_out_action(FADE_OUT_DURATION);
+    }
+    if (_t >= FADE_OUT_AT + FADE_OUT_DURATION)
+    {
+        result = scene_type::OPENING_D;
+    }
+    
+    _t++;
+    
     return result;
 }
 

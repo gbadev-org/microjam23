@@ -4,6 +4,7 @@
 #include "bn_bg_palettes_actions.h"
 #include "bn_colors.h"
 #include "bn_regular_bg_ptr.h"
+#include "bn_sprite_palettes.h"
 #include "bn_sprite_palettes_actions.h"
 #include "bn_sprite_ptr.h"
 #include "bn_vector.h"
@@ -23,7 +24,8 @@ public:
     cutscene(core& core, int frames, bn::color color = bn::colors::black) :
     _bgs_fader(_create_bgs_fade_in_action(frames, color)),
     _sprites_fader(_create_sprites_fade_in_action(frames, color)),
-    _skipping(false)
+    _skipping(false),
+    _t(0)
     {
     }
     
@@ -33,6 +35,7 @@ protected:
     bn::bg_palettes_fade_to_action _bgs_fader;
     bn::sprite_palettes_fade_to_action _sprites_fader;
     bool _skipping;
+    int _t;
 
     [[nodiscard]] inline bool _handle_skipping(bn::optional<scene_type> &result)
     {
@@ -42,42 +45,82 @@ protected:
             {
                 result = SCENE_AFTER_OPENING;
             }
-            else
-            {
-                _bgs_fader.update();
-                _sprites_fader.update();
-            }
             return true;
         }
         else
         {
-            // TODO: check for skipping
+            // TODO: check for skip button pressed.
             return false;
         }
     }
+    
+    // inline void _fade_out(int duration)
+    // {
+    //     if (duration > 0)
+    //     {
+    //         _bgs_fader = _create_bgs_fade_out_action(duration);
+    //         _sprites_fader = _create_sprites_fade_out_action(duration);
+    //     }
+    // }
 
     [[nodiscard]] inline bn::bg_palettes_fade_to_action _create_bgs_fade_in_action(int frames, bn::color color = bn::colors::black)
     {
-        bn::bg_palettes::set_fade(color, 1.0);
-        return bn::bg_palettes_fade_to_action(frames, 0.0);
+        if (frames > 0)
+        {
+            bn::bg_palettes::set_fade(color, 1.0);
+            return bn::bg_palettes_fade_to_action(frames, 0.0);
+        }
+        else
+        {
+            auto result = bn::bg_palettes_fade_to_action(1, bn::bg_palettes::fade_intensity());
+            result.update();
+            return result;
+        }
     }
 
     [[nodiscard]] inline bn::sprite_palettes_fade_to_action _create_sprites_fade_in_action(int frames, bn::color color = bn::colors::black)
     {
-        bn::sprite_palettes::set_fade(color, 1.0);
-        return bn::sprite_palettes_fade_to_action(frames, 0.0);
+        if (frames > 0)
+        {
+            bn::sprite_palettes::set_fade(color, 1.0);
+            return bn::sprite_palettes_fade_to_action(frames, 0.0);
+        }
+        else
+        {
+            auto result = bn::sprite_palettes_fade_to_action(1, bn::sprite_palettes::fade_intensity());
+            result.update();
+            return result;
+        }
     }
 
     [[nodiscard]] inline bn::bg_palettes_fade_to_action _create_bgs_fade_out_action(int frames, bn::color color = bn::colors::black)
     {
-        bn::bg_palettes::set_fade(color, 0.0);
-        return bn::bg_palettes_fade_to_action(frames, 1.0);
+        if (frames > 0)
+        {
+            bn::bg_palettes::set_fade(color, 0.0);
+            return bn::bg_palettes_fade_to_action(frames, 1.0);
+        }
+        else
+        {
+            auto result = bn::bg_palettes_fade_to_action(1, bn::bg_palettes::fade_intensity());
+            result.update();
+            return result;
+        }
     }
 
     [[nodiscard]] inline bn::sprite_palettes_fade_to_action _create_sprites_fade_out_action(int frames, bn::color color = bn::colors::black)
     {
-        bn::sprite_palettes::set_fade(color, 0.0);
-        return bn::sprite_palettes_fade_to_action(frames, 1.0);
+        if (frames > 0)
+        {
+            bn::sprite_palettes::set_fade(color, 0.0);
+            return bn::sprite_palettes_fade_to_action(frames, 1.0);
+        }
+        else
+        {
+            auto result = bn::sprite_palettes_fade_to_action(1, bn::sprite_palettes::fade_intensity());
+            result.update();
+            return result;
+        }
     }
 
 };

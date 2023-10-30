@@ -20,7 +20,6 @@
 #include "bn_sprite_items_mj_op_a_fx_02.h"
 #include "bn_sprite_items_mj_op_a_oldman_pipe.h"
 #include "bn_regular_bg_items_mj_op_a_oldman_01.h"
-#include "bn_regular_bg_items_mj_op_a_oldman_01b.h"
 #include "bn_regular_bg_items_mj_op_a_oldman_02.h"
 #include "bn_regular_bg_items_mj_op_a_oldman_03.h"
 
@@ -30,7 +29,8 @@ namespace mj
 constexpr int FADE_IN_DURATION = 60;
 constexpr int RING_AT = 120;
 constexpr int FADE_OUT_AT = 220;
-constexpr int FADE_OUT_DURATION = 8;
+// constexpr int FADE_OUT_DURATION = 8;
+constexpr int FADE_OUT_DURATION = 2;
 
 opening_a_scene::opening_a_scene(core& core) :
     cutscene(core, FADE_IN_DURATION),
@@ -40,8 +40,6 @@ opening_a_scene::opening_a_scene(core& core) :
     _exclaim(bn::sprite_items::mj_op_a_fx_02.create_sprite(60, -54)),
     _pipe(bn::sprite_items::mj_op_a_oldman_pipe.create_sprite(-82, 44))
 {
-    _t = 0;
-    _skipping = false;
     _chair.set_z_order(2);
     _oldman.set_z_order(1);
     _dingdong.set_visible(false);
@@ -53,15 +51,15 @@ bn::optional<scene_type> opening_a_scene::update()
 {
     bn::optional<scene_type> result;
     
-    if (_handle_skipping(result))
-    {
-        return result;
-    }
-    
-    if (_t < FADE_IN_DURATION)
+    if (!_bgs_fader.done())
     {
         _bgs_fader.update();
         _sprites_fader.update();
+    }
+    
+    if (_handle_skipping(result))
+    {
+        return result;
     }
     
     if (_t < RING_AT)
@@ -109,13 +107,11 @@ bn::optional<scene_type> opening_a_scene::update()
         _sprites_fader = _create_sprites_fade_out_action(FADE_OUT_DURATION);
     }
     
-    if (_t >= FADE_OUT_AT && _t < FADE_OUT_AT + FADE_OUT_DURATION)
+    if (_t >= FADE_OUT_AT + FADE_OUT_DURATION)
     {
-        _bgs_fader.update();
-        _sprites_fader.update();
+        result = scene_type::OPENING_B;
     }
     
-    // result = scene_type::TITLE;
     _t++;
     return result;
 }

@@ -24,7 +24,7 @@ public:
     [[nodiscard]] bn::optional<scene_type> update() final;
 
 private:
-    bn::regular_bg_ptr _chair;
+    bn::regular_bg_ptr _trickortreaters;
 };
 
 }
