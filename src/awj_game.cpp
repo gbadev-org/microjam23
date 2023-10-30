@@ -86,6 +86,7 @@ awj_game::awj_game([[maybe_unused]] const int completed_games, [[maybe_unused]] 
 	, next_bags{ 0, 1, 2, 3, 4 }
 {
 	current_state = 0;
+	go_to_next_state = false;
 	state_time = 0;
 
 	const uint8_t difficulty = static_cast<uint8_t>(recommended_difficulty_level(completed_games, data));
