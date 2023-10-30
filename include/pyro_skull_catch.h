@@ -1,10 +1,9 @@
-#ifndef TMG_TEST_GAME_H
-#define TMG_TEST_GAME_H
+#ifndef PYRO_SKULL_CATCH_H
+#define PYRO_SKULL_CATCH_H
 
 #include "bn_regular_bg_ptr.h"
 #include "bn_sprite_ptr.h"
 #include "bn_fixed_point.h"
-#include "bn_fixed.h"
 
 #include "mj/mj_game.h"
 
@@ -48,7 +47,7 @@ public:
 	
 	void throwSkull();
 	
-	bool failed()
+    bool failed() const
 	{
 		return skull.cracked;
 	}
@@ -76,29 +75,23 @@ public:
 		{
 		case 0:
 			//This shouldn't be possible, free win it happens though.
-			return "Do Whatever";
-			break;
+            return "Do Whatever";
 		
 		case 1:
-			return "Get A Head!";
-			break;
+            return "Get A Head!";
 		
 		case 2:
-			return "Double Up!";
-			break;
+            return "Double Up!";
 		
 		case 3:
-			return "Catch 3 Skulls!";
-			break;
+            return "Catch 3 Skulls!";
 		
 		case 4:
-			return "Catch 4 Skulls!";
-			break;
+            return "Catch 4 Skulls!";
 		
 		default:
 			// This game is impossible if this ever happens, so it shouldn't.
-			return "SOMETHING IS WRONG";
-			break;
+            return "SOMETHING IS WRONG";
 		}
 	}
 	
@@ -109,20 +102,16 @@ public:
 	
 	void fade_in(const mj::game_data& data) final;
 	
-	[[nodiscard]] mj::game_result play(const mj::game_data& data) final;
-	
-	[[nodiscard]] bool victory() const final
-	{
-		return _catch_count >= _target;
-	}
+    [[nodiscard]] mj::game_result play(const mj::game_data& data) final;
+
+    [[nodiscard]] bool victory() const final;
 	
 	void fade_out(const mj::game_data& data) final;
 
 private:
 	regular_bg_ptr _bg;
 	int _total_frames;
-	int _show_result_frames = 60;
-	bool _defeat = false;
+    int _show_result_frames = 60;
 	fixed _player_x = 0;
 	fixed _player_catch_x_offset = 0;
 	fixed _player_catch_y = fixed(23);

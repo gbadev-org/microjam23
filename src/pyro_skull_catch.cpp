@@ -1,28 +1,8 @@
 #include "pyro_skull_catch.h"
 
-// I don't know which ones I do and don't need anymore, here's all the ones the sprites example uses.
-#include "bn_core.h"
 #include "bn_math.h"
 #include "bn_keypad.h"
-#include "bn_display.h"
-#include "bn_blending.h"
-#include "bn_bg_palettes.h"
-#include "bn_regular_bg_ptr.h"
-#include "bn_sprites_mosaic.h"
-#include "bn_sprite_actions.h"
-#include "bn_sprite_builder.h"
-#include "bn_sprite_text_generator.h"
-#include "bn_sprite_animate_actions.h"
-#include "bn_sprite_first_attributes.h"
-#include "bn_sprite_third_attributes.h"
-#include "bn_sprite_position_hbe_ptr.h"
-#include "bn_sprite_first_attributes_hbe_ptr.h"
-#include "bn_sprite_third_attributes_hbe_ptr.h"
-#include "bn_sprite_affine_second_attributes.h"
-#include "bn_sprite_regular_second_attributes.h"
-#include "bn_sprite_affine_second_attributes_hbe_ptr.h"
-#include "bn_sprite_regular_second_attributes_hbe_ptr.h"
-#include "bn_fixed.h"
+#include "bn_sprite_tiles_ptr.h"
 
 #include "mj/mj_game_list.h"
 
@@ -31,6 +11,7 @@
 #include "bn_sprite_items_pyro_skeletonhead.h"
 
 #include "bn_sound_items.h"
+
 namespace
 {
 	constexpr bn::string_view code_credits[] = { "PyroPyro" };
@@ -46,24 +27,27 @@ MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
 namespace pyro_sc
 {
 
-void approach(fixed &val, fixed target, fixed vel)
+namespace
 {
-	if(val > target)
-	{
-		val -= vel;
-		if(val < target)
-		{
-			val = target;
-		}
-	}
-	else if(val < target)
-	{
-		val += vel;
-		if(val > target)
-		{
-			val = target;
-		}
-	}
+    void approach(fixed &val, fixed target, fixed vel)
+    {
+        if(val > target)
+        {
+            val -= vel;
+            if(val < target)
+            {
+                val = target;
+            }
+        }
+        else if(val < target)
+        {
+            val += vel;
+            if(val > target)
+            {
+                val = target;
+            }
+        }
+    }
 }
 
 Skull::Skull(fixed_point p):
@@ -112,8 +96,8 @@ void Skull::update(const mj::game_data& data)
 }
 
 Skelebro::Skelebro(fixed_point p, bool hflip) :
-	sprite_body(sprite_items::pyro_skeletonbody.create_sprite(p.x(),p.y())),
-	skull(Skull(fixed_point(p.x(),p.y()-15)))
+    skull(fixed_point(p.x(),p.y()-15)),
+    sprite_body(sprite_items::pyro_skeletonbody.create_sprite(p.x(),p.y()))
 {
 	flipTimer = maxFlipTimer;
 	sprite_body.set_horizontal_flip(hflip);
@@ -245,12 +229,7 @@ mj::game_result skullCatch::play(const mj::game_data& data)
 	_skelebros[0].update(data);
 	_skelebros[1].update(data);
 	_skelebros[2].update(data);
-	_skelebros[3].update(data);
-	
-	if(_skelebros[0].failed() ||	_skelebros[1].failed() ||	_skelebros[2].failed() ||	_skelebros[3].failed())
-	{
-		_defeat = true;
-	}
+    _skelebros[3].update(data);
 	
 	fixed speed = fixed(3);
 	bool dash = keypad::a_held() || keypad::b_held();
@@ -331,6 +310,16 @@ mj::game_result skullCatch::play(const mj::game_data& data)
 	_player_sprite.set_x(_player_x.integer());
 	
 	return result;
+}
+
+bool skullCatch::victory() const
+{
+    if(_skelebros[0].failed() || _skelebros[1].failed() || _skelebros[2].failed() || _skelebros[3].failed())
+    {
+        return _catch_count >= _target;
+    }
+
+    return true;
 }
 
 void skullCatch::fade_out([[maybe_unused]] const mj::game_data& data)
