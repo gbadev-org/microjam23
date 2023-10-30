@@ -6,6 +6,7 @@
 #include "bn_sprite_double_size_mode.h"
 #include "bn_string.h"
 
+#include "mj/mj_build_config.h"
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
 #include "mj/mj_title_backdrop_1.h"
@@ -71,6 +72,9 @@ title_scene::title_scene(core& core) :
     text_generator.set_left_alignment();
     text_generator.generate(-14, 32, "PLAY", _play_sprites);
     text_generator.generate(-14, 32 + 12, "CREDITS", _credits_sprites);
+    text_generator.set_right_alignment();
+    text_generator.generate(120 - 12, 80 - 12, MJ_VERSION, _version_sprites);
+    text_generator.set_left_alignment();
     _cursor_sprite.set_position(_play_sprites[0].position() - bn::fixed_point(28, 0));
 
     _set_menu_visible(false);
@@ -289,6 +293,11 @@ void title_scene::_set_menu_visible(bool visible)
     }
 
     for(bn::sprite_ptr& sprite : _credits_sprites)
+    {
+        sprite.set_visible(visible);
+    }
+
+    for(bn::sprite_ptr& sprite : _version_sprites)
     {
         sprite.set_visible(visible);
     }

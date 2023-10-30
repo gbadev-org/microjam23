@@ -3,6 +3,8 @@
 #include "bn_core.h"
 #include "bn_music.h"
 
+#include "mj/mj_build_config.h"
+
 #include "bn_music_items.h"
 
 namespace mj
@@ -174,9 +176,12 @@ void game::on_pause_end(const game_data&)
 {
 }
 
-game::game(const bn::string_view& id)
+game::game(const bn::string_view& id) :
+    _assert_tag(id)
 {
-    bn::core::set_assert_tag(id);
+    _assert_tag += ' ';
+    _assert_tag += MJ_VERSION;
+    bn::core::set_assert_tag(_assert_tag);
 }
 
 }

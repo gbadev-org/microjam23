@@ -148,6 +148,9 @@ public:
 
 protected:
     explicit game(const bn::string_view& id);
+
+private:
+    bn::string<32> _assert_tag;
 };
 
 }

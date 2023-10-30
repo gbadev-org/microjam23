@@ -3,6 +3,10 @@
 
 #include "bn_common.h"
 
+#ifndef MJ_VERSION
+    #define MJ_VERSION "1.0"
+#endif
+
 #ifndef MJ_INITIAL_COMPLETED_GAMES
     #define MJ_INITIAL_COMPLETED_GAMES 0
 #endif
