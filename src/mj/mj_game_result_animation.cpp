@@ -1,6 +1,7 @@
 #include "mj/mj_game_result_animation.h"
 
 #include "bn_bg_palette_ptr.h"
+#include "bn_blending.h"
 #include "bn_math.h"
 #include "bn_sprite_palette_ptr.h"
 
@@ -321,7 +322,9 @@ namespace
     {
 
     public:
-        speed_inc_animation()
+        speed_inc_animation() :
+            _transparency_alpha(bn::blending::transparency_alpha()),
+            _intensity_alpha(bn::blending::intensity_alpha())
         {
             _pending_frames = 150;
         }
@@ -360,6 +363,9 @@ namespace
                 _left_eye_vertical_scale = 1;
                 _left_eye_rotation_angle += 5;
                 _hand_y = _initial_hand_y;
+
+                bn::blending::set_transparency_alpha(_transparency_alpha);
+                bn::blending::set_intensity_alpha(_intensity_alpha);
             }
 
             _right_eye_horizontal_scale = _left_eye_horizontal_scale;
@@ -369,6 +375,9 @@ namespace
         }
 
     private:
+        bn::fixed _transparency_alpha;
+        bn::fixed _intensity_alpha;
+
         void _update_speed_up()
         {
             int counter = _pending_frames - 30;
@@ -401,6 +410,9 @@ namespace
             }
 
             _hand_vertical_scale = bn::max(_hand_vertical_scale, bn::fixed(0.01));
+
+            bn::blending::set_transparency_alpha(_hand_vertical_scale);
+            bn::blending::set_intensity_alpha(0);
         }
     };
 }
@@ -443,6 +455,7 @@ bn::unique_ptr<game_result_animation> game_result_animation::create_speed_inc()
 {
     auto animation = new speed_inc_animation();
     animation->_hand.set_item(bn::affine_bg_items::mj_speed_up);
+    animation->_hand.set_blending_enabled(true);
     return bn::unique_ptr<game_result_animation>(animation);
 }
 
