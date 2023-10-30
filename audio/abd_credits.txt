@@ -1,0 +1,8 @@
+abd_candyfall.wav
+abd_collectcandy.wav
+abd_lose.wav
+abd_win.wav
+	JDWasabi
+	Attribution 4.0 International (CC BY 4.0)
+	https://twitter.com/JDWasabi
+	https://jdwasabi.itch.io/8-bit-16-bit-sound-effects-pack

@@ -1,0 +1,24 @@
+hh_barbara.bmp
+hh_basement.bmp
+hh_black_bg.bmp
+hh_eyes.bmp
+hh_fat_guy_devil.bmp
+hh_fat_guy_overalls.bmp
+hh_fat_guy_vampire.bmp
+hh_gymnasium.bmp
+hh_ken.bmp
+hh_lightbulb.bmp
+hh_monster.bmp
+hh_peebar.bmp
+hh_peepantsometer.bmp
+hh_person_32.bmp
+hh_radiance.bmp
+hh_true_bat.bmp
+hh_true_bat_shaggy.bmp
+hh_true_bat_wizard.bmp
+hh_true_ghost.bmp
+hh_true_spider_frank.bmp
+hh_true_spider_bart.bmp
+	Jeremy Elkayam, Michael Elkayam
+	CC0 1.0 Universal (CC0 1.0)
+	jne@jeremyelkayam.com

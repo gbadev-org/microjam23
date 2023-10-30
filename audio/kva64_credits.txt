@@ -1,0 +1,14 @@
+kva64_critter_carousel.xm
+	kva64
+	CC BY 4.0 (Creative Commons Attribution 4.0 International)
+	https://kva64.itch.io/
+accordeon instrument sample taken from accordeon.mp3 by Roger (https://freesound.org/people/Roger/sounds/75243/)
+	CC BY 4.0 (Creative Commons Attribution 4.0 International)
+	
+kva64_pepo_cut_1.wav
+kva64_pepo_cut_2.wav
+kva64_pepo_cut_3.wav
+kva64_pepo_cut_4.wav
+	kva64
+	CC0 1.0 (CC0 1.0 Universal)
+	https://kva64.itch.io/

@@ -1,0 +1,32 @@
+osmag_araignee.bmp
+osmag_arbre_racines.bmp
+osmag_arbre_tete.bmp
+osmag_arbre_tronc.bmp
+osmag_bandes.bmp
+osmag_cible.bmp
+osmag_ciel_violet.bmp
+osmag_ogive_fantome.bmp
+osmag_pixel.bmp
+osmag_plateforme_haute.bmp
+	Fralacticus
+	Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)
+	fralacticus@gmail.com
+	
+osmag_oeil.bmp
+	(modified)
+	Night Blade
+	CC0 1.0 Universal (CC0 1.0)
+	nightblade@deengames.com
+
+osmag_munro_variable_02.bmp
+osmag_munro_variable_04.bmp
+	(modified)
+	Ten by Twenty
+	SIL Open Font License v1.10
+	https://www.instagram.com/tenbytwenty/
+	
+osmag_coffin_light.bmp
+	(modified)
+	GValiente
+	CC0 1.0 Universal (CC0 1.0)
+	gustavo.valiente@protonmail.com

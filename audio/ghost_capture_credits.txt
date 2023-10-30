@@ -1,0 +1,9 @@
+ghost_capture_moan_1.wav
+ghost_capture_moan_2.wav
+ghost_capture_moan_3.wav
+ghost_capture_moan_4.wav
+ghost_capture_moan_5.wav
+	Volvion
+	CC0 1.0 Universal (CC0 1.0 DEED)
+	Sound Clips taken from Comic Ghost Voice.mp3
+	https://freesound.org/people/Volvion/sounds/609783/

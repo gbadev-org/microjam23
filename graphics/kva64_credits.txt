@@ -1,0 +1,14 @@
+kva64_critters.bmp
+kva64_critters_fail.bmp
+kva64_critters_frame.bmp
+kva64_critters_hints.bmp
+kva64_critters_pass.bmp
+kva64_dpad.bmp
+kva64_pepo_assets.bmp
+kva64_pepo_big.bmp
+kva64_pepo_gourd.bmp
+kva64_pepo_knife.bmp
+kva64_pepo_small.bmp
+	kva64
+	CC BY-NC 4.0 (Creative Commons Attribution-NonCommercial 4.0 International)
+	https://kva64.itch.io/

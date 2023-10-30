@@ -1,0 +1,4 @@
+cr90_ltcd_spooky_birthday_t*.vgm
+	copyrat90
+	CC0 1.0 Universal (CC0 1.0)
+	https://github.com/copyrat90/my-gb-songs/blob/main/dmg_audio/furnace/spooky_birthday.fur

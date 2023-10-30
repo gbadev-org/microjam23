@@ -1,0 +1,10 @@
+fez_music.wav
+	Fe26
+	Attribution 4.0 International (CC BY 4.0)
+	https://fe26.itch.io/
+
+fez_hurt.wav
+fez_win.wav
+	Fe26
+	CC0 1.0 Universal (CC0 1.0)
+	https://fe26.itch.io/

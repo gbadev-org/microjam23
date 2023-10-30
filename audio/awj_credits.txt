@@ -1,0 +1,6 @@
+awj_fail.wav
+awj_shuffle.wav
+awj_succeed.wav
+	AWJ
+	CC0 1.0 Universal (CC0 1.0)
+	alasdairwjallen@gmail.com

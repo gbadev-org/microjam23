@@ -1,0 +1,9 @@
+awa_apple.bmp
+awa_background.bmp
+awa_player.bmp
+	FunfettiPhantom
+	CC BY-NC-SA 4.0
+awa_o.bmp
+awa_x.bmp
+    installationwizard
+    Public Domain

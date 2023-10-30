@@ -1,0 +1,15 @@
+jim_ghost.bmp
+jim_player_sprites.bmp
+    KDs_Arts
+    https://kdsextonarts.wixsite.com/kdarts
+    CC0 1.0 Universal (CC0 1.0)
+
+jim_map_fore.bmp
+jim_mapback.bmp
+    Made using tiles made by: Gustavo Vituri
+    https://gvituri.itch.io/tiny-ranch
+    CC0 1.0 Universal (CC0 1.0)
+
+jim_heart.bmp
+    jimmi_jam
+    CC0 1.0 Universal (CC0 1.0)

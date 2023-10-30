@@ -59,6 +59,8 @@ private:
     bool _big_pumpkin_inc = true;
     bool _first_game_played = false;
 
+    void _create_next_game_transition();
+
     void _update_play();
 
     [[nodiscard]] bool _update_fade(bool update_again);

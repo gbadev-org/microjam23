@@ -1,0 +1,11 @@
+rntba_hit.wav
+rntba_miss.wav
+rntba_boom.wav
+rntba_move.wav
+rntba_moving.wav
+rntba_shake1.wav
+rntba_shake2.wav
+rntba_shake3.wav
+	Rakiex
+	CC0 1.0 Universal (CC0 1.0)
+	rakiexgalapagos@gmail.com

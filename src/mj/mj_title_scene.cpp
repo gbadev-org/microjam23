@@ -74,6 +74,8 @@ title_scene::title_scene(core& core) :
     _cursor_sprite.set_position(_play_sprites[0].position() - bn::fixed_point(28, 0));
 
     _set_menu_visible(false);
+
+    bn::music_items::mj_gbahalloween.play(0.55);
 }
 
 title_scene::~title_scene()

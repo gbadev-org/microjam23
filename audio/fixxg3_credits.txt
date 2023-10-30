@@ -1,0 +1,9 @@
+fixxg3_swoosh.wav
+	Danjocross
+	CC0 1.0
+	https://freesound.org/people/Danjocross/
+
+fixxg3_club.wav
+	thecrow_br
+	CC0 1.0
+	https://freesound.org/people/thecrow_br/

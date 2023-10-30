@@ -1,0 +1,6 @@
+fixxg3_bg.bmp
+fixxg3_club.bmp
+fixxg3_zombie_head.bmp
+	fixx
+	CC0 1.0 Universal
+	fixx@hotmail.de

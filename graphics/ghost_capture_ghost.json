@@ -1,0 +1,6 @@
+{
+    "type": "sprite",
+	"height": 64,
+	"bpp_mode": "bpp_4",
+	"colors_count": 12
+}

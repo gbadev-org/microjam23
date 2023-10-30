@@ -1,0 +1,18 @@
+bhv_bg.bmp
+bhv_cat.bmp
+bhv_conductor_arm_l.bmp
+bhv_conductor_arm_r.bmp
+bhv_conductor_body.bmp
+bhv_conductor_head.bmp
+bhv_conductor_tail.bmp
+bhv_instruction_bubble.bmp
+bhv_pumppy.bmp
+bhv_sing_box.bmp
+	Moawling
+	CC BY-NC-SA 4.0
+	www.moaw.art
+
+bhv_button_icons.bmp
+	Kenney, SquishyFrogs
+	CC0 1.0 Universal (CC0 1.0)
+	www.kenney.nl

@@ -72,4 +72,12 @@ void test_game::fade_out([[maybe_unused]] const mj::game_data& data)
 {
 }
 
+void test_game::on_pause_start([[maybe_unused]] const mj::game_data& data)
+{
+}
+
+void test_game::on_pause_end([[maybe_unused]] const mj::game_data& data)
+{
+}
+
 }

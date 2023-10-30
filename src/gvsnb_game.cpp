@@ -32,8 +32,9 @@ game::game(int completed_games, const mj::game_data& data) :
     _tempo(recommended_music_tempo(completed_games, data)),
     _total_frames(recommended_total_frames(game::maximum_frames, completed_games, data))
 {
-    play_music(bn::music_items::gvsnb_creppy, completed_games, data);
+    bn::music_items::gvsnb_creppy.play(0.325, false);
     bn::music::set_position(7);
+    bn::music::set_tempo(_tempo);
 }
 
 void game::fade_in([[maybe_unused]] const mj::game_data& data)

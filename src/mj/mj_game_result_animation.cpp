@@ -14,6 +14,19 @@ namespace mj
 
 namespace
 {
+    constexpr bn::fixed length_factor = 1.2;
+    constexpr bn::fixed speed_factor = bn::fixed(1).safe_division(length_factor);
+
+    [[nodiscard]] constexpr int _frames(int frames)
+    {
+        return (frames * length_factor).right_shift_integer();
+    }
+
+    [[nodiscard]] constexpr bn::fixed _value(bn::fixed value)
+    {
+        return value.unsafe_multiplication(speed_factor);
+    }
+
     class wink_victory_animation : public game_result_animation
     {
 
@@ -23,35 +36,35 @@ namespace
     protected:
         void _update_impl() final
         {
-            if(_pending_frames >= 70)
+            if(_pending_frames >= _frames(70))
             {
-                _x += 1;
-                _y += 1;
-                _horizontal_scale += 0.035;
-                _vertical_scale += 0.035;
-                _rotation_angle += 0.2;
+                _x += _value(1);
+                _y += _value(1);
+                _horizontal_scale += _value(0.035);
+                _vertical_scale += _value(0.035);
+                _rotation_angle += _value(0.2);
             }
-            else if(_pending_frames >= 60)
+            else if(_pending_frames >= _frames(60))
             {
             }
-            else if(_pending_frames >= 50)
+            else if(_pending_frames >= _frames(50))
             {
-                _left_eye_vertical_scale -= 0.1;
+                _left_eye_vertical_scale -= _value(0.1);
             }
-            else if(_pending_frames >= 40)
+            else if(_pending_frames >= _frames(40))
             {
-                _left_eye_vertical_scale += 0.1;
+                _left_eye_vertical_scale += _value(0.1);
             }
-            else if(_pending_frames >= 30)
+            else if(_pending_frames >= _frames(30))
             {
             }
             else
             {
-                _x -= 1;
-                _y -= 1;
-                _horizontal_scale -= 0.035;
-                _vertical_scale -= 0.035;
-                _rotation_angle -= 0.2;
+                _x -= _value(1);
+                _y -= _value(1);
+                _horizontal_scale -= _value(0.035);
+                _vertical_scale -= _value(0.035);
+                _rotation_angle -= _value(0.2);
             }
         }
     };
@@ -65,20 +78,22 @@ namespace
     protected:
         void _update_impl() final
         {
-            if(_pending_frames >= 70)
+            int pending_frames = _value(_pending_frames).right_shift_integer();
+
+            if(pending_frames >= 70)
             {
-                int counter = 100 - _pending_frames;
+                int counter = 100 - pending_frames;
                 bn::fixed sin = bn::degrees_lut_sin(bn::fixed(counter * 180) / 30);
-                _rotation_angle += sin;
+                _rotation_angle += _value(sin);
             }
             else
             {
-                if(_pending_frames >= 30)
+                if(pending_frames >= 30)
                 {
-                    int counter = 70 - _pending_frames;
+                    int counter = 70 - pending_frames;
                     bn::fixed sin = bn::degrees_lut_sin(bn::fixed(counter * 180) / 40);
-                    _rotation_angle -= sin.unsafe_multiplication(bn::fixed(14.8965));
-                    _left_eye_rotation_angle += sin * 2;
+                    _rotation_angle -= sin.unsafe_multiplication(_value(14.8965));
+                    _left_eye_rotation_angle += _value(sin * 2);
                     _right_eye_rotation_angle = _left_eye_rotation_angle;
                 }
                 else
@@ -88,9 +103,9 @@ namespace
 
                 if(_left_eye_rotation_angle > -360)
                 {
-                    int counter = 70 - _pending_frames;
+                    int counter = 70 - pending_frames;
                     bn::fixed sin = bn::degrees_lut_sin(bn::fixed(counter * 180) / 70);
-                    _left_eye_rotation_angle -= sin.unsafe_multiplication(bn::fixed(9.25));
+                    _left_eye_rotation_angle -= sin.unsafe_multiplication(_value(9.25));
 
                     if(_left_eye_rotation_angle < -360)
                     {
@@ -112,36 +127,38 @@ namespace
     protected:
         void _update_impl() final
         {
-            if(_pending_frames >= 90)
-            {
-                _left_eye_horizontal_scale -= 0.02;
-                _left_eye_vertical_scale += 0.01;
-            }
-            else if(_pending_frames >= 50)
-            {
-                int counter = 90 - _pending_frames;
-                bn::fixed sin = bn::degrees_lut_sin(bn::fixed(counter * 90) / 40);
-                _y -= sin.unsafe_multiplication(bn::fixed(7.41));
-                _horizontal_scale -= sin.unsafe_multiplication(bn::fixed(0.02));
+            int pending_frames = _value(_pending_frames).right_shift_integer();
 
-                if(_pending_frames == 50)
+            if(pending_frames >= 90)
+            {
+                _left_eye_horizontal_scale -= _value(0.02);
+                _left_eye_vertical_scale += _value(0.01);
+            }
+            else if(pending_frames >= 50)
+            {
+                int counter = 90 - pending_frames;
+                bn::fixed sin = bn::degrees_lut_sin(bn::fixed(counter * 90) / 40);
+                _y -= sin.unsafe_multiplication(_value(7.41));
+                _horizontal_scale -= sin.unsafe_multiplication(_value(0.02));
+
+                if(pending_frames == 50 && _y < 0)
                 {
                     _y += 380;
                 }
             }
-            else if(_pending_frames >= 10)
+            else if(pending_frames >= 10)
             {
-                int counter = 50 - _pending_frames;
+                int counter = 50 - pending_frames;
                 bn::fixed sin = bn::degrees_lut_sin(90 + (bn::fixed(counter * 90) / 40));
-                _y -= sin.unsafe_multiplication(bn::fixed(7.5175));
-                _horizontal_scale += sin.unsafe_multiplication(bn::fixed(0.02055));
+                _y -= sin.unsafe_multiplication(_value(7.5175));
+                _horizontal_scale += sin.unsafe_multiplication(_value(0.02055));
             }
             else
             {
                 _y = _initial_y;
                 _horizontal_scale = 1;
-                _left_eye_horizontal_scale += 0.02;
-                _left_eye_vertical_scale -= 0.01;
+                _left_eye_horizontal_scale += _value(0.02);
+                _left_eye_vertical_scale -= _value(0.01);
             }
 
             _vertical_scale = 2 - _horizontal_scale;
@@ -159,20 +176,20 @@ namespace
     protected:
         void _update_impl() final
         {
-            if(_pending_frames >= 80)
+            if(_pending_frames >= _frames(80))
             {
-                _x += 1.5;
-                _y -= 0.5;
-                _rotation_angle -= 0.6;
+                _x += _value(1.5);
+                _y -= _value(0.5);
+                _rotation_angle -= _value(0.6);
             }
-            else if(_pending_frames >= 20)
+            else if(_pending_frames >= _frames(20))
             {
             }
             else
             {
-                _x -= 1.5;
-                _y += 0.5;
-                _rotation_angle += 0.6;
+                _x -= _value(1.5);
+                _y += _value(0.5);
+                _rotation_angle += _value(0.6);
             }
 
             _update_hand();
@@ -181,7 +198,9 @@ namespace
     private:
         void _update_hand()
         {
-            if(_pending_frames >= 90)
+            int pending_frames = _value(_pending_frames).right_shift_integer();
+
+            if(pending_frames >= 90)
             {
                 _hand_x = 48;
                 _hand_horizontal_scale = 0.45;
@@ -189,29 +208,29 @@ namespace
             }
             else
             {
-                _hand_rotation_angle += 0.05;
-                _hand_horizontal_scale += 0.001;
+                _hand_rotation_angle += _value(0.05);
+                _hand_horizontal_scale += _value(0.001);
 
-                if(_pending_frames >= 60)
+                if(pending_frames >= 60)
                 {
-                    int counter = 90 - _pending_frames;
+                    int counter = 90 - pending_frames;
                     bn::fixed cos = bn::degrees_lut_cos(bn::fixed(counter * 90) / 30);
-                    _hand_x -= cos.unsafe_multiplication(bn::fixed(5.15));
-                    _hand_y -= cos.unsafe_multiplication(bn::fixed(7.75));
-                    _hand_horizontal_scale += cos.unsafe_multiplication(bn::fixed(0.0325));
-                    _hand_rotation_angle += cos.unsafe_multiplication(bn::fixed(2.425));
+                    _hand_x -= cos.unsafe_multiplication(_value(5.15));
+                    _hand_y -= cos.unsafe_multiplication(_value(7.75));
+                    _hand_horizontal_scale += cos.unsafe_multiplication(_value(0.0325));
+                    _hand_rotation_angle += cos.unsafe_multiplication(_value(2.425));
                 }
-                else if(_pending_frames >= 40)
+                else if(pending_frames >= 40)
                 {
                 }
-                else if(_pending_frames >= 10)
+                else if(pending_frames >= 10)
                 {
-                    int counter = 40 - _pending_frames;
+                    int counter = 40 - pending_frames;
                     bn::fixed sin = bn::degrees_lut_sin(bn::fixed(counter * 90) / 30);
-                    _hand_x += sin.unsafe_multiplication(bn::fixed(5.15));
-                    _hand_y += sin.unsafe_multiplication(bn::fixed(7.75));
-                    _hand_horizontal_scale -= sin.unsafe_multiplication(bn::fixed(0.0325));
-                    _hand_rotation_angle -= sin.unsafe_multiplication(bn::fixed(2.425));
+                    _hand_x += sin.unsafe_multiplication(_value(5.15));
+                    _hand_y += sin.unsafe_multiplication(_value(7.75));
+                    _hand_horizontal_scale -= sin.unsafe_multiplication(_value(0.0325));
+                    _hand_rotation_angle -= sin.unsafe_multiplication(_value(2.425));
                 }
                 else
                 {
@@ -227,25 +246,25 @@ namespace
 
     public:
         explicit defeat_animation(bn::fixed x_desp) :
-            _x_desp(x_desp)
+            _x_desp(_value(x_desp))
         {
         }
 
     protected:
         void _update_impl() final
         {
-            if(_pending_frames >= 70)
+            if(_pending_frames >= _frames(70))
             {
                 _x += _x_desp;
-                _y += 0.9;
-                _vertical_scale -= 0.015;
-                _rotation_angle += 0.05;
-                _left_eye_vertical_scale -= 0.01;
-                _right_eye_vertical_scale -= 0.01;
-                _left_eye_rotation_angle -= 0.2;
-                _right_eye_rotation_angle += 0.2;
+                _y += _value(0.9);
+                _vertical_scale -= _value(0.015);
+                _rotation_angle += _value(0.05);
+                _left_eye_vertical_scale -= _value(0.01);
+                _right_eye_vertical_scale -= _value(0.01);
+                _left_eye_rotation_angle -= _value(0.2);
+                _right_eye_rotation_angle += _value(0.2);
             }
-            else if(_pending_frames >= 50)
+            else if(_pending_frames >= _frames(50))
             {
                 switch(_pending_frames % 4)
                 {
@@ -271,26 +290,26 @@ namespace
                     break;
                 }
             }
-            else if(_pending_frames >= 40)
+            else if(_pending_frames >= _frames(40))
             {
-                _left_eye_vertical_scale -= 0.06;
-                _right_eye_vertical_scale -= 0.06;
+                _left_eye_vertical_scale -= _value(0.06);
+                _right_eye_vertical_scale -= _value(0.06);
             }
-            else if(_pending_frames >= 30)
+            else if(_pending_frames >= _frames(30))
             {
-                _left_eye_vertical_scale += 0.06;
-                _right_eye_vertical_scale += 0.06;
+                _left_eye_vertical_scale += _value(0.06);
+                _right_eye_vertical_scale += _value(0.06);
             }
             else
             {
                 _x -= _x_desp;
-                _y -= 0.9;
-                _vertical_scale += 0.015;
-                _rotation_angle -= 0.05;
-                _left_eye_vertical_scale += 0.01;
-                _right_eye_vertical_scale += 0.01;
-                _left_eye_rotation_angle += 0.2;
-                _right_eye_rotation_angle -= 0.2;
+                _y -= _value(0.9);
+                _vertical_scale += _value(0.015);
+                _rotation_angle -= _value(0.05);
+                _left_eye_vertical_scale += _value(0.01);
+                _right_eye_vertical_scale += _value(0.01);
+                _left_eye_rotation_angle += _value(0.2);
+                _right_eye_rotation_angle -= _value(0.2);
             }
         }
 
@@ -445,6 +464,8 @@ bool game_result_animation::update()
 }
 
 game_result_animation::game_result_animation() :
+    _delay_frames(8),
+    _pending_frames(_frames(100)),
     _head(bn::affine_bg_items::mj_big_pumpkin.create_bg(0, 0)),
     _hand(bn::affine_bg_items::mj_big_pumpkin_hand.create_bg(0, 0)),
     _left_eye(bn::sprite_items::mj_big_pumpkin_eye.create_sprite(0, 0)),

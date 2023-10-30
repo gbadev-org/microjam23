@@ -1,0 +1,10 @@
+ghost_capture_baloon.bmp
+ghost_capture_bg_forest.bmp
+ghost_capture_cat.bmp
+ghost_capture_ghost.bmp
+ghost_capture_ghost_eyes.bmp
+ghost_capture_ghost_pull.bmp
+ghost_capture_hand.bmp
+	E-Vinyl
+	CC0 1.0 Universal (CC0 1.0)
+	nuno.v.barreto@gmail.com

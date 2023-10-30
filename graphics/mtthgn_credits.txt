@@ -1,0 +1,6 @@
+mtthgn_map.bmp
+mtthgn_map_defeat.bmp
+mtthgn_map_victory.bmp
+	mtthgn
+	CC0 1.0 Universal (CC0 1.0)
+	matt@mtthgn.com

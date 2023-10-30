@@ -1,0 +1,19 @@
+rntba_arm.bmp
+rntba_button.bmp
+rntba_elbow.bmp
+rntba_face.bmp
+rntba_frame.bmp
+rntba_hand.bmp
+rntba_hit.bmp
+rntba_moon.bmp
+rntba_pumpkin.bmp
+rntba_room.bmp
+rntba_spider.bmp
+rntba_string.bmp
+	Rakiex
+	CC0 1.0 Universal (CC0 1.0)
+	rakiexgalapagos@gmail.com
+rntba_explode
+	Bacteri
+	Boy howdy I'd sure be embarrased if I paid $1 USD for something and it turned out it WASN'T under some kind of license
+	https://bacteri.itch.io/animation-explosion
