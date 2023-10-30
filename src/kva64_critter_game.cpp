@@ -2,6 +2,7 @@
 
 #include "bn_colors.h"
 #include "bn_keypad.h"
+#include "bn_music.h"
 
 #include "mj/mj_game_list.h"
 
@@ -45,7 +46,8 @@ namespace kva64
         critter_bg_shifts.insert({critterType::Witch, (56+45)*-1});
         critter_bg_shifts.insert({critterType::Zombie, (56+102+46)*-1});
 
-        play_music(bn::music_items::kva64_critter_carousel, completed_games, data);
+        bn::music::play(bn::music_items::kva64_critter_carousel, 0.75, false);
+        bn::music::set_tempo(recommended_music_tempo(completed_games, data));
 
         _bg.set_x(_bg.x()+critter_bg_shifts[current_critter]);
 
