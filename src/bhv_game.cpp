@@ -65,7 +65,7 @@ namespace
 	
 }
 
-// MJ_GAME_LIST_ADD(bhv::bhv_game)
+MJ_GAME_LIST_ADD(bhv::bhv_game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 // MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -74,7 +74,8 @@ MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
 namespace bhv
 {
 
-	bhv_game::bhv_game(int completed_games, const mj::game_data &data) : 
+    bhv_game::bhv_game(int completed_games, const mj::game_data &data) :
+        mj::game("bhv"),
 		_bg(bn::regular_bg_items::bhv_bg.create_bg((256 - 240) / 2, (256 - 160) / 2)),
 		// TODO: Select final bgm CONTENDERS: TOTSNUK10, TOTSNUK01,
 		_total_frames(play_jingle(mj::game_jingle_type::TOTSNUK01, completed_games, data))

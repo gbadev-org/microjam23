@@ -32,14 +32,6 @@ const bn::top_left_fixed_rect& Oeil::get_boite_collision() const{
     return boite_collision;
 }
 
-void Oeil::log(){
-
-    BN_LOG("-------------------");
-    BN_LOG("Sprite -> x:", sprite->x(), ", y: ", sprite->y());
-    BN_LOG("Boite -> x:", boite_collision.x(), ", y: ", boite_collision.y());
-    BN_LOG("Boite -> left:", boite_collision.left(), ", top: ", boite_collision.top());
-}
-
 void Oeil::changer_animation_mort(){
     animation_action = bn::create_sprite_animate_action_forever(sprite.value(), 10, bn::sprite_items::osmag_oeil.tiles_item(), 2, 3);
 

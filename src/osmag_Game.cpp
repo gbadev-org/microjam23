@@ -13,7 +13,7 @@ namespace{
 }
 
 
-// MJ_GAME_LIST_ADD(osmag::Game)
+MJ_GAME_LIST_ADD(osmag::Game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -24,7 +24,9 @@ namespace osmag{
 	
 
 
-Game::Game([[maybe_unused]] int completed_games, const mj::game_data& data){
+Game::Game([[maybe_unused]] int completed_games, const mj::game_data& data) :
+    mj::game("osmag")
+{
     // Musique
     //bn::music_items::osmag_ectoplasmus.play();
     bn::music_items::osmag_isocel_halloween.play(0.4);

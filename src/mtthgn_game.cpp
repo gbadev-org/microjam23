@@ -17,13 +17,14 @@ namespace
     constexpr bn::string_view graphics_credits[] = { "mtthgn", "Emcee Flesher" };
 }
 
-// MJ_GAME_LIST_ADD(mtthgn::game)
+MJ_GAME_LIST_ADD(mtthgn::game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 
 namespace mtthgn
 {
   game::game(int completed_games, const mj::game_data& data) :
+    mj::game("mtthgn"),
     _bg(bn::regular_bg_items::mtthgn_map.create_bg(0, 0)),
     _player_sprite(bn::sprite_items::mj_small_pumpkin.create_sprite(0,0)),
     _pumpkin_animation(bn::create_sprite_animate_action_forever(

@@ -7,13 +7,16 @@ namespace
     constexpr bn::string_view graphics_credits[] = {"KDs_Arts", "Gustavo Vituri", "Jimmi_Jam"};
 }
 
-// MJ_GAME_LIST_ADD(jim::survival)
+MJ_GAME_LIST_ADD(jim::survival)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 
 namespace jim
 {
-    survival::survival(int completed_games, const mj::game_data &data):scene(int(recommended_difficulty_level(completed_games, data)) + 1, &data.random),_total_frames(play_jingle(mj::game_jingle_type::TOTSNUK10, completed_games, data))
+    survival::survival(int completed_games, const mj::game_data &data) :
+        mj::game("jim"),
+        scene(int(recommended_difficulty_level(completed_games, data)) + 1, &data.random),
+        _total_frames(play_jingle(mj::game_jingle_type::TOTSNUK10, completed_games, data))
     {
         scene.init_scene();
         

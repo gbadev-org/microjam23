@@ -15,7 +15,7 @@ namespace
     constexpr bn::string_view graphics_credits[] = { "ahul" };
 }
 
-// MJ_GAME_LIST_ADD(ahul::game)
+MJ_GAME_LIST_ADD(ahul::game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 
@@ -23,6 +23,7 @@ namespace ahul
 {
 
 game::game(int completed_games, const mj::game_data& data) :
+    mj::game("ahul"),
     _bg(bn::regular_bg_items::ahul_background.create_bg((256 - 240) / 2, (256 - 160) / 2)),
     _character_sprite(bn::sprite_items::ahul_girl.create_sprite(0, 0)),
     _action(bn::create_sprite_animate_action_forever(

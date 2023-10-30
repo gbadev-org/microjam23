@@ -12,7 +12,7 @@ namespace
     constexpr bn::string_view graphics_credits[] = { "Jono Shields" };
 }
 
-// MJ_GAME_LIST_ADD(foopod::vamp_teeth_game)
+MJ_GAME_LIST_ADD(foopod::vamp_teeth_game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 
@@ -20,6 +20,7 @@ namespace foopod
 {
 
 vamp_teeth_game::vamp_teeth_game(int completed_games, const mj::game_data& data) :
+    mj::game("foopod"),
     _total_frames(play_jingle(mj::game_jingle_type::TOTSNUK06, completed_games, data))
 {
     _neck.set_visible(false);

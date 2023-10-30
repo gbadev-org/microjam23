@@ -30,7 +30,7 @@ namespace
 	constexpr bn::string_view sfx_credits[] = {"Fe26"};
 }
 
-// MJ_GAME_LIST_ADD(fez::game)
+MJ_GAME_LIST_ADD(fez::game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -61,7 +61,8 @@ namespace fez
 
 	int t = 0;
 
-	game::game(int completed_games, const mj::game_data& data) :
+    game::game(int completed_games, const mj::game_data& data) :
+        mj::game("fez"),
 		_bg(bn::regular_bg_items::fez_bg_stars.create_bg((256 - 240) / 2, (256 - 160) / 2)), // (256 - 240) / 2, (256 - 160) / 2
 		_bg_speed(bn::regular_bg_items::fez_bg_speed.create_bg((256 - 240) / 2, (256 - 160) / 2)), // Speed bg
 		_moon0(bn::sprite_items::fez_moon.create_sprite(-31, -31)), // Moon

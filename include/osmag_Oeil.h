@@ -26,9 +26,6 @@ public:
     void init(bn::random& rand);
     void update();
     const bn::top_left_fixed_rect& get_boite_collision() const;
-    // DEBUG
-    void log();
-    //
     void changer_animation_mort();
 };
 

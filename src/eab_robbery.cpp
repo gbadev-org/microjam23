@@ -11,7 +11,7 @@ constexpr bn::string_view code_credits[] = {"Evan Bowman"};
 constexpr bn::string_view graphics_credits[] = {"Evan Bowman"};
 } // namespace
 
-// MJ_GAME_LIST_ADD(eab::robbery)
+MJ_GAME_LIST_ADD(eab::robbery)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 
@@ -101,12 +101,10 @@ static const unsigned char map_split[7][12]
 
 
 
-robbery::robbery(int completed_games, const mj::game_data& data)
-    : bg_(bn::regular_bg_items::eab_background.create_bg((256 - 240) / 2,
-                                                         (256 - 160) / 2)),
-      total_frames_(play_jingle(mj::game_jingle_type::TOTSNUK05,
-                                completed_games,
-                                data))
+robbery::robbery(int completed_games, const mj::game_data& data) :
+    mj::game("eab"),
+    bg_(bn::regular_bg_items::eab_background.create_bg((256 - 240) / 2, (256 - 160) / 2)),
+    total_frames_(play_jingle(mj::game_jingle_type::TOTSNUK05, completed_games, data))
 {
     switch (data.random.get() % 6) {
     default:

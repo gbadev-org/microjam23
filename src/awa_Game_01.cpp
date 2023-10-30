@@ -17,13 +17,14 @@ namespace
     constexpr bn::string_view graphics_credits[] = { "FunfettiPhantom", "installationwizard" };
 }
 
-// MJ_GAME_LIST_ADD(awa::Game01)
+MJ_GAME_LIST_ADD(awa::Game01)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 
 namespace awa{
     //this class header...
     Game01::Game01(int completed_games, const mj::game_data& data) :
+    mj::game("awa"),
      _bg(bn::regular_bg_items::awa_background.create_bg((256 - 240) / 2, (256 - 160) / 2)),
      _apple_sprite_0(bn::sprite_items::awa_apple.create_sprite(0,0)),
      _apple_sprite_1(bn::sprite_items::awa_apple.create_sprite(20,20)),

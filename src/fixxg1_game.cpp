@@ -41,7 +41,7 @@ namespace
     }
 }
 
-// MJ_GAME_LIST_ADD(fixxg1::game)
+MJ_GAME_LIST_ADD(fixxg1::game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 // MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -51,6 +51,7 @@ namespace fixxg1
 {
 
 game::game(int completed_games, const mj::game_data& data) :
+    mj::game("fixxg1"),
     _bg(bn::regular_bg_items::fixxg1_bg.create_bg((256 - 240) / 2, (256 - 160) / 2)),
     _spr_club(bn::sprite_items::fixxg1_club.create_sprite(0,0)),
     _spr_ball(bn::sprite_items::fixxg1_ball.create_sprite(0,-160-16)),

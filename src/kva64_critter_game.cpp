@@ -23,7 +23,7 @@ namespace
     constexpr bn::string_view sfx_credits[] = { "Roger at freesound.org" };
 }
 
-// MJ_GAME_LIST_ADD(kva64::critter_carousel_game)
+MJ_GAME_LIST_ADD(kva64::critter_carousel_game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -32,6 +32,7 @@ MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
 namespace kva64
 {
     critter_carousel_game::critter_carousel_game(int completed_games, const mj::game_data& data) :
+        mj::game("kva64_critter"),
         current_critter(static_cast<critterType>(data.random.get_int(static_cast<int>(critterType::Devil), static_cast<int>(critterType::Count)))),
         _bg(bn::regular_bg_items::kva64_critters.create_bg(40, -8)),
         _bg_frame(bn::regular_bg_items::kva64_critters_frame.create_bg(8, (256 - 160) / 2)),

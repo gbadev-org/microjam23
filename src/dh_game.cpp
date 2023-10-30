@@ -6,6 +6,7 @@ int game::progress = 0;
 int game::stored_completed_games = 0;
 
 game::game(int _completed_games, const mj::game_data& data):
+    mj::game("dh"),
 	text_ratio(-0.5), // Set to negative number to delay appearance
     cam(check_if_part_2(_completed_games)),
     level(recommended_difficulty_level(_completed_games, data)),

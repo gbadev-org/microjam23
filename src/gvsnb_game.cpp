@@ -16,7 +16,7 @@ namespace
     constexpr bn::string_view sfx_credits[] = { "Pixel-boy at Sparklin Labs" };
 }
 
-// MJ_GAME_LIST_ADD(gvsnb::game)
+MJ_GAME_LIST_ADD(gvsnb::game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -26,6 +26,7 @@ namespace gvsnb
 {
 
 game::game(int completed_games, const mj::game_data& data) :
+    mj::game("gvsnb"),
     _building(bn::regular_bg_items::gvsnb_building.create_bg((256 - 240) / 2, (256 - 160) / 2)),
     _big_enemy(_enemy_gfx),
     _hand(_candy_gfx),

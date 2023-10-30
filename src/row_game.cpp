@@ -16,7 +16,7 @@ namespace
     constexpr bn::string_view graphics_credits[] = { "asterlil", "jgilhutton", "Noah Nelson" };
 }
 
-// MJ_GAME_LIST_ADD(row::game)
+MJ_GAME_LIST_ADD(row::game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 // MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -26,7 +26,8 @@ namespace row
 {
 
 game::game([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data& data)
-    : _rower(rower_animation::frames[0].create_bg(0, 0))
+    : mj::game("row")
+    , _rower(rower_animation::frames[0].create_bg(0, 0))
     , _water(water_animation::frames[0].create_bg(0, 0))
     , _fishy(fishy_animation::frames[0].create_bg(0, 0))
     , _l_button(bn::sprite_items::row_l_button.create_sprite(70, -5))

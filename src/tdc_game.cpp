@@ -16,7 +16,7 @@ namespace
     constexpr bn::string_view graphics_credits[] = { "quadiez" };
 }
 
-// MJ_GAME_LIST_ADD(tdc::tdc_game)
+MJ_GAME_LIST_ADD(tdc::tdc_game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 // MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -26,6 +26,7 @@ namespace tdc
 {
 
 tdc_game::tdc_game(int completed_games, const mj::game_data& data) :
+    mj::game("tdc"),
     _bg(bn::regular_bg_items::tdc_temple_1.create_bg(-100, 0)),
     _bg2(bn::regular_bg_items::tdc_dont_press.create_bg(0, 20)),
     _frame(bn::regular_bg_items::tdc_frame.create_bg(0, 0)),

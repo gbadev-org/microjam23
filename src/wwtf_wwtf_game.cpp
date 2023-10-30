@@ -14,7 +14,7 @@ constexpr bn::string_view graphics_credits[] = { "RiPpEr253" };
 constexpr bn::string_view sfx_credits[] = { "RiPpEr253" };
 }
 
-// MJ_GAME_LIST_ADD(wwtf::wwtf_game)
+MJ_GAME_LIST_ADD(wwtf::wwtf_game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 // MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -24,6 +24,7 @@ namespace wwtf
 {
 
 wwtf_game::wwtf_game(int completed_games, const mj::game_data& data) :
+    mj::game("wwtf"),
     _bg(bn::regular_bg_items::wwtf_background.create_bg((256 - 240) / 2, (256 - 160) / 2)),
     _total_frames(play_jingle(mj::game_jingle_type::TOTSNUK11, completed_games, data))
 {

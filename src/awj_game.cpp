@@ -27,7 +27,7 @@ namespace
     constexpr bn::string_view sfx_credits[] = { "AWJ" };
 }
 
-// MJ_GAME_LIST_ADD(awj::awj_game)
+MJ_GAME_LIST_ADD(awj::awj_game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
@@ -64,8 +64,9 @@ constexpr int shuffle_count_from_difficulty[]{ 5, 6, 7 };
 constexpr int frames_per_shuffle_from_difficulty[]{ 30, 27, 24 };
 constexpr int user_selection_duration_from_difficulty[]{ 60, 58, 56 };
 
-awj_game::awj_game([[maybe_unused]] const int completed_games, [[maybe_unused]] const mj::game_data& data)
-	: enter_state_funcs{
+awj_game::awj_game([[maybe_unused]] const int completed_games, [[maybe_unused]] const mj::game_data& data) :
+    mj::game("awj"),
+    enter_state_funcs{
 		&awj_game::enter_state_candy_placement,
 		&awj_game::enter_state_shuffling,
 		&awj_game::enter_state_user_selection,

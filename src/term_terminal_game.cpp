@@ -22,7 +22,7 @@ namespace{
     constexpr bn::string_view sfx_credits[] = {"phoenix1291", "janbezouska", "tempest"};
 }
 
-// MJ_GAME_LIST_ADD(terminal_game::game)
+MJ_GAME_LIST_ADD(terminal_game::game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
@@ -184,6 +184,7 @@ namespace terminal_game
 {
 
 game::game([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data& data) :
+    mj::game("terminal_game"),
     //_text_sprites(bn::sprite_items::term_sprites.create_sprite(0, 0)), // create the sprite in the initialiser list
 	//_sprites(bn::sprite_items::sprite_font()),
 	//(bn::sprite_font::sprite_font(_sprites)),

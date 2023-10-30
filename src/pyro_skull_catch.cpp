@@ -179,6 +179,7 @@ void Skelebro::update(const mj::game_data& data)
 }
 
 skullCatch::skullCatch(int completed_games, const mj::game_data& data) :
+    mj::game("pyro_sc"),
 	_bg(regular_bg_items::pyro_skullcatch_stage.create_bg((256 - 240) / 2, (256 - 160) / 2)),
 	_total_frames(play_jingle(mj::game_jingle_type::TOTSNUK17, completed_games, data)),
 	_skelebros{

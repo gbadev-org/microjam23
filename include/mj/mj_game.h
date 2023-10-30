@@ -147,7 +147,7 @@ public:
     virtual void on_pause_end(const game_data& data);
 
 protected:
-    game() = default;
+    explicit game(const bn::string_view& id);
 };
 
 }

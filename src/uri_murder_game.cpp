@@ -18,7 +18,7 @@ namespace
     constexpr bn::string_view graphics_credits[] = { "Uri" };
 }
 
-// MJ_GAME_LIST_ADD(uri::murder_game)
+MJ_GAME_LIST_ADD(uri::murder_game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 
@@ -35,6 +35,7 @@ namespace
 }
 
 murder_game::murder_game(int completed_games, const mj::game_data& data):
+    mj::game("uri"),
     _total_frames(play_jingle(mj::game_jingle_type::TOTSNUK07, completed_games, data))
 {
     

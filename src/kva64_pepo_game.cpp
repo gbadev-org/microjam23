@@ -41,7 +41,7 @@ namespace
     }
 }
 
-// MJ_GAME_LIST_ADD(kva64::pepo_surgeon_game)
+MJ_GAME_LIST_ADD(kva64::pepo_surgeon_game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
@@ -49,6 +49,7 @@ MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
 namespace kva64
 {
     pepo_surgeon_game::pepo_surgeon_game(int completed_games, const mj::game_data& data) :
+        mj::game("kva64_pepo"),
         cutting_direction(completed_games & 1),
         _total_frames(play_jingle(mj::game_jingle_type::TOTSNUK07, completed_games, data))
     {

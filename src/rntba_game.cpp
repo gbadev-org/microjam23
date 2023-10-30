@@ -23,7 +23,7 @@ namespace
     constexpr bn::string_view sfx_credits[] = { "Rakiex" };
 }
 
-// MJ_GAME_LIST_ADD(rntba::test_game)
+MJ_GAME_LIST_ADD(rntba::test_game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
@@ -32,6 +32,7 @@ namespace rntba
 {
 
 test_game::test_game(int completed_games, const mj::game_data& data) :
+    mj::game("rntba"),
     _bg(bn::regular_bg_items::rntba_room.create_bg((256 - 240) / 2, (256 - 160) / 2))
     , _total_frames(play_jingle(mj::game_jingle_type::TOTSNUK01, completed_games, data))
     //, _total_frames(recommended_total_frames(600, completed_games, data))

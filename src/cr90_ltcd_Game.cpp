@@ -43,7 +43,7 @@ constexpr bn::string_view music_credits[] = {"copyrat90"};
 constexpr bn::string_view sfx_credits[] = {"copyrat90", "kingsrow"};
 } // namespace
 
-// MJ_GAME_LIST_ADD(cr90::ltcd::Game)
+MJ_GAME_LIST_ADD(cr90::ltcd::Game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -123,8 +123,9 @@ static bool init_matchstick_fire(mj::difficulty_level difficulty, bn::random& ra
     return random.get_fixed(0, 1) <= 0.35;
 }
 
-Game::Game(int completed_games, const mj::game_data& data)
-    : _difficulty(forced_difficulty_level(completed_games, data)),
+Game::Game(int completed_games, const mj::game_data& data) :
+      mj::game("cr90_ltcd"),
+      _difficulty(forced_difficulty_level(completed_games, data)),
       _speed(init_speed(recommended_music_tempo(completed_games, data))),
       _candles_count(init_candles_count(_difficulty)), _no_fire_candles_count(_candles_count),
       _bg_cake(bn::regular_bg_items::cr90_ltcd_cake.create_bg((256 - 240) / 2, (256 - 160) / 2)),

@@ -173,4 +173,8 @@ void game::on_pause_end(const game_data&)
 {
 }
 
+game::game([[maybe_unused]] const bn::string_view& id)
+{
+}
+
 }

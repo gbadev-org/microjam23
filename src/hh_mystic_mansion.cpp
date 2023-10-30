@@ -25,7 +25,7 @@ namespace
     constexpr bn::string_view sfx_credits[] = { "Michael Elkayam", "3Maze", "Soundspark LLC", "Studio 23" };
 }
 
-// MJ_GAME_LIST_ADD(hh::mystic_mansion)
+MJ_GAME_LIST_ADD(hh::mystic_mansion)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 // MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -35,6 +35,7 @@ namespace hh
 {
 
 mystic_mansion::mystic_mansion(int completed_games, const mj::game_data& data) :
+    mj::game("hh"),
     _blackbg(bn::regular_bg_items::hh_black_bg.create_bg((256 - 240) / 2, (256 - 160) / 2)),
     _room(bn::regular_bg_items::hh_gymnasium.create_bg((256 - 240) / 2, (256 - 160) / 2)),
     _tempo(recommended_music_tempo(completed_games, data)),

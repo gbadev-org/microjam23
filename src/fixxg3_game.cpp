@@ -71,7 +71,7 @@ namespace
 
 }
 
-// MJ_GAME_LIST_ADD(fixxg3::game)
+MJ_GAME_LIST_ADD(fixxg3::game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 // MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -81,6 +81,7 @@ namespace fixxg3
 {
 
 game::game(int completed_games, const mj::game_data& data) :
+    mj::game("fixxg3"),
     _bg(bn::regular_bg_items::fixxg3_bg.create_bg((256 - 240) / 2, (256 - 160) / 2)),
     _spr_club(bn::sprite_items::fixxg3_club.create_sprite(0,0)),
     _zombie_head(bn::sprite_items::fixxg3_zombie_head.create_sprite(0,0)),

@@ -21,7 +21,7 @@ namespace
     constexpr bn::string_view sfx_credits[] = { "JDWasabi" };
 }
 
-// MJ_GAME_LIST_ADD(abd::abd_fall_game)
+MJ_GAME_LIST_ADD(abd::abd_fall_game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
 // MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
@@ -33,6 +33,7 @@ namespace abd
 // abd::abd_player player;
 
 abd_fall_game::abd_fall_game(int completed_games, const mj::game_data& data) :
+    mj::game("abd"),
     _bg(bn::regular_bg_items::abd_bg.create_bg((256 - 240) / 2, (256 - 160) / 2)),
     _playerBowlSprite(bn::sprite_items::abd_bowl.create_sprite(0,43)),
     _candySprite(bn::sprite_items::abd_candy.create_sprite(0,-150)),
