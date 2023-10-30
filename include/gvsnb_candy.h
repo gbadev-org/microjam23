@@ -1,7 +1,6 @@
 #ifndef GVSNB_CANDY_H
 #define GVSNB_CANDY_H
 
-#include "bn_list_fwd.h"
 #include "bn_sprite_palette_ptr.h"
 #include "bn_sprite_ptr.h"
 #include "bn_sprite_tiles_ptr.h"
@@ -9,8 +8,6 @@
 
 namespace gvsnb
 {
-
-class enemy;
 
 struct candy_gfx
 {
@@ -27,7 +24,27 @@ class candy
 public:
     candy(bn::fixed x, bn::fixed y, const bn::sprite_palette_ptr& palette, const candy_gfx& gfx);
 
-    [[nodiscard]] bool update(bn::fixed tempo, bn::ilist<enemy>& enemies, bool& enemy_hit);
+    [[nodiscard]] bn::fixed x() const
+    {
+        return _x;
+    }
+
+    [[nodiscard]] bn::fixed y() const
+    {
+        return _y;
+    }
+
+    [[nodiscard]] bool alive() const
+    {
+        return _hit_scale == 0;
+    }
+
+    void hit()
+    {
+        _hit_scale = 1;
+    }
+
+    [[nodiscard]] bool update(bn::fixed tempo);
 
 private:
     bn::sprite_ptr _sprite;

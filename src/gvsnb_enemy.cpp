@@ -91,19 +91,10 @@ bool enemy::alive() const
     return _tiles_index != hurt_tiles_index;
 }
 
-bool enemy::candy_hit(bn::fixed x, bn::fixed y)
+void enemy::hit()
 {
-    if(alive() && ! _jump_frames)
-    {
-        if(bn::abs(x - _x) < 16 && bn::abs(y - _y) < 11)
-        {
-            _hit_vertical_scale = 1;
-            _tiles_index = hurt_tiles_index;
-            return true;
-        }
-    }
-
-    return false;
+    _hit_vertical_scale = 1;
+    _tiles_index = hurt_tiles_index;
 }
 
 bool enemy::update(bn::fixed tempo, bn::random& random)

@@ -1,5 +1,6 @@
 #include "gvsnb_game.h"
 
+#include "bn_math.h"
 #include "bn_music.h"
 
 #include "mj/mj_game_list.h"
@@ -106,6 +107,64 @@ void game::_add_enemy(bn::random& random)
     _previous_enemy_right[1] = right;
 }
 
+void game::_check_hits()
+{
+    _hits.clear();
+
+    for(candy& candy : _candies)
+    {
+        if(candy.alive())
+        {
+            bn::fixed candy_x = candy.x();
+            bn::fixed candy_y = candy.y();
+
+            for(enemy& enemy : _enemies)
+            {
+                if(enemy.alive())
+                {
+                    bn::fixed y_diff = bn::abs(candy_y - enemy.y());
+
+                    if(y_diff < 16)
+                    {
+                        if(bn::abs(candy_x - enemy.x()) < 19)
+                        {
+                            _hits.emplace_back(&candy, &enemy, y_diff);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    bn::sort(_hits.begin(), _hits.end());
+
+    for(hit_type& hit : _hits)
+    {
+        candy& candy = *hit.candy;
+
+        if(candy.alive())
+        {
+            enemy& enemy = *hit.enemy;
+
+            if(enemy.alive())
+            {
+                candy.hit();
+                enemy.hit();
+            }
+        }
+    }
+
+    if(_hit_sound_cooldown_frames > 0)
+    {
+        _hit_sound_cooldown_frames -= _tempo;
+    }
+    else if(! _hits.empty())
+    {
+        bn::sound_items::gvsnb_hit.play(0.5, _tempo, 0);
+        _hit_sound_cooldown_frames = 16;
+    }
+}
+
 void game::_update(bool playing, bn::random& random)
 {
     bn::fixed tempo = _tempo;
@@ -134,13 +193,13 @@ void game::_update(bool playing, bn::random& random)
         }
     }
 
-    bool enemy_hit = false;
+    _check_hits();
 
     for(auto it = _candies.begin(), end = _candies.end(); it != end; )
     {
         candy& candy = *it;
 
-        if(candy.update(tempo, _enemies, enemy_hit))
+        if(candy.update(tempo))
         {
             ++it;
         }
@@ -148,16 +207,6 @@ void game::_update(bool playing, bn::random& random)
         {
             it = _candies.erase(it);
         }
-    }
-
-    if(_hit_sound_cooldown_frames > 0)
-    {
-        _hit_sound_cooldown_frames -= tempo;
-    }
-    else if(enemy_hit)
-    {
-        bn::sound_items::gvsnb_hit.play(0.5, tempo, 0);
-        _hit_sound_cooldown_frames = 16;
     }
 
     for(auto it = _enemies.begin(), end = _enemies.end(); it != end; )

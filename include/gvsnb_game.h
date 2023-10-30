@@ -43,14 +43,30 @@ public:
     void fade_out(const mj::game_data& data) final;
 
 private:
+    static constexpr int _max_enemies = 16;
+    static constexpr int _max_candies = 8;
+
+    struct hit_type
+    {
+        gvsnb::candy* candy;
+        gvsnb::enemy* enemy;
+        bn::fixed distance;
+
+        [[nodiscard]] bool operator<(const hit_type& other) const
+        {
+            return other.distance < other.distance;
+        }
+    };
+
     sky _sky;
     bn::regular_bg_ptr _building;
     enemy_gfx _enemy_gfx;
     big_enemy _big_enemy;
     candy_gfx _candy_gfx;
     hand _hand;
-    bn::list<enemy, 16> _enemies;
-    bn::list<candy, 8> _candies;
+    bn::list<enemy, _max_enemies> _enemies;
+    bn::list<candy, _max_candies> _candies;
+    bn::vector<hit_type, _max_enemies * _max_candies> _hits;
     bn::fixed _tempo;
     bn::fixed _new_enemy_frames;
     bn::fixed _defeat_frames;
@@ -62,6 +78,8 @@ private:
     bool _previous_enemy_right[2] = {};
 
     void _add_enemy(bn::random& random);
+
+    void _check_hits();
 
     void _update(bool playing, bn::random& random);
 };

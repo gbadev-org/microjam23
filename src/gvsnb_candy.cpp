@@ -1,9 +1,7 @@
 #include "gvsnb_candy.h"
 
-#include "bn_list.h"
 #include "bn_memory.h"
 
-#include "gvsnb_enemy.h"
 #include "gvsnb_utils.h"
 
 #include "bn_sprite_items_gvsnb_candy.h"
@@ -74,7 +72,7 @@ candy::candy(bn::fixed x, bn::fixed y, const bn::sprite_palette_ptr& palette, co
     _sprite.set_z_order(utils::candy_z_order);
 }
 
-bool candy::update(bn::fixed tempo, bn::ilist<enemy>& enemies, bool& enemy_hit)
+bool candy::update(bn::fixed tempo)
 {
     bn::fixed y = _y;
 
@@ -106,18 +104,6 @@ bool candy::update(bn::fixed tempo, bn::ilist<enemy>& enemies, bool& enemy_hit)
         }
 
         scale = _hit_scale;
-    }
-    else
-    {
-        for(enemy& enemy : enemies)
-        {
-            if(enemy.candy_hit(x, y))
-            {
-                _hit_scale = 1;
-                enemy_hit = true;
-                break;
-            }
-        }
     }
 
     _sprite.set_position(x.unsafe_multiplication(utils::x_mult(y)), y);

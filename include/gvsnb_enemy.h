@@ -29,6 +29,16 @@ class enemy
 public:
     enemy(int difficulty_level, int door_level, bool right, bn::fixed tempo, const enemy_gfx& gfx, bn::random& random);
 
+    [[nodiscard]] bn::fixed x() const
+    {
+        return _x;
+    }
+
+    [[nodiscard]] bn::fixed y() const
+    {
+        return _y;
+    }
+
     [[nodiscard]] int difficulty_level() const
     {
         return _difficulty_level;
@@ -41,7 +51,7 @@ public:
         return _sprite.horizontal_flip();
     }
 
-    [[nodiscard]] bool candy_hit(bn::fixed x, bn::fixed y);
+    void hit();
 
     [[nodiscard]] bool update(bn::fixed tempo, bn::random& random);
 
