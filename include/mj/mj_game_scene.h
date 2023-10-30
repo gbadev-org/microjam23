@@ -35,6 +35,7 @@ private:
     game_title _title;
     game_timer _timer;
     game_lives _lives;
+    bn::deque<uint8_t, 8> _game_history;
     bn::optional<game_manager> _game_manager;
     bn::optional<bn::regular_bg_ptr> _big_pumpkin;
     bn::unique_ptr<game_result_animation> _result_animation;

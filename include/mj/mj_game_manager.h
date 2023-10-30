@@ -1,6 +1,7 @@
 #ifndef MJ_GAME_MANAGER_H
 #define MJ_GAME_MANAGER_H
 
+#include "bn_deque.h"
 #include "bn_unique_ptr.h"
 
 #include "mj_game.h"
@@ -14,7 +15,7 @@ class game_manager
 {
 
 public:
-    game_manager(int completed_games, const game_data& data, core& core);
+    game_manager(int completed_games, const game_data& data, core& core, bn::ideque<uint8_t>& game_history);
 
     ~game_manager();
 

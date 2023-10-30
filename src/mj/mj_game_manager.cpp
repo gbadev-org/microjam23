@@ -25,15 +25,36 @@
 namespace mj
 {
 
-game_manager::game_manager(int completed_games, const game_data& data, core& core) :
+game_manager::game_manager(int completed_games, const game_data& data, core& core, bn::ideque<uint8_t>& game_history) :
     _used_alloc_ewram(bn::memory::used_alloc_ewram())
 {
     bn::span<game_list::function_type> game_list_entries = game_list::get();
     int game_list_entries_count = game_list_entries.size();
     BN_BASIC_ASSERT(game_list_entries_count, "No game list entries found");
 
-    game_list::function_type game_list_entry =
-            game_list_entries[core.random().get_int(game_list_entries_count)];
+    auto begin = game_history.begin();
+    auto end = game_history.end();
+    uint8_t game_index;
+
+    do
+    {
+        game_index = uint8_t(core.random().get_int(game_list_entries_count));
+    }
+    while(bn::find(begin, end, game_index) != end);
+
+    int game_history_size = bn::min(game_history.max_size(), game_list_entries_count);
+
+    while(game_history.size() >= game_history_size)
+    {
+        game_history.pop_front();
+    }
+
+    if(game_history.max_size() < game_list_entries_count)
+    {
+        game_history.push_back(game_index);
+    }
+
+    game_list::function_type game_list_entry = game_list_entries[game_index];
     _game.reset(game_list_entry(completed_games, data));
 }
 
