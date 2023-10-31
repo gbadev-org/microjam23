@@ -182,6 +182,7 @@ void credits::_generate_text_items()
 
     text_items_set.clear();
     text_items_set.insert("Tempest");
+    text_items_set.insert("Totsnuk");
 
     for(bn::span<const bn::string_view> game_credits : game_list::get_sfx_credits())
     {
