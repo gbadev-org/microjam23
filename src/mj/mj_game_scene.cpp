@@ -75,6 +75,10 @@ game_scene::game_scene(bool start_with_zoom_out, core& core) :
 
     if(start_with_zoom_out)
     {
+        mj::sram_data& sram_data = core.sram_data();
+        sram_data.set_allow_intro_skip(true);
+        sram_data.write();
+
         bn::bg_palettes::set_fade(bn::colors::white, 1);
         bn::sprite_palettes::set_fade(bn::colors::white, 1);
     }

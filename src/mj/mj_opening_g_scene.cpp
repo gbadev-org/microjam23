@@ -2,13 +2,14 @@
 
 #include "bn_blending.h"
 #include "bn_colors.h"
-#include "bn_fixed_fwd.h"
 #include "bn_math.h"
-#include "bn_music_items.h"
+#include "bn_memory.h"
+#include "bn_sound.h"
 
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
-#include "bn_memory.h"
+
+#include "bn_music_items.h"
 #include "bn_regular_bg_items_mj_op_g_rainbow.h"
 #include "bn_regular_bg_items_mj_op_g_rainbow.h"
 #include "bn_sprite_items_mj_op_g_kid1.h"

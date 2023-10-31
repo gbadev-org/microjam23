@@ -12,6 +12,16 @@ class sram_data
 public:
     void init();
 
+    [[nodiscard]] bool allow_intro_skip() const
+    {
+        return _allow_intro_skip;
+    }
+
+    void set_allow_intro_skip(bool allow)
+    {
+        _allow_intro_skip = allow;
+    }
+
     [[nodiscard]] int intro_index() const
     {
         return _intro_index;
@@ -35,6 +45,7 @@ private:
     char _label[8] = {};
     int _high_scores[3] = {};
     int _intro_index = 0;
+    bool _allow_intro_skip = false;
 };
 
 }
