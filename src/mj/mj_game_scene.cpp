@@ -71,6 +71,8 @@ game_scene::game_scene(bool start_with_zoom_out, core& core) :
     _fade_in_frames(start_with_zoom_out ? 0 : fade_in_frames),
     _big_pumpkin_inc(! start_with_zoom_out)
 {
+    bn::bg_palettes::remove_transparent_color();
+
     if(start_with_zoom_out)
     {
         bn::bg_palettes::set_fade(bn::colors::white, 1);

@@ -1,6 +1,7 @@
 #ifndef MJ_CUTSCENE_H
 #define MJ_CUTSCENE_H
 
+#include "bn_blending.h"
 #include "bn_bg_palettes_actions.h"
 #include "bn_colors.h"
 #include "bn_keypad.h"
@@ -49,6 +50,8 @@ protected:
                 }
                 else
                 {
+                    bn::blending::restore();
+                    bn::bg_palettes::set_transparent_color(bn::colors::white);
                     result = SCENE_AFTER_OPENING;
                 }
             }
