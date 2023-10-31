@@ -3,6 +3,7 @@
 
 #include "bn_regular_bg_ptr.h"
 #include "bn_sprite_ptr.h"
+#include "bn_vector.h"
 
 #include "mj_cutscene.h"
 
@@ -32,6 +33,7 @@ private:
     bn::regular_bg_ptr _dingdong;
     bn::sprite_ptr _exclaim;
     bn::sprite_ptr _pipe;
+    bn::vector<bn::sprite_ptr, 4> _skip_text_sprites;
 };
 
 }

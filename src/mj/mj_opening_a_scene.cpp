@@ -40,6 +40,14 @@ opening_a_scene::opening_a_scene(core& core) :
     _dingdong.set_visible(false);
     _dingdong.set_z_order(0);
     _exclaim.set_visible(false);
+
+    if(core.sram_data().allow_intro_skip())
+    {
+        bn::sprite_text_generator& text_generator = core.text_generator();
+        text_generator.set_right_alignment();
+        text_generator.generate(120 - 10, 80 - 15, "Press A to skip", _skip_text_sprites);
+        text_generator.set_left_alignment();
+    }
     
     bn::music_items::mj_fireplace.play(0.5);
 }
