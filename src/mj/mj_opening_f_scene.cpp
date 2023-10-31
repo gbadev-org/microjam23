@@ -13,7 +13,6 @@
 #include "mj/mj_scene_type.h"
 
 #include "bn_regular_bg_items_mj_op_f_house.h"
-#include "bn_regular_bg_items_mj_op_f_pumpkin.h"
 #include "bn_affine_bg_items_mj_op_f_pumpkin01.h"
 #include "bn_affine_bg_items_mj_op_f_pumpkin02.h"
 #include "bn_bg_palette_items_mj_op_f_palpink.h"
@@ -87,12 +86,12 @@ opening_f_scene::opening_f_scene(core& core) :
     // _colors.fill(bn::color(0, 0, 31));
     
     bn::memory::copy(
-        bn::regular_bg_items::mj_op_f_pumpkin.palette_item().colors_ref()[0],
-        bn::regular_bg_items::mj_op_f_pumpkin.palette_item().colors_ref().size(),
+        bn::affine_bg_items::mj_op_f_pumpkin01.palette_item().colors_ref()[0],
+        bn::affine_bg_items::mj_op_f_pumpkin01.palette_item().colors_ref().size(),
         _colors.data()[0]
     );
     
-    bn::span<const bn::color> colors = bn::regular_bg_items::mj_op_f_pumpkin.palette_item().colors_ref();
+    bn::span<const bn::color> colors = bn::affine_bg_items::mj_op_f_pumpkin01.palette_item().colors_ref();
     
     for (int i = 0; i < colors.size(); i++)
     {
@@ -236,7 +235,7 @@ bn::optional<scene_type> opening_f_scene::update()
     
     // Palette shenanigans
     {
-        bn::span<const bn::color> colors_a = bn::regular_bg_items::mj_op_f_pumpkin.palette_item().colors_ref();
+        bn::span<const bn::color> colors_a = bn::affine_bg_items::mj_op_f_pumpkin01.palette_item().colors_ref();
         bn::span<const bn::color> colors_b = bn::bg_palette_items::mj_op_f_palpink.colors_ref();
         
         for (int i = 0; i < 17; i++)
@@ -270,7 +269,7 @@ bn::optional<scene_type> opening_f_scene::update()
     }
     if (_t >= FADE_OUT_AT + FADE_OUT_DURATION)
     {
-        result = scene_type::OPENING_F;
+        result = scene_type::OPENING_G;
     }
     
     _t++;
