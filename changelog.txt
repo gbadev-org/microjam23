@@ -1,0 +1,5 @@
+1.01
+Pumpkin Chorus rare crash fixed​.
+
+1.00
+Initial release.
