@@ -244,7 +244,12 @@ namespace bhv
 	void bhv_game::lose()
 	{
 		set_phase(BHV_PHASE_RESULTS);
-		bn::music::stop();
+
+        if(bn::music::playing())
+        {
+            bn::music::stop();
+        }
+
 		_conductor.set_anim_lose();
 		for(int i = 0; i < _singing_cats.size(); i++)
 		{
