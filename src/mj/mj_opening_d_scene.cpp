@@ -1,13 +1,8 @@
 #include "mj/mj_opening_d_scene.h"
 
 #include "bn_blending.h"
-#include "bn_colors.h"
-#include "bn_fixed_point.h"
-#include "bn_keypad.h"
 #include "bn_math.h"
 #include "bn_music.h"
-#include "bn_string.h"
-#include "bn_version.h"
 #include "bn_sound_items.h"
 #include "bn_music_items.h"
 

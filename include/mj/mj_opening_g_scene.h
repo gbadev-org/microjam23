@@ -4,15 +4,10 @@
 #include "bn_array.h"
 #include "bn_bg_palette_item.h"
 #include "bn_bg_palette_ptr.h"
-#include "bn_bg_palettes_actions.h"
 #include "bn_fixed_point.h"
 #include "bn_regular_bg_ptr.h"
-#include "bn_sprite_palettes_actions.h"
 #include "bn_sprite_ptr.h"
-#include "bn_affine_bg_ptr.h"
-#include "bn_vector.h"
 
-#include "mj_scene.h"
 #include "mj_cutscene.h"
 
 namespace mj

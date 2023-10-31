@@ -4,14 +4,10 @@
 #include "bn_bg_palettes_actions.h"
 #include "bn_colors.h"
 #include "bn_keypad.h"
-#include "bn_music.h"
 #include "bn_music_actions.h"
 #include "bn_optional.h"
-#include "bn_regular_bg_ptr.h"
 #include "bn_sprite_palettes.h"
 #include "bn_sprite_palettes_actions.h"
-#include "bn_sprite_ptr.h"
-#include "bn_vector.h"
 
 #include "mj_scene_type.h"
 #include "mj_scene.h"
@@ -25,12 +21,9 @@ class cutscene : public scene
 {
 
 public:
-    cutscene(core& core, int frames, bn::color color = bn::colors::black) :
-    _bgs_fader(_create_bgs_fade_in_action(frames, color)),
-    _sprites_fader(_create_sprites_fade_in_action(frames, color)),
-    _skipping(false),
-    _t(0),
-    _skip_wait_frames(4)
+    cutscene([[maybe_unused]] core& core, int frames, bn::color color = bn::colors::black) :
+        _bgs_fader(_create_bgs_fade_in_action(frames, color)),
+        _sprites_fader(_create_sprites_fade_in_action(frames, color))
     {
     }
     
@@ -40,9 +33,9 @@ protected:
     bn::optional<bn::music_volume_to_action> _music_fader;
     bn::bg_palettes_fade_to_action _bgs_fader;
     bn::sprite_palettes_fade_to_action _sprites_fader;
-    bool _skipping;
-    int _t;
-    int _skip_wait_frames;
+    int _t = 0;
+    int _skip_wait_frames = 4;
+    bool _skipping = false;
 
     [[nodiscard]] inline bool _handle_skipping(bn::optional<scene_type> &result)
     {

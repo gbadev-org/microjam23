@@ -1,19 +1,11 @@
 #include "mj/mj_opening_c_scene.h"
 
-#include "bn_affine_bg_map_ptr.h"
-#include "bn_colors.h"
-#include "bn_fixed_point.h"
-#include "bn_keypad.h"
-#include "bn_string.h"
-#include "bn_version.h"
 #include "bn_sound_items.h"
-#include "bn_music_items.h"
 
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
 
 #include "bn_regular_bg_items_mj_op_c_trickortreaters.h"
-#include "bn_bg_palette_items_mj_op_c_pal0.h"
 #include "bn_bg_palette_items_mj_op_c_pal1.h"
 #include "bn_bg_palette_items_mj_op_c_pal2.h"
 #include "bn_bg_palette_ptr.h"

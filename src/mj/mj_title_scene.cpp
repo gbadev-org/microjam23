@@ -326,7 +326,7 @@ void title_scene::_update_menu()
     {
         if(cursor_y == play_y)
         {
-            _next_scene = scene_type::GAME;
+            _next_scene = scene_type::OPENING_A;
         }
         else
         {

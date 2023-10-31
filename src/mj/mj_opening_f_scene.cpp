@@ -1,15 +1,9 @@
 #include "mj/mj_opening_f_scene.h"
 
 #include "bn_color.h"
-#include "bn_colors.h"
-#include "bn_fixed_fwd.h"
 #include "bn_fixed_point.h"
-#include "bn_keypad.h"
 #include "bn_sprite_ptr.h"
-#include "bn_string.h"
-#include "bn_version.h"
 #include "bn_sound_items.h"
-#include "bn_music_items.h"
 
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
@@ -22,7 +16,6 @@
 #include "bn_sprite_items_mj_op_f_kid2.h"
 #include "bn_sprite_items_mj_op_f_kid3.h"
 #include "bn_sprite_items_mj_op_f_oldman.h"
-#include "bn_log.h"
 #include "bn_memory.h"
 
 namespace mj
@@ -185,9 +178,9 @@ bn::optional<scene_type> opening_f_scene::update()
         }
     }
     
-    bn::fixed a = _spring / (1 << 10);
-    _pumpkin.set_scale(1.0 + a, 1.0 - a);
-    _pumpkin.set_position(PUMPKIN_X, PUMPKIN_Y + 18*a);
+    bn::fixed delta = _spring / (1 << 10);
+    _pumpkin.set_scale(1.0 + delta, 1.0 - delta);
+    _pumpkin.set_position(PUMPKIN_X, PUMPKIN_Y + 18*delta);
     
     if (_mouth_open)
     {

@@ -29,9 +29,7 @@ int main()
         bn::optional<mj::scene_type> next_scene = mj::scene_type::GAME;
     #else
         bn::optional<mj::scene_type> next_scene = mj::scene_type::INTRO;
-    #endif  
-    
-    next_scene = mj::scene_type::OPENING_A;  // TEMP
+    #endif
 
     while(true)
     {
