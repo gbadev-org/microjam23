@@ -79,7 +79,7 @@ public:
     /**
      * @brief Default virtual destructor.
      */
-    virtual ~game() = default;
+    virtual ~game();
 
     /**
      * @brief Returns the title of the game (not empty).

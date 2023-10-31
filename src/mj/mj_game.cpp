@@ -168,6 +168,11 @@ int game::play_jingle(game_jingle_type jingle, int completed_games, const game_d
     return recommended_total_frames(base_total_frames, completed_games, data);
 }
 
+game::~game()
+{
+    bn::core::set_assert_tag(MJ_VERSION);
+}
+
 void game::on_pause_start(const game_data&)
 {
 }
