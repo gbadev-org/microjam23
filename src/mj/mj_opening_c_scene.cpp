@@ -59,6 +59,7 @@ bn::optional<scene_type> opening_c_scene::update()
         case 1: pal.set_colors(bn::bg_palette_items::mj_op_c_pal1); break;
         case 2: pal.set_colors(bn::bg_palette_items::mj_op_c_pal2); break;
         case 3: pal.set_colors(bn::bg_palette_items::mj_op_c_pal1); break;
+        default: break;
     }
     
     // pal.set_colors(const bg_palette_item &palette_item)
