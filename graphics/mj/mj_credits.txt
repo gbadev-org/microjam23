@@ -121,6 +121,7 @@ mj_op_b_fx.bmp
 mj_op_b_house.bmp
 mj_op_b_kids.bmp
 mj_op_b_oldman.bmp
+mj_op_c_pal0.bmp
 mj_op_c_pal1.bmp
 mj_op_c_pal2.bmp
 mj_op_c_trickortreaters.bmp
