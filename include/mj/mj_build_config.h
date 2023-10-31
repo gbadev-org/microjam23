@@ -12,7 +12,7 @@
 #endif
 
 #ifndef MJ_SKIP_INITIAL_TITLE
-    #define MJ_SKIP_INITIAL_TITLE true
+    #define MJ_SKIP_INITIAL_TITLE false
 #endif
 
 #ifndef MJ_VBLANK_ASSERT_ENABLED
