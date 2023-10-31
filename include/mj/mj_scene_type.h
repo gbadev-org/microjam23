@@ -9,6 +9,13 @@ namespace mj
     {
         INTRO,
         TITLE,
+        OPENING_A,  // old man, doorbell rings
+        OPENING_B,  // front view of house, opening door
+        OPENING_C,  // trick-or-treater kids
+        OPENING_D,  // old man is surprised, shadow appears 
+        OPENING_E,  // view of big pumpkin looming behind the kids
+        OPENING_F,  // side view of pumpkin and he eats everyone
+        OPENING_G,  // the vortex!
         GAME,
         GAME_ZOOM_OUT,
         CREDITS,
