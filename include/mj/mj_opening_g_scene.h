@@ -24,7 +24,6 @@ public:
     [[nodiscard]] bn::optional<scene_type> update() final;
 
 private:
-    // bn::regular_bg_ptr _vortex;
     bn::regular_bg_ptr _rainbow;
     bn::array<bn::color, 128> _colors;
     bn::bg_palette_item _palette_item;

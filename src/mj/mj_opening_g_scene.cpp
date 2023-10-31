@@ -10,7 +10,6 @@
 #include "mj/mj_scene_type.h"
 #include "bn_memory.h"
 #include "bn_regular_bg_items_mj_op_g_rainbow.h"
-#include "bn_regular_bg_items_mj_op_g_rainbow.h"
 #include "bn_sprite_items_mj_op_g_kid1.h"
 #include "bn_sprite_items_mj_op_g_kid2.h"
 #include "bn_sprite_items_mj_op_g_kid3.h"
@@ -31,7 +30,6 @@ static bn::fixed approach(bn::fixed val, bn::fixed target, bn::fixed step) {
 
 opening_g_scene::opening_g_scene(core& core) :
     cutscene(core, FADE_IN_DURATION),
-    // _vortex(bn::regular_bg_items::mj_op_g_vortex1.create_bg(0, 0)),
     _rainbow(bn::regular_bg_items::mj_op_g_rainbow.create_bg(0, 0)),
     _palette_item(_colors, bn::bpp_mode::BPP_8),
     _palette(bn::bg_palette_ptr::create(_palette_item)),
@@ -55,7 +53,6 @@ opening_g_scene::opening_g_scene(core& core) :
     }
 {
     _rainbow.set_priority(2);
-    // _vortex.set_priority(1);
     
     bn::memory::copy(
         bn::regular_bg_items::mj_op_g_rainbow.palette_item().colors_ref()[0],
@@ -72,7 +69,6 @@ opening_g_scene::opening_g_scene(core& core) :
     _palette.set_colors(_palette_item);  // schedule colours to be copied into PAL RAM.
     
     _rainbow.set_palette(_palette);
-    // _vortex.set_palette(_palette);
     
     // separate the sprites some more.
     for (int i = 0; i < 4; i++)

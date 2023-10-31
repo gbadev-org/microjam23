@@ -14,8 +14,8 @@ namespace mj
 {
 
 constexpr int FADE_IN_DURATION = 4;
-constexpr int FADE_OUT_AT = 200;
-constexpr int FADE_OUT_DURATION = 8; // 20
+constexpr int FADE_OUT_AT = 150;
+constexpr int FADE_OUT_DURATION = 10; // 20
 
 opening_c_scene::opening_c_scene(core& core) :
     cutscene(core, FADE_IN_DURATION),

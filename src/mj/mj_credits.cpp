@@ -97,6 +97,7 @@ void credits::_generate_text_items()
 
     bn::unordered_set<bn::string_view, 512> text_items_set;
     text_items_set.insert("GValiente");
+    text_items_set.insert("exelotl");
 
     for(bn::span<const bn::string_view> game_credits : game_list::get_code_credits())
     {
@@ -133,6 +134,7 @@ void credits::_generate_text_items()
     text_items_set.insert("Jono Shields");
     text_items_set.insert("vectorportal.com");
     text_items_set.insert("Sun Ladder");
+    text_items_set.insert("zeoarts");
 
     for(bn::span<const bn::string_view> game_credits : game_list::get_graphics_credits())
     {
