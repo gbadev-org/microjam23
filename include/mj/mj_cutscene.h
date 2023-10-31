@@ -5,6 +5,7 @@
 #include "bn_bg_palettes_actions.h"
 #include "bn_colors.h"
 #include "bn_keypad.h"
+#include "bn_sound.h"
 #include "bn_music_actions.h"
 #include "bn_optional.h"
 #include "bn_sprite_palettes.h"
@@ -52,6 +53,7 @@ protected:
                 {
                     bn::blending::restore();
                     bn::bg_palettes::set_transparent_color(bn::colors::white);
+                    bn::sound::stop_all();
                     result = SCENE_AFTER_OPENING;
                 }
             }

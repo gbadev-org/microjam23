@@ -172,6 +172,7 @@ bn::optional<scene_type> opening_g_scene::update()
     if (_t >= FADE_OUT_AT + FADE_OUT_DURATION)
     {
         bn::blending::restore();
+        bn::sound::stop_all();
         result = SCENE_AFTER_OPENING;
     }
     
