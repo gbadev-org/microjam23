@@ -5,8 +5,11 @@
 #include "bn_fixed_fwd.h"
 #include "bn_fixed_point.h"
 #include "bn_keypad.h"
+#include "bn_music.h"
 #include "bn_string.h"
 #include "bn_version.h"
+#include "bn_sound_items.h"
+#include "bn_music_items.h"
 
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
@@ -19,11 +22,11 @@
 namespace mj
 {
     
-constexpr int FADE_IN_DURATION = 32;
+constexpr int FADE_IN_DURATION = 42;
 constexpr int FADE_IN_PUMPKIN_AT = 50;
 constexpr int RAISE_Y_AT = 50;
-constexpr int FADE_OUT_AT = 150;
-constexpr int FADE_OUT_DURATION = 2; // 20;
+constexpr int FADE_OUT_AT = 170;
+constexpr int FADE_OUT_DURATION = 8; // 20;
 
 opening_e_scene::opening_e_scene(core& core) :
     cutscene(core, FADE_IN_DURATION),
@@ -44,6 +47,7 @@ opening_e_scene::opening_e_scene(core& core) :
     
     _y = 20;
     _vely = 0;
+    
 }
 
 bn::optional<scene_type> opening_e_scene::update()

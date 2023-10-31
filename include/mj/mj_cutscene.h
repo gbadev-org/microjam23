@@ -3,6 +3,10 @@
 
 #include "bn_bg_palettes_actions.h"
 #include "bn_colors.h"
+#include "bn_keypad.h"
+#include "bn_music.h"
+#include "bn_music_actions.h"
+#include "bn_optional.h"
 #include "bn_regular_bg_ptr.h"
 #include "bn_sprite_palettes.h"
 #include "bn_sprite_palettes_actions.h"
@@ -25,17 +29,20 @@ public:
     _bgs_fader(_create_bgs_fade_in_action(frames, color)),
     _sprites_fader(_create_sprites_fade_in_action(frames, color)),
     _skipping(false),
-    _t(0)
+    _t(0),
+    _skip_wait_frames(4)
     {
     }
     
-    static constexpr mj::scene_type SCENE_AFTER_OPENING = scene_type::GAME;
+    static constexpr mj::scene_type SCENE_AFTER_OPENING = scene_type::GAME_ZOOM_OUT;
 
 protected:
+    bn::optional<bn::music_volume_to_action> _music_fader;
     bn::bg_palettes_fade_to_action _bgs_fader;
     bn::sprite_palettes_fade_to_action _sprites_fader;
     bool _skipping;
     int _t;
+    int _skip_wait_frames;
 
     [[nodiscard]] inline bool _handle_skipping(bn::optional<scene_type> &result)
     {
@@ -43,13 +50,30 @@ protected:
         {
             if (_bgs_fader.done())
             {
-                result = SCENE_AFTER_OPENING;
+                if (_skip_wait_frames > 0)
+                {
+                    _skip_wait_frames--;
+                }
+                else
+                {
+                    result = SCENE_AFTER_OPENING;
+                }
             }
             return true;
         }
         else
         {
-            // TODO: check for skip button pressed.
+            if (bn::keypad::any_pressed())
+            {
+                // Skip the cutscenes.
+                constexpr int fade_frames = 32;
+                bn::bg_palettes::set_fade(bn::colors::white, 0.0);
+                bn::sprite_palettes::set_fade(bn::colors::white, 0.0);
+                _bgs_fader = bn::bg_palettes_fade_to_action(fade_frames, 1.0);
+                _sprites_fader = bn::sprite_palettes_fade_to_action(fade_frames, 1.0);
+                _music_fader = bn::music_volume_to_action(fade_frames, 0);
+                _skipping = true;
+            }
             return false;
         }
     }

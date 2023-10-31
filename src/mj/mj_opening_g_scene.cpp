@@ -1,5 +1,6 @@
 #include "mj/mj_opening_g_scene.h"
 
+#include "bn_blending.h"
 #include "bn_colors.h"
 #include "bn_fixed_fwd.h"
 #include "bn_fixed_point.h"
@@ -8,6 +9,8 @@
 #include "bn_math.h"
 #include "bn_string.h"
 #include "bn_version.h"
+#include "bn_sound_items.h"
+#include "bn_music_items.h"
 
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
@@ -24,10 +27,10 @@
 namespace mj
 {
     
-constexpr int FADE_IN_DURATION = 32;
+constexpr int FADE_IN_DURATION = 42;
 constexpr int CHARACTER_ENTER_AT = 60;
 constexpr int FADE_OUT_AT = 250;
-constexpr int FADE_OUT_DURATION = 32;
+constexpr int FADE_OUT_DURATION = 42;
 
 static bn::fixed approach(bn::fixed val, bn::fixed target, bn::fixed step) {
     return (val < target)
@@ -92,6 +95,8 @@ opening_g_scene::opening_g_scene(core& core) :
         spr.set_position(x, y);
         spr.set_scale(_scales[i]);
     }
+    
+    bn::music_items::mj_vortex.play(0.5);
     
 }
 
@@ -170,12 +175,13 @@ bn::optional<scene_type> opening_g_scene::update()
     
     if (_t == FADE_OUT_AT)
     {
-        _bgs_fader = _create_bgs_fade_out_action(FADE_OUT_DURATION);
-        _sprites_fader = _create_sprites_fade_out_action(FADE_OUT_DURATION);
+        _bgs_fader = _create_bgs_fade_out_action(FADE_OUT_DURATION, bn::colors::white);
+        _sprites_fader = _create_sprites_fade_out_action(FADE_OUT_DURATION, bn::colors::white);
     }
     if (_t >= FADE_OUT_AT + FADE_OUT_DURATION)
     {
-        result = scene_type::OPENING_F;
+        bn::blending::restore();
+        result = SCENE_AFTER_OPENING;
     }
     
     _t++;

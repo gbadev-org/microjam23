@@ -6,7 +6,10 @@
 #include "bn_colors.h"
 #include "bn_fixed_point.h"
 #include "bn_keypad.h"
+#include "bn_music.h"
+#include "bn_music_actions.h"
 #include "bn_sound_items.h"
+#include "bn_music_items.h"
 #include "bn_sprite_palettes.h"
 #include "bn_string.h"
 #include "bn_version.h"
@@ -30,7 +33,7 @@ constexpr int FADE_IN_DURATION = 60;
 constexpr int RING_AT = 120;
 constexpr int FADE_OUT_AT = 220;
 // constexpr int FADE_OUT_DURATION = 8;
-constexpr int FADE_OUT_DURATION = 2;
+constexpr int FADE_OUT_DURATION = 4;
 
 opening_a_scene::opening_a_scene(core& core) :
     cutscene(core, FADE_IN_DURATION),
@@ -45,6 +48,8 @@ opening_a_scene::opening_a_scene(core& core) :
     _dingdong.set_visible(false);
     _dingdong.set_z_order(0);
     _exclaim.set_visible(false);
+    
+    bn::music_items::mj_fireplace.play(0.5);
 }
 
 bn::optional<scene_type> opening_a_scene::update()
@@ -55,6 +60,11 @@ bn::optional<scene_type> opening_a_scene::update()
     {
         _bgs_fader.update();
         _sprites_fader.update();
+    }
+    
+    if (_music_fader.has_value() && !_music_fader.value().done())
+    {
+        _music_fader.value().update();
     }
     
     if (_handle_skipping(result))
@@ -86,7 +96,7 @@ bn::optional<scene_type> opening_a_scene::update()
     if (_t == RING_AT)
     {
         _dingdong.set_visible(true);
-        bn::sound_items::mj_pause_begin.play();  // TEMP
+        bn::sound_items::mj_doorbell.play(0.5);
     }
     
     if (_t == RING_AT + 6)
@@ -101,6 +111,10 @@ bn::optional<scene_type> opening_a_scene::update()
         _exclaim.set_visible(true);
     }
     
+    if (_t == FADE_OUT_AT - 30)
+    {
+        _music_fader = bn::music_volume_to_action(32, 0);
+    }
     if (_t == FADE_OUT_AT)
     {
         _bgs_fader = _create_bgs_fade_out_action(FADE_OUT_DURATION);

@@ -8,6 +8,8 @@
 #include "bn_sprite_ptr.h"
 #include "bn_string.h"
 #include "bn_version.h"
+#include "bn_sound_items.h"
+#include "bn_music_items.h"
 
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
@@ -26,20 +28,20 @@
 namespace mj
 {
 
-constexpr int FADE_IN_DURATION = 2;
-constexpr int PINK_AT = 27;
-constexpr int SQUISH_AT = 35;
+constexpr int FADE_IN_DURATION = 4;
+constexpr int PINK_AT = 40 + 27;
+constexpr int SQUISH_AT = 66 + 35;
 constexpr int SQUISH_DURATION = 10;
 constexpr int OPEN_MOUTH_AT = SQUISH_AT + SQUISH_DURATION + 4;
 
-constexpr int SQUISH2_AT = 185;
+constexpr int SQUISH2_AT = 66 + 185;
 constexpr int SQUISH2_DURATION = 10;
 constexpr int CLOSE_MOUTH_AT = SQUISH2_AT + SQUISH2_DURATION;
 
-constexpr int UNPINK_AT = 200;
+constexpr int UNPINK_AT = 66 + 200;
 
-constexpr int FADE_OUT_AT = 290;
-constexpr int FADE_OUT_DURATION = 20;
+constexpr int FADE_OUT_AT = 66 + 290;
+constexpr int FADE_OUT_DURATION = 40;
 
 constexpr int PUMPKIN_X = -62;
 constexpr int PUMPKIN_Y = 47;
@@ -101,6 +103,9 @@ opening_f_scene::opening_f_scene(core& core) :
     
     _house.set_palette(_palette);
     _pumpkin.set_palette(_palette);
+    
+    bn::sound_items::mj_chuckle.play(0.5);
+    
 }
 
 bn::optional<scene_type> opening_f_scene::update()
@@ -116,6 +121,11 @@ bn::optional<scene_type> opening_f_scene::update()
     if (_handle_skipping(result))
     {
         return result;
+    }
+    
+    if (_t == OPEN_MOUTH_AT-30)
+    {
+        bn::sound_items::mj_sucked.play(0.75);
     }
     
     if (_t == OPEN_MOUTH_AT)
@@ -260,6 +270,11 @@ bn::optional<scene_type> opening_f_scene::update()
             _colors[35] = temp;
         }
         _palette.set_colors(_palette_item);  // schedule colours to be copied into PAL RAM.
+    }
+    
+    if (_t == FADE_OUT_AT - 30)
+    {
+        _music_fader = bn::music_volume_to_action(32, 0);
     }
     
     if (_t == FADE_OUT_AT)

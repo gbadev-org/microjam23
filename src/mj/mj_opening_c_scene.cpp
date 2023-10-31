@@ -6,6 +6,8 @@
 #include "bn_keypad.h"
 #include "bn_string.h"
 #include "bn_version.h"
+#include "bn_sound_items.h"
+#include "bn_music_items.h"
 
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
@@ -19,9 +21,9 @@
 namespace mj
 {
 
-constexpr int FADE_IN_DURATION = 2;
+constexpr int FADE_IN_DURATION = 4;
 constexpr int FADE_OUT_AT = 200;
-constexpr int FADE_OUT_DURATION = 2; // 20
+constexpr int FADE_OUT_DURATION = 8; // 20
 
 opening_c_scene::opening_c_scene(core& core) :
     cutscene(core, FADE_IN_DURATION),
@@ -73,6 +75,11 @@ bn::optional<scene_type> opening_c_scene::update()
     //     case 0: pal.set_colors(bn::bg_palette_items::mj_op_c_pal1); break;
     //     case 1: pal.set_colors(bn::bg_palette_items::mj_op_c_pal2); break;
     // }
+    
+    if (_t == FADE_OUT_AT - 65)
+    {
+        bn::sound_items::mj_stomps.play(0.6);
+    }
     
     if (_t == FADE_OUT_AT)
     {

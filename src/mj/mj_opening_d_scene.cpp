@@ -5,8 +5,11 @@
 #include "bn_fixed_point.h"
 #include "bn_keypad.h"
 #include "bn_math.h"
+#include "bn_music.h"
 #include "bn_string.h"
 #include "bn_version.h"
+#include "bn_sound_items.h"
+#include "bn_music_items.h"
 
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
@@ -18,9 +21,9 @@
 namespace mj
 {
     
-constexpr int FADE_IN_DURATION = 2; // 10;
-constexpr int FADE_OUT_AT = 200;
-constexpr int FADE_OUT_DURATION = 2; // 20;
+constexpr int FADE_IN_DURATION = 4; // 10;
+constexpr int FADE_OUT_AT = 300;
+constexpr int FADE_OUT_DURATION = 8; // 20;
 
 opening_d_scene::opening_d_scene(core& core) :
     cutscene(core, FADE_IN_DURATION),
@@ -35,6 +38,9 @@ opening_d_scene::opening_d_scene(core& core) :
     _yvel = -1.5;
     _shadow.set_blending_enabled(true);
     bn::blending::set_transparency_alpha(0.4);
+    
+    bn::music::stop();
+    bn::music_items::mj_wind_alt.play(0.3);
 }
 
 bn::optional<scene_type> opening_d_scene::update()
@@ -74,6 +80,11 @@ bn::optional<scene_type> opening_d_scene::update()
     if (_t == 170)
     {
         _oldmanface.set_map(bn::regular_bg_items::mj_op_d_oldmanface.map_item(), 2);
+    }
+    
+    if (_t == FADE_OUT_AT - 10)
+    {
+        bn::sound_items::mj_scare.play(0.6);
     }
     
     if (_t == FADE_OUT_AT)

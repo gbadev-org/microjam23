@@ -2,10 +2,15 @@
 
 #include "bn_blending.h"
 #include "bn_colors.h"
+#include "bn_fixed_fwd.h"
 #include "bn_fixed_point.h"
 #include "bn_keypad.h"
+#include "bn_math.h"
+#include "bn_music.h"
 #include "bn_string.h"
 #include "bn_version.h"
+#include "bn_sound_items.h"
+#include "bn_music_items.h"
 
 #include "mj/mj_core.h"
 #include "mj/mj_scene_type.h"
@@ -19,11 +24,12 @@ namespace mj
 {
     
 constexpr int FADE_IN_DURATION = 8;  // 30
-constexpr int OPEN_DOOR_AT = 100;
-constexpr int FADE_MAN_AT = 108;
-constexpr int TRICK_OR_TREAT_AT = 140;
-constexpr int FADE_OUT_AT = 200;
-constexpr int FADE_OUT_DURATION = 2;  // 20
+constexpr int START_SCROLLING_AT = 34;
+constexpr int OPEN_DOOR_AT       = 114 + 100;
+constexpr int FADE_MAN_AT        = 114 + 108;
+constexpr int TRICK_OR_TREAT_AT  = 114 + 140;
+constexpr int FADE_OUT_AT        = 114 + 250;
+constexpr int FADE_OUT_DURATION  = 8;  // 20
 
 opening_b_scene::opening_b_scene(core& core) :
     cutscene(core, FADE_IN_DURATION),
@@ -39,6 +45,10 @@ opening_b_scene::opening_b_scene(core& core) :
     _oldman.set_z_order(2);
     _kids.set_z_order(1);
     _trickortreat.set_z_order(0);
+    
+    _scrolly = 72;
+    
+    bn::music_items::mj_wind.play(0.3);
 }
 
 bn::optional<scene_type> opening_b_scene::update()
@@ -58,16 +68,36 @@ bn::optional<scene_type> opening_b_scene::update()
         return result;
     }
     
-    // TODO: make house scroll as kids approach.
+    if (_t >= START_SCROLLING_AT)
+    {
+        if (_scrolly > 0)
+        {
+            _scrolly -= 0.5;
+        }
+    }
     
-    if (_t < TRICK_OR_TREAT_AT)
+    _house.set_y(_scrolly + 0);
+    _oldman.set_y(_scrolly + 0);
+    
+    if (_t == TRICK_OR_TREAT_AT)
+    {
+        bn::sound_items::mj_trick_or_treat.play();
+    }
+    
+    if (_t <= TRICK_OR_TREAT_AT)
     {
         int dy = ((_t / 20) % 2) * 2;
-        _kids.set_y(dy);
+        _kids.set_y(_scrolly + dy);
+    }
+    else
+    {
+        int dy = ((_t / 10) % 2) * 1;
+        _kids.set_y(_scrolly + dy);
     }
     
     if (_t == OPEN_DOOR_AT)
     {
+        bn::sound_items::mj_door_open.play();
         _house.set_map(bn::regular_bg_items::mj_op_b_house.map_item(), 1);
     }
     
@@ -93,14 +123,17 @@ bn::optional<scene_type> opening_b_scene::update()
     }
     if (_t == FADE_MAN_AT+4)
     {
+        bn::sound_items::mj_footstep.play(1.0);
         bn::blending::set_transparency_alpha(1.0);
     }
     
     if (_t == TRICK_OR_TREAT_AT)
     {
-        // TODO: make letters jiggle
         _trickortreat.set_visible(true);
     }
+    
+    bn::fixed s = bn::sin(bn::fixed(_t) / 32);
+    _trickortreat.set_y(_scrolly - 30 + s*2);
     
     if (_t == FADE_OUT_AT)
     {
