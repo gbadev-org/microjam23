@@ -6,6 +6,7 @@
 #include "mj/mj_scene_type.h"
 
 #include "bn_regular_bg_items_mj_op_c_trickortreaters.h"
+#include "bn_bg_palette_items_mj_op_c_pal0.h"
 #include "bn_bg_palette_items_mj_op_c_pal1.h"
 #include "bn_bg_palette_items_mj_op_c_pal2.h"
 #include "bn_bg_palette_ptr.h"
@@ -14,8 +15,8 @@ namespace mj
 {
 
 constexpr int FADE_IN_DURATION = 4;
-constexpr int FADE_OUT_AT = 200;
-constexpr int FADE_OUT_DURATION = 8; // 20
+constexpr int FADE_OUT_AT = 150;
+constexpr int FADE_OUT_DURATION = 10; // 20
 
 opening_c_scene::opening_c_scene(core& core) :
     cutscene(core, FADE_IN_DURATION),
@@ -43,22 +44,22 @@ bn::optional<scene_type> opening_c_scene::update()
     
     // TODO: interpolate smoothly instead of flickering (or just make better palettes)
     
-    if ((_t / 4) % 2 == 0)
-    {
-        pal.set_colors(bn::bg_palette_items::mj_op_c_pal1);
-    }
-    else
-    {
-        pal.set_colors(bn::bg_palette_items::mj_op_c_pal2);
-    }
-    
-    // switch ((_t / 6) % 4)
+    // if ((_t / 4) % 2 == 0)
     // {
-    //     case 0: pal.set_colors(bn::bg_palette_items::mj_op_c_pal0); break;
-    //     case 1: pal.set_colors(bn::bg_palette_items::mj_op_c_pal1); break;
-    //     case 2: pal.set_colors(bn::bg_palette_items::mj_op_c_pal2); break;
-    //     case 3: pal.set_colors(bn::bg_palette_items::mj_op_c_pal1); break;
+    //     pal.set_colors(bn::bg_palette_items::mj_op_c_pal1);
     // }
+    // else
+    // {
+    //     pal.set_colors(bn::bg_palette_items::mj_op_c_pal2);
+    // }
+    
+    switch ((_t / 6) % 4)
+    {
+        case 0: pal.set_colors(bn::bg_palette_items::mj_op_c_pal0); break;
+        case 1: pal.set_colors(bn::bg_palette_items::mj_op_c_pal1); break;
+        case 2: pal.set_colors(bn::bg_palette_items::mj_op_c_pal2); break;
+        case 3: pal.set_colors(bn::bg_palette_items::mj_op_c_pal1); break;
+    }
     
     // pal.set_colors(const bg_palette_item &palette_item)
     

@@ -14,9 +14,9 @@ namespace mj
 {
     
 constexpr int FADE_IN_DURATION = 42;
-constexpr int FADE_IN_PUMPKIN_AT = 50;
-constexpr int RAISE_Y_AT = 50;
-constexpr int FADE_OUT_AT = 170;
+constexpr int FADE_IN_PUMPKIN_AT = 30+50;
+constexpr int RAISE_Y_AT = 30+50;
+constexpr int FADE_OUT_AT = 30+190;
 constexpr int FADE_OUT_DURATION = 8; // 20;
 
 opening_e_scene::opening_e_scene(core& core) :
