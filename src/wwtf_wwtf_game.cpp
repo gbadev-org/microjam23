@@ -98,7 +98,10 @@ mj::game_result wwtf_game::play(const mj::game_data& data)
             _animationaction = bn::create_sprite_animate_action_once(_werewolftransformation, 1,
                 bn::sprite_items::wwtf_werewolf_transformation.tiles_item(), 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ,14 ,15 ,16 ,17 ,18 ,19);
 
-            _strugglesoundhandle.stop();
+            if(_strugglesoundhandle.active())
+            {
+                _strugglesoundhandle.stop();
+            }
 
             bn::sound_items::wwtf_awoo.play(0.5);
 
