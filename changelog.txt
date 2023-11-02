@@ -1,3 +1,6 @@
+1.02
+Werewolf Transformation rare crash fixed​.
+
 1.01
 Pumpkin Chorus rare crash fixed​.
 
