@@ -97,7 +97,6 @@
 #include "bn_dmg_music_item.h"
 #include "bn_dmg_music_position.h"
 #include "bn_dmg_music_type.h"
-#include "bn_documentation.h"
 #include "bn_ewram_wait_state.h"
 #include "bn_fixed.h"
 #include "bn_fixed_fwd.h"

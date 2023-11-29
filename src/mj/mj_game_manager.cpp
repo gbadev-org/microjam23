@@ -119,7 +119,6 @@ game_manager::~game_manager()
     bn::sound::stop_all();
     bn::sound::set_master_volume(1);
     bn::audio::set_update_on_vblank(false);
-    bn::audio::set_dmg_sync_enabled(false);
 }
 
 }
