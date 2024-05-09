@@ -27,7 +27,7 @@ namespace
 pause::pause(core& core)
 {
     {
-        bn::sprite_item sprite_item(
+        constexpr bn::sprite_item sprite_item(
                     bn::sprite_tiles_items::mj_pause_dialog_shape_size, bn::sprite_tiles_items::mj_pause_dialog,
                     bn::sprite_items::mj_font.palette_item());
         bn::sprite_builder sprite_builder(sprite_item);
@@ -42,7 +42,7 @@ pause::pause(core& core)
     }
 
     {
-        bn::sprite_item sprite_item(
+        constexpr bn::sprite_item sprite_item(
                     bn::sprite_tiles_items::mj_pause_dialog_lateral_shape_size,
                     bn::sprite_tiles_items::mj_pause_dialog_lateral, bn::sprite_items::mj_font.palette_item());
         bn::sprite_builder sprite_builder(sprite_item);
