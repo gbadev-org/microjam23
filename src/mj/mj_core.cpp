@@ -23,7 +23,7 @@ namespace
         return (version_major << 16) + (version_minor << 8) + patch;
     }
 
-    static_assert(version(BN_VERSION_MAJOR, BN_VERSION_MINOR, BN_VERSION_PATCH) >= version(16, 1, 0),
+    static_assert(version(BN_VERSION_MAJOR, BN_VERSION_MINOR, BN_VERSION_PATCH) >= version(18, 0, 0),
                   "Butano version is too old");
 }
 

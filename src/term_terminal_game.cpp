@@ -452,7 +452,8 @@ void game::fade_out(const mj::game_data& data)
 
 //the animation to take place for text and the static
 void game::term_anim(const mj::game_data& data) {
-	bn::hdma::start(*hdma_colors[current_hdma], 2, *palval);
+    bn::span<const uint16_t> hdma_source_ref(hdma_colors[current_hdma], 2 * 160);
+    bn::hdma::start(hdma_source_ref, *palval);
 	
 	//do the static effect
 	int tile_info[8 * 2];
@@ -552,7 +553,9 @@ void game::on_pause_start([[maybe_unused]] const mj::game_data& data) {
 		hdma_colors[current_hdma][(i << 1)] = 0;
 		hdma_colors[current_hdma][(i << 1) + 1] = 0;
 	}
-	bn::hdma::start(*hdma_colors[current_hdma], 2, *palval);
+
+    bn::span<const uint16_t> hdma_source_ref(hdma_colors[current_hdma], 2 * 160);
+    bn::hdma::start(hdma_source_ref, *palval);
 	//flip the 1st bit
 	//current_hdma ^= 1;
 }
